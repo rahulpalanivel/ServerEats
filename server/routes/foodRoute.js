@@ -3,7 +3,7 @@ const {
   addProducts,
   getFoodById,
   getFoodItems,
-} = require("../controllers/Food.js");
+} = require("../controllers/foodController.js");
 
 const router = express.Router();
 

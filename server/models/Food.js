@@ -15,12 +15,8 @@ const FoodSchema = new mongoose.Schema(
       default: null,
     },
     price: {
-      type: {
-        org: { type: Number, default: 0.0 },
-        mrp: { type: Number, default: 0.0 },
-        off: { type: Number, default: 0 },
-      },
-      default: { org: 0.0, mrp: 0.0, off: 0 },
+      type: Number,
+      default: 0.0,
     },
     category: {
       type: [String],

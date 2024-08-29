@@ -16,15 +16,6 @@ const UserSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    img: {
-      type: String,
-      default: null,
-    },
-    favourites: {
-      type: [mongoose.Schema.Types.ObjectId],
-      ref: "Food",
-      default: [],
-    },
     orders: {
       type: [mongoose.Schema.Types.ObjectId],
       ref: "Orders",
