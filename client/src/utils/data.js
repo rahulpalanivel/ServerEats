@@ -41,10 +41,10 @@ export const filter = [
     name: "Food Categories",
     value: "category",
     items: [
-      "Veg",
-      "Non-Veg",
+      "veg",
+      "Non-veg",
       "Starters",
-      "Main Course",
+      "Main-course",
       "Curries",
       "Dessert",
       "Beverages",

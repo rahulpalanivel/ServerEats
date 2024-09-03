@@ -1,13 +1,13 @@
-import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import TextInput from "../components/TextInput";
-import Button from "../components/Button";
-import { addToCart, deleteFromCart, getCart, placeOrder } from "../api";
-import { useNavigate } from "react-router-dom";
-import { CircularProgress } from "@mui/material";
-import { useDispatch } from "react-redux";
-import { openSnackbar } from "../redux/reducers/SnackbarSlice";
 import { DeleteOutline } from "@mui/icons-material";
+import { CircularProgress } from "@mui/material";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import styled from "styled-components";
+import { addToCart, deleteFromCart, getCart, placeOrder } from "../api";
+import Button from "../components/Button";
+import TextInput from "../components/TextInput";
+import { openSnackbar } from "../redux/reducers/SnackbarSlice";
 
 const Container = styled.div`
   padding: 20px 30px;
@@ -108,10 +108,10 @@ const ProDesc = styled.div`
   text-overflow: ellipsis;
   white-space: nowrap;
 `;
-const ProSize = styled.div`
-  font-size: 14px;
-  font-weight: 500;
-`;
+// const ProSize = styled.div`
+//   font-size: 14px;
+//   font-weight: 500;
+// `;
 
 const Right = styled.div`
   flex: 1;

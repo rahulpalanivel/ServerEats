@@ -95,7 +95,7 @@ const Title = styled.div`
   color: ${({ theme }) => theme.text_primary};
 `;
 const Desc = styled.div`
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 400;
   color: ${({ theme }) => theme.text_primary};
   overflow: hidden;
@@ -149,8 +149,8 @@ const ProductsCard = ({ product }) => {
       </Top>
       <Details onClick={() => navigate(`/dishes/${product._id}`)}>
         <Title>{product?.name}</Title>
-        <Desc>{product?.desc}</Desc>
-        <Price>${product?.price}</Price>
+        <Desc>{product?.category[0]}</Desc>
+        <Price>₹{product?.price}</Price>
       </Details>
     </Card>
   );

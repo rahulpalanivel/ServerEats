@@ -21,7 +21,10 @@ const Container = styled.div`
   background: ${({ theme }) => theme.bg};
 `;
 const Filters = styled.div`
-  padding: 20px 16px;
+  position: fixed;
+  top: 20%;
+  left: 0;
+  padding: 20px;
   flex: 1;
   width: 100%;
   max-width: 300px;
@@ -36,7 +39,8 @@ const Menu = styled.div`
 `;
 const Products = styled.div`
   flex: 1;
-  padding: 20px 0px;
+  margin-left: 20%; /* adjust the margin to match the width of the left div */
+  overflow-y: auto;
 `;
 const CardWrapper = styled.div`
   display: flex;
@@ -87,7 +91,6 @@ const FoodListing = () => {
   const [products, setProducts] = useState([]);
   const [priceRange, setPriceRange] = useState([0, 1000]); // Default price range
   const [selectedCategories, setSelectedCategories] = useState([]); // Default selected categories
-
   const getFilteredProductsData = async () => {
     setLoading(true);
     // Call the API function for filtered products
@@ -102,11 +105,11 @@ const FoodListing = () => {
       setLoading(false);
     });
   };
+  console.log(selectedCategories.length);
 
   useEffect(() => {
     getFilteredProductsData();
   }, [priceRange, selectedCategories]);
-
   return (
     <Container>
       <Filters>
@@ -125,8 +128,8 @@ const FoodListing = () => {
                     color: "#aba945",
                   }}
                   marks={[
-                    { value: 0, label: "$0" },
-                    { value: 1000, label: "$1000" },
+                    { value: 0, label: "₹0" },
+                    { value: 1000, label: "₹1000" },
                   ]}
                   onChange={(e, newValue) => setPriceRange(newValue)}
                 />

@@ -46,12 +46,12 @@ const getFoodItems = async (req, res, next) => {
       filter.ingredients = { $in: ingredients }; // Match products in any of the specified ingredients
     }
     if (maxPrice || minPrice) {
-      filter["price.org"] = {};
+      filter["price"] = {};
       if (minPrice) {
-        filter["price.org"]["$gte"] = parseFloat(minPrice);
+        filter["price"]["$gte"] = parseFloat(minPrice);
       }
       if (maxPrice) {
-        filter["price.org"]["$lte"] = parseFloat(maxPrice);
+        filter["price"]["$lte"] = parseFloat(maxPrice);
       }
     }
     if (search) {

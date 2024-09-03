@@ -78,19 +78,19 @@ const Price = styled.div`
   font-weight: 500;
   color: ${({ theme }) => theme.text_primary};
 `;
-const Span = styled.div`
-  font-size: 16px;
-  font-weight: 500;
-  color: ${({ theme }) => theme.text_secondary + 60};
-  text-decoration: line-through;
-  text-decoration-color: ${({ theme }) => theme.text_secondary + 50};
-`;
+// const Span = styled.div`
+//   font-size: 16px;
+//   font-weight: 500;
+//   color: ${({ theme }) => theme.text_secondary + 60};
+//   text-decoration: line-through;
+//   text-decoration-color: ${({ theme }) => theme.text_secondary + 50};
+// `;
 
-const Percent = styled.div`
-  font-size: 16px;
-  font-weight: 500;
-  color: green;
-`;
+// const Percent = styled.div`
+//   font-size: 16px;
+//   font-weight: 500;
+//   color: green;
+// `;
 
 const Ingridents = styled.div`
   font-size: 16px;
@@ -187,6 +187,8 @@ const FoodDetails = () => {
 
             <Ingridents>
               Ingredients
+              <br />
+              <br />
               <Items>
                 {product?.ingredients.map((ingredient) => (
                   <Item>{ingredient}</Item>
