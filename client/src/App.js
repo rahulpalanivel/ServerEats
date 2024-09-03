@@ -1,15 +1,15 @@
-import styled, { ThemeProvider } from "styled-components";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { lightTheme } from "./utils/Themes";
-import Navbar from "./components/Navbar";
-import Home from "./pages/Home";
 import { useState } from "react";
+import { useSelector } from "react-redux";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import styled, { ThemeProvider } from "styled-components";
+import Footer from "./components/footer";
+import Navbar from "./components/Navbar";
 import Authentication from "./pages/Authentication";
-import Favourites from "./pages/Favourites";
 import Cart from "./pages/Cart";
 import FoodDetails from "./pages/FoodDetails";
 import FoodListing from "./pages/FoodListing";
-import { useSelector } from "react-redux";
+import Home from "./pages/Home";
+import { lightTheme } from "./utils/Themes";
 
 const Container = styled.div``;
 
@@ -28,7 +28,6 @@ function App() {
           />
           <Routes>
             <Route path="/" exact element={<Home />} />
-            <Route path="/favorite" exact element={<Favourites />} />
             <Route path="/cart" exact element={<Cart />} />
             <Route path="/dishes/:id" exact element={<FoodDetails />} />
             <Route path="/dishes" exact element={<FoodListing />} />
@@ -36,6 +35,7 @@ function App() {
           {openAuth && (
             <Authentication setOpenAuth={setOpenAuth} openAuth={openAuth} />
           )}
+          <Footer />
         </Container>
       </BrowserRouter>
     </ThemeProvider>

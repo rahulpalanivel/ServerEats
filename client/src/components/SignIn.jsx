@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import TextInput from "./TextInput";
-import Button from "./Button";
 import { useDispatch } from "react-redux";
+import styled from "styled-components";
 import { UserSignIn } from "../api";
-import { loginSuccess } from "../redux/reducers/UserSlice";
 import { openSnackbar } from "../redux/reducers/SnackbarSlice";
+import { loginSuccess } from "../redux/reducers/UserSlice";
+import Button from "./Button";
+import TextInput from "./TextInput";
 
 const Container = styled.div`
   width: 100%;
@@ -85,7 +85,7 @@ const SignIn = ({ setOpenAuth }) => {
   return (
     <Container>
       <div>
-        <Title>Welcome to Krist 👋</Title>
+        <Title>Welcome to ServerEats 👋</Title>
         <Span>Please login with your details here</Span>
       </div>
       <div style={{ display: "flex", gap: "20px", flexDirection: "column" }}>

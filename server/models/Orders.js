@@ -12,7 +12,8 @@ const OrderSchema = new mongoose.Schema(
     },
     status: {
       type: String,
-      default: "Payment Done",
+      default: "Order-Pending",
+      // [Order pending, order accepted, preparing, delivered, paid]
     },
     user: {
       type: mongoose.Types.ObjectId,

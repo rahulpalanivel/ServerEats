@@ -1,17 +1,17 @@
+import { Close } from "@mui/icons-material";
 import { Modal } from "@mui/material";
 import React, { useState } from "react";
 import styled from "styled-components";
-import LogoImage from "../utils/Images/Logo.png";
-import AuthImage from "../utils/Images/AuthImage.jpg";
-import { Close } from "@mui/icons-material";
 import SignIn from "../components/SignIn";
 import SignUp from "../components/SignUp";
+import AuthImage from "../utils/Images/FOOD.png";
+import LogoImage from "../utils/Images/Logo.png";
 
 const Container = styled.div`
   flex: 1;
   height: 100%;
   display: flex;
-  background: ${({ theme }) => theme.bg};
+  background-color: ${({ theme }) => theme.bg};
 `;
 const Left = styled.div`
   flex: 1;
@@ -23,9 +23,10 @@ const Left = styled.div`
 
 const Logo = styled.img`
   position: absolute;
-  top: 40px;
-  left: 60px;
+  top: 0px;
+  left: 0px;
   z-index: 10;
+  height: 100px;
 `;
 const Image = styled.img`
   position: relative;
@@ -46,6 +47,7 @@ const Right = styled.div`
   @media screen and (max-width: 768px) {
     flex: 1;
   }
+  background-color: ${({ theme }) => theme.bg};
 `;
 
 const CloseButton = styled.div`

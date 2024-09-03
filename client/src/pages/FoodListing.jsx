@@ -1,9 +1,9 @@
+import { CircularProgress, Slider } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { getAllProducts } from "../api";
 import ProductCard from "../components/cards/ProductsCard";
 import { filter } from "../utils/data";
-import { CircularProgress, Slider } from "@mui/material";
-import { getAllProducts } from "../api";
 
 const Container = styled.div`
   padding: 20px 30px;
@@ -121,6 +121,9 @@ const FoodListing = () => {
                   min={0}
                   max={1000}
                   valueLabelDisplay="auto"
+                  style={{
+                    color: "#aba945",
+                  }}
                   marks={[
                     { value: 0, label: "$0" },
                     { value: 1000, label: "$1000" },

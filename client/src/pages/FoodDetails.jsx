@@ -1,27 +1,15 @@
 import { CircularProgress, Rating } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import Button from "../components/Button";
-import {
-  FavoriteBorder,
-  FavoriteBorderOutlined,
-  FavoriteRounded,
-} from "@mui/icons-material";
-import { useNavigate, useParams } from "react-router-dom";
-import {
-  addToCart,
-  addToFavourite,
-  deleteFromCart,
-  deleteFromFavourite,
-  getFavourite,
-  getProductDetails,
-} from "../api";
-import { openSnackbar } from "../redux/reducers/SnackbarSlice";
 import { useDispatch } from "react-redux";
+import { useNavigate, useParams } from "react-router-dom";
+import styled from "styled-components";
+import { addToCart, getProductDetails } from "../api";
+import Button from "../components/Button";
+import { openSnackbar } from "../redux/reducers/SnackbarSlice";
 
 const Container = styled.div`
   padding: 20px 30px;
-  padding-bottom: 200px;
+  padding-bottom: 250px;
   height: 100%;
   overflow-y: scroll;
   display: flex;
@@ -35,6 +23,7 @@ const Container = styled.div`
 `;
 
 const Wrapper = styled.div`
+  padding-top: 100px;
   width: 100%;
   flex: 1;
   max-width: 1400px;
@@ -140,8 +129,6 @@ const FoodDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
   const navigate = useNavigate();
-  const [favorite, setFavorite] = useState(false);
-  const [favoriteLoading, setFavoriteLoading] = useState(false);
   const [cartLoading, setCartLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState();
@@ -154,74 +141,13 @@ const FoodDetails = () => {
     });
   };
 
-  const removeFavourite = async () => {
-    setFavoriteLoading(true);
-    const token = localStorage.getItem("krist-app-token");
-    await deleteFromFavourite(token, { productId: id })
-      .then((res) => {
-        setFavorite(false);
-        setFavoriteLoading(false);
-      })
-      .catch((err) => {
-        setFavoriteLoading(false);
-        dispatch(
-          openSnackbar({
-            message: err.message,
-            severity: "error",
-          })
-        );
-      });
-  };
-
-  const addFavourite = async () => {
-    setFavoriteLoading(true);
-    const token = localStorage.getItem("krist-app-token");
-    await addToFavourite(token, { productId: id })
-      .then((res) => {
-        setFavorite(true);
-        setFavoriteLoading(false);
-      })
-      .catch((err) => {
-        setFavoriteLoading(false);
-        dispatch(
-          openSnackbar({
-            message: err.message,
-            severity: "error",
-          })
-        );
-      });
-  };
-
-  const checkFavorite = async () => {
-    setFavoriteLoading(true);
-    const token = localStorage.getItem("krist-app-token");
-    await getFavourite(token, { productId: id })
-      .then((res) => {
-        const isFavorite = res.data?.some((favorite) => favorite._id === id);
-
-        setFavorite(isFavorite);
-
-        setFavoriteLoading(false);
-      })
-      .catch((err) => {
-        setFavoriteLoading(false);
-        dispatch(
-          openSnackbar({
-            message: err.message,
-            severity: "error",
-          })
-        );
-      });
-  };
-
   useEffect(() => {
     getProduct();
-    checkFavorite();
   }, []);
 
   const addCart = async () => {
     setCartLoading(true);
-    const token = localStorage.getItem("krist-app-token");
+    const token = localStorage.getItem("app-token");
     await addToCart(token, { productId: id, quantity: 1 })
       .then((res) => {
         setCartLoading(false);
@@ -253,14 +179,14 @@ const FoodDetails = () => {
             </div>
             <Rating value={3.5} />
             <Price>
-              ₹{product?.price?.org} <Span>₹{product?.price?.mrp}</Span>{" "}
-              <Percent> (₹{product?.price?.off}% Off) </Percent>
+              ₹{product?.price}
+              {/* <Percent> (₹{product?.price?.off}% Off) </Percent> */}
             </Price>
 
             <Desc>{product?.desc}</Desc>
 
             <Ingridents>
-              Ingridents
+              Ingredients
               <Items>
                 {product?.ingredients.map((ingredient) => (
                   <Item>{ingredient}</Item>
@@ -277,19 +203,6 @@ const FoodDetails = () => {
                 onClick={() => addCart()}
               />
               <Button text="Order Now" full />
-              <Button
-                leftIcon={
-                  favorite ? (
-                    <FavoriteRounded sx={{ fontSize: "22px", color: "red" }} />
-                  ) : (
-                    <FavoriteBorderOutlined sx={{ fontSize: "22px" }} />
-                  )
-                }
-                full
-                outlined
-                isLoading={favoriteLoading}
-                onClick={() => (favorite ? removeFavourite() : addFavourite())}
-              />
             </ButtonWrapper>
           </Details>
         </Wrapper>

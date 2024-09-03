@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://fooddelivery-mern.onrender.com/api/",
+  baseURL: "http://localhost:8080/api/",
 });
 
 //auth
@@ -27,23 +27,6 @@ export const addToCart = async (token, data) =>
 
 export const deleteFromCart = async (token, data) =>
   await API.patch(`/user/cart/`, data, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-//favorites
-
-export const getFavourite = async (token) =>
-  await API.get(`/user/favorite`, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-export const addToFavourite = async (token, data) =>
-  await API.post(`/user/favorite/`, data, {
-    headers: { Authorization: `Bearer ${token}` },
-  });
-
-export const deleteFromFavourite = async (token, data) =>
-  await API.patch(`/user/favorite/`, data, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
