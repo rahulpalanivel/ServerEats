@@ -2,7 +2,6 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
-import Footer from "./components/footer";
 import Navbar from "./components/Navbar";
 import Authentication from "./pages/Authentication";
 import Cart from "./pages/Cart";
