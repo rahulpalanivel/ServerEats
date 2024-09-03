@@ -1,11 +1,11 @@
+import { CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import { category } from "../utils/data";
-import HeaderImage from "../utils/Images/Header.png";
+import { getAllProducts } from "../api";
 import ProductCategoryCard from "../components/cards/ProductCategoryCard";
 import ProductsCard from "../components/cards/ProductsCard";
-import { getAllProducts } from "../api";
-import { CircularProgress } from "@mui/material";
+import { category } from "../utils/data";
+import HeaderImage from "../utils/Images/Header.png";
 
 const Container = styled.div`
   padding: 20px 30px;
@@ -19,7 +19,7 @@ const Container = styled.div`
   @media (max-width: 768px) {
     padding: 20px 12px;
   }
-  background: ${({ theme }) => theme.bg};
+  background-color: rgb(249, 249, 249);
 `;
 const Section = styled.div`
   max-width: 1400px;

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import TextInput from "./TextInput";
-import Button from "./Button";
-import { UserSignUp } from "../api";
 import { useDispatch } from "react-redux";
-import { loginSuccess } from "../redux/reducers/UserSlice";
+import styled from "styled-components";
+import { UserSignUp } from "../api";
 import { openSnackbar } from "../redux/reducers/SnackbarSlice";
+import { loginSuccess } from "../redux/reducers/UserSlice";
+import Button from "./Button";
+import TextInput from "./TextInput";
 
 const Container = styled.div`
   width: 100%;
@@ -88,7 +88,7 @@ const SignUp = ({ setOpenAuth }) => {
     <Container>
       <div>
         <Title>Create New Account 👋</Title>
-        <Span>Please enter details to create a new account</Span>
+        <Span>Please enter your details to create a new account</Span>
       </div>
       <div style={{ display: "flex", gap: "20px", flexDirection: "column" }}>
         <TextInput

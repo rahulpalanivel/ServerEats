@@ -1,17 +1,17 @@
-import React, { useState } from "react";
-import styled from "styled-components";
-import { Link as LinkR, NavLink } from "react-router-dom";
-import LogoImg from "../utils/Images/Logo.png";
 import {
   FavoriteBorder,
   MenuRounded,
   SearchRounded,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
-import Button from "./Button";
 import { Avatar } from "@mui/material";
+import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { Link as LinkR, NavLink } from "react-router-dom";
+import styled from "styled-components";
 import { logout } from "../redux/reducers/UserSlice";
+import LogoImg from "../utils/Images/Logo.png";
+import Button from "./Button";
 
 const Nav = styled.div`
   background-color: ${({ theme }) => theme.bg};
@@ -46,7 +46,7 @@ const NavLogo = styled(LinkR)`
   color: inherit;
 `;
 const Logo = styled.img`
-  height: 34px;
+  height: 85px;
 `;
 const NavItems = styled.ul`
   width: 100%;
@@ -228,9 +228,6 @@ const Navbar = ({ setOpenAuth, openAuth, currentUser }) => {
           </Navlink>
           {currentUser ? (
             <>
-              <Navlink to="/favorite">
-                <FavoriteBorder sx={{ color: "inherit", fontSize: "28px" }} />
-              </Navlink>
               <Navlink to="/cart">
                 <ShoppingCartOutlined
                   sx={{ color: "inherit", fontSize: "28px" }}
