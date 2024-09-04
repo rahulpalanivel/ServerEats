@@ -147,7 +147,7 @@ const FoodDetails = () => {
 
   const addCart = async () => {
     setCartLoading(true);
-    const token = localStorage.getItem("app-token");
+    const token = localStorage.getItem("foodeli-app-token");
     await addToCart(token, { productId: id, quantity: 1 })
       .then((res) => {
         setCartLoading(false);

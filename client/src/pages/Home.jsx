@@ -4,8 +4,8 @@ import styled from "styled-components";
 import { getAllProducts } from "../api";
 import ProductCategoryCard from "../components/cards/ProductCategoryCard";
 import ProductsCard from "../components/cards/ProductsCard";
+import AutoImageSlider from "../components/imageSlider";
 import { category } from "../utils/data";
-import HeaderImage from "../utils/Images/Header.png";
 
 const Container = styled.div`
   padding: 20px 30px;
@@ -14,7 +14,7 @@ const Container = styled.div`
   overflow-y: scroll;
   display: flex;
   align-items: center;
-  flex-direction: column;
+  flex-direction: column;SC
   gap: 30px;
   @media (max-width: 768px) {
     padding: 20px 12px;
@@ -29,8 +29,7 @@ const Section = styled.div`
   gap: 28px;
 `;
 const Img = styled.img`
-  width: 100%;
-  max-width: 1200px;
+  max-width: 1400px;
 `;
 const Title = styled.div`
   font-size: 28px;
@@ -68,7 +67,7 @@ const Home = () => {
   return (
     <Container>
       <Section>
-        <Img src={HeaderImage} />
+        <AutoImageSlider />
       </Section>
       <Section>
         <Title>Food Categories</Title>

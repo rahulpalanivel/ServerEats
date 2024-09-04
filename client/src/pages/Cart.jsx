@@ -5,14 +5,13 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { addToCart, deleteFromCart, getCart, placeOrder } from "../api";
-import Button from "../components/Button";
-import TextInput from "../components/TextInput";
 import { openSnackbar } from "../redux/reducers/SnackbarSlice";
 
 const Container = styled.div`
   padding: 20px 30px;
   padding-bottom: 200px;
-  height: 100%;
+  min-height: 500px;
+  max-width: 100%;
   overflow-y: scroll;
   display: flex;
   align-items: center;
@@ -87,7 +86,8 @@ const Product = styled.div`
   gap: 16px;
 `;
 const Img = styled.img`
-  height: 80px;
+  width: 200px;
+  height: 150px;
 `;
 const Details = styled.div`
   max-width: 130px;
@@ -96,7 +96,7 @@ const Details = styled.div`
   }
 `;
 const Protitle = styled.div`
-  color: ${({ theme }) => theme.primary};
+  color: black;
   font-size: 16px;
   font-weight: 500;
 `;
@@ -153,16 +153,17 @@ const Cart = () => {
 
   const getProducts = async () => {
     setLoading(true);
-    const token = localStorage.getItem("krist-app-token");
+    const token = localStorage.getItem("foodeli-app-token");
     await getCart(token).then((res) => {
       setProducts(res.data);
       setLoading(false);
     });
   };
+  console.log(products.length);
 
   const calculateSubtotal = () => {
     return products.reduce(
-      (total, item) => total + item.quantity * item?.product?.price?.org,
+      (total, item) => total + item.quantity * item?.product?.price,
       0
     );
   };
@@ -192,7 +193,7 @@ const Cart = () => {
         return;
       }
 
-      const token = localStorage.getItem("krist-app-token");
+      const token = localStorage.getItem("foodeli-app-token");
       const totalAmount = calculateSubtotal().toFixed(2);
       const orderDetails = {
         products,
@@ -226,7 +227,7 @@ const Cart = () => {
   }, [reload]);
 
   const addCart = async (id) => {
-    const token = localStorage.getItem("krist-app-token");
+    const token = localStorage.getItem("foodeli-app-token");
     await addToCart(token, { productId: id, quantity: 1 })
       .then((res) => {
         setReload(!reload);
@@ -243,7 +244,7 @@ const Cart = () => {
   };
 
   const removeCart = async (id, quantity, type) => {
-    const token = localStorage.getItem("krist-app-token");
+    const token = localStorage.getItem("foodeli-app-token");
     let qnt = quantity > 0 ? 1 : null;
     if (type === "full") qnt = null;
     await deleteFromCart(token, {
@@ -266,7 +267,7 @@ const Cart = () => {
   return (
     <Container>
       <Section>
-        <Title>Your Shopping Cart</Title>
+        <Title>Your Items in Cart</Title>
         {loading ? (
           <CircularProgress />
         ) : (
@@ -292,11 +293,10 @@ const Cart = () => {
                           <Img src={item?.product?.img} />
                           <Details>
                             <Protitle>{item?.product?.name}</Protitle>
-                            <ProDesc>{item?.product?.desc}</ProDesc>
                           </Details>
                         </Product>
                       </TableItem>
-                      <TableItem>${item?.product?.price?.org}</TableItem>
+                      <TableItem>${item?.product?.price}</TableItem>
                       <TableItem>
                         <Counter>
                           <div
@@ -324,8 +324,7 @@ const Cart = () => {
                       </TableItem>
                       <TableItem>
                         {" "}
-                        $
-                        {(item.quantity * item?.product?.price?.org).toFixed(2)}
+                        ${(item.quantity * item?.product?.price).toFixed(2)}
                       </TableItem>
                       <TableItem>
                         <DeleteOutline
@@ -341,8 +340,12 @@ const Cart = () => {
                       </TableItem>
                     </Table>
                   ))}
+                  <Subtotal>
+                    Subtotal : ${calculateSubtotal().toFixed(2)}
+                  </Subtotal>
                 </Left>
-                <Right>
+
+                {/* <Right>
                   <Subtotal>
                     Subtotal : ${calculateSubtotal().toFixed(2)}
                   </Subtotal>
@@ -438,7 +441,7 @@ const Cart = () => {
                     isLoading={buttonLoad}
                     isDisabled={buttonLoad}
                   />
-                </Right>
+                </Right> */}
               </Wrapper>
             )}
           </>
