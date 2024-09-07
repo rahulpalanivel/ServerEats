@@ -23,14 +23,12 @@ const Container = styled.div`
 `;
 const Section = styled.div`
   max-width: 1400px;
-  padding: 32px 16px;
+  padding: 16px 16px;
   display: flex;
   flex-direction: column;
   gap: 28px;
 `;
-const Img = styled.img`
-  max-width: 1400px;
-`;
+
 const Title = styled.div`
   font-size: 28px;
   font-weight: 500;
