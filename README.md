@@ -1,2 +1,2 @@
 ## WEB APPLICATION
-This is a web application
+This is a web application.
