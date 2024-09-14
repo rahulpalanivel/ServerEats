@@ -4,6 +4,7 @@ import {
   SearchRounded,
   ShoppingCartOutlined,
 } from "@mui/icons-material";
+import HistoryIcon from '@mui/icons-material/History';
 import { Avatar } from "@mui/material";
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
@@ -158,11 +159,8 @@ const Navbar = ({ setOpenAuth, openAuth, currentUser }) => {
         </NavLogo>
 
         <MobileIcons>
-          <Navlink to="/search">
-            <SearchRounded sx={{ color: "inherit", fontSize: "30px" }} />
-          </Navlink>
-          <Navlink to="/favorite">
-            <FavoriteBorder sx={{ color: "inherit", fontSize: "28px" }} />
+          <Navlink to="/orders">
+            <HistoryIcon sx={{ color: "inherit", fontSize: "28px" }} />
           </Navlink>
           <Navlink to="/cart">
             <ShoppingCartOutlined sx={{ color: "inherit", fontSize: "28px" }} />
@@ -175,7 +173,6 @@ const Navbar = ({ setOpenAuth, openAuth, currentUser }) => {
         <NavItems>
           <Navlink to="/">Home</Navlink>
           <Navlink to="/dishes">Dishes</Navlink>
-          <Navlink to="/orders">Orders</Navlink>
           <Navlink to="/about">About us</Navlink>
           <Navlink to="/contact">Contact</Navlink>
         </NavItems>
@@ -224,11 +221,11 @@ const Navbar = ({ setOpenAuth, openAuth, currentUser }) => {
         )}
 
         <ButtonContainer>
-          <Navlink to="/search">
-            <SearchRounded sx={{ color: "inherit", fontSize: "30px" }} />
-          </Navlink>
           {currentUser ? (
             <>
+              <NavLink to ="/orders">
+                <HistoryIcon sx={{ color: "inherit", fontSize: "28px" }}/>
+              </NavLink>
               <Navlink to="/cart">
                 <ShoppingCartOutlined
                   sx={{ color: "inherit", fontSize: "28px" }}
