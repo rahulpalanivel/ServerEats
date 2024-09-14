@@ -10,6 +10,7 @@ import FoodDetails from "./pages/FoodDetails";
 import FoodListing from "./pages/FoodListing";
 import Home from "./pages/Home";
 import { lightTheme } from "./utils/Themes";
+import Orders from "./pages/Orders";
 
 const Container = styled.div``;
 
@@ -31,6 +32,7 @@ function App() {
             <Route path="/cart" exact element={<Cart />} />
             <Route path="/dishes/:id" exact element={<FoodDetails />} />
             <Route path="/dishes" exact element={<FoodListing />} />
+            <Route path="orders" exact element={<Orders />}/>
           </Routes>
           {openAuth && (
             <Authentication setOpenAuth={setOpenAuth} openAuth={openAuth} />

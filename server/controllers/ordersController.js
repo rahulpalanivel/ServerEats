@@ -25,15 +25,20 @@ const placeOrder = async (req, res, next) => {
   }
 };
 
-const getAllOrders = async (req, res, next) => {
+const getOrdersByCustomer = async (req, res, next) => {
   try {
     const userJWT = req.user;
     const user = await User.findById(userJWT.id);
+
     const orders = user.orders;
-    return res.status(200).json(orders);
+    const orderPromises = orders.map((orderId) => Orders.findById(orderId));
+    const ordersWithData = await Promise.all(orderPromises);
+    const orderList = ordersWithData.map((order) => order.products);
+
+    return res.status(200).json(orderList);
   } catch (err) {
     next(err);
   }
 };
 
-module.exports = { placeOrder, getAllOrders };
+module.exports = { placeOrder, getOrdersByCustomer };

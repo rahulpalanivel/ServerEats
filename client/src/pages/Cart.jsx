@@ -159,8 +159,8 @@ const Cart = () => {
       setLoading(false);
     });
   };
-  console.log(products.length);
 
+  console.log(products)
   const calculateSubtotal = () => {
     return products.reduce(
       (total, item) => total + item.quantity * item?.product?.price,
