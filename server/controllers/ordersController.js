@@ -33,9 +33,8 @@ const getOrdersByCustomer = async (req, res, next) => {
     const orders = user.orders;
     const orderPromises = orders.map((orderId) => Orders.findById(orderId));
     const ordersWithData = await Promise.all(orderPromises);
-    const orderList = ordersWithData.map((order) => order.products);
 
-    return res.status(200).json(orderList);
+    return res.status(200).json(ordersWithData);
   } catch (err) {
     next(err);
   }

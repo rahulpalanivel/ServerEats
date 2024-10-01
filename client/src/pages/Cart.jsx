@@ -69,7 +69,7 @@ const TableItem = styled.div`
   ${({ flex }) => flex && `flex: 1; `}
   ${({ bold }) =>
     bold &&
-    `font-weight: 600; 
+    `font-weight: 600;
   font-size: 18px;`}
 `;
 const Counter = styled.div`
@@ -160,15 +160,16 @@ const Cart = () => {
     });
   };
 
-  console.log(products)
+  console.log(products);
+
   const calculateSubtotal = () => {
     return products.reduce(
       (total, item) => total + item.quantity * item?.product?.price,
       0
     );
   };
+
   const convertAddressToString = (addressObj) => {
-    // Convert the address object to a string representation
     return `${addressObj.firstName} ${addressObj.lastName}, ${addressObj.completeAddress}, ${addressObj.phoneNumber}, ${addressObj.emailAddress}`;
   };
 

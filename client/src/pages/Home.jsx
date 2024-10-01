@@ -53,7 +53,7 @@ const Home = () => {
   const getProducts = async () => {
     setLoading(true);
     await getAllProducts().then((res) => {
-      setProducts(res.data);
+      setProducts(res.data.slice(0, 7));
       setLoading(false);
     });
   };

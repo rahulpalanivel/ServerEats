@@ -2,15 +2,14 @@ import { useState } from "react";
 import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
-import Footer from "./components/footer";
 import Navbar from "./components/Navbar";
 import Authentication from "./pages/Authentication";
 import Cart from "./pages/Cart";
 import FoodDetails from "./pages/FoodDetails";
 import FoodListing from "./pages/FoodListing";
 import Home from "./pages/Home";
-import { lightTheme } from "./utils/Themes";
 import Orders from "./pages/Orders";
+import { lightTheme } from "./utils/Themes";
 
 const Container = styled.div``;
 
@@ -32,12 +31,12 @@ function App() {
             <Route path="/cart" exact element={<Cart />} />
             <Route path="/dishes/:id" exact element={<FoodDetails />} />
             <Route path="/dishes" exact element={<FoodListing />} />
-            <Route path="orders" exact element={<Orders />}/>
+            <Route path="orders" exact element={<Orders />} />
           </Routes>
           {openAuth && (
             <Authentication setOpenAuth={setOpenAuth} openAuth={openAuth} />
           )}
-          <Footer />
+          {/* <Footer /> */}
         </Container>
       </BrowserRouter>
     </ThemeProvider>
