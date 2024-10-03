@@ -1,4 +1,5 @@
 import { CircularProgress } from "@mui/material";
+import { red } from "@mui/material/colors";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getAllProducts } from "../api";
@@ -6,19 +7,17 @@ import ProductCategoryCard from "../components/cards/ProductCategoryCard";
 import ProductsCard from "../components/cards/ProductsCard";
 import AutoImageSlider from "../components/imageSlider";
 import { category } from "../utils/data";
+import HomeImage from "../utils/Images/Home1.jpg";
 
 const Container = styled.div`
-  padding: 20px 30px;
-  padding-bottom: 200px;
+  padding-bottom: 100px;
   height: 100%;
   overflow-y: scroll;
   display: flex;
   align-items: center;
-  flex-direction: column;SC
+  flex-direction: column;
   gap: 30px;
-  @media (max-width: 768px) {
-    padding: 20px 12px;
-  }
+
   background-color: rgb(249, 249, 249);
 `;
 const Section = styled.div`
@@ -46,6 +45,24 @@ const CardWrapper = styled.div`
   }
 `;
 
+const ImgText = styled.div`
+  width: 1000px;
+  position: absolute;
+  color: white;
+  font-size: 80px;
+  left: 17%;
+  top: 25%;
+`;
+
+const Button = styled.div`
+  position: absolute;
+  color: white;
+  left: 43%;
+  top: 55%;
+`;
+
+const Row = styled.div``;
+
 const Home = () => {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
@@ -64,6 +81,19 @@ const Home = () => {
 
   return (
     <Container>
+      <img src={HomeImage} height={600} width={1400} />
+      <ImgText>Welcome to ServerEats</ImgText>
+      <Button>
+        <button
+          title="Explore"
+          style={{ height: 50, width: 200, background: red }}
+        >
+          Explore
+        </button>
+      </Button>
+      <Section>
+        <Row></Row>
+      </Section>
       <Section>
         <AutoImageSlider />
       </Section>
