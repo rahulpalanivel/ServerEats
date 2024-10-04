@@ -82,7 +82,7 @@ const Home = () => {
   return (
     <Container>
       <img src={HomeImage} height={600} width={1400} />
-      <ImgText>Welcome to ServerEats</ImgText>
+      <ImgText>Welcome to ServerEats </ImgText>
       <Button>
         <button
           title="Explore"
