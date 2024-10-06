@@ -1,5 +1,5 @@
 import { CircularProgress } from "@mui/material";
-import { red } from "@mui/material/colors";
+import { blue } from "@mui/material/colors";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getAllProducts } from "../api";
@@ -86,7 +86,12 @@ const Home = () => {
       <Button>
         <button
           title="Explore"
-          style={{ height: 50, width: 200, background: red }}
+          style={{
+            height: 50,
+            width: 200,
+            borderRadius: 20,
+            background: blue,
+          }}
         >
           Explore
         </button>
