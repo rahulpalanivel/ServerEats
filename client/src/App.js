@@ -5,6 +5,7 @@ import styled, { ThemeProvider } from "styled-components";
 import Navbar from "./components/Navbar";
 import Authentication from "./pages/Authentication";
 import Cart from "./pages/Cart";
+import Chat from "./pages/chat";
 import FoodDetails from "./pages/FoodDetails";
 import FoodListing from "./pages/FoodListing";
 import Home from "./pages/Home";
@@ -32,6 +33,7 @@ function App() {
             <Route path="/dishes/:id" exact element={<FoodDetails />} />
             <Route path="/dishes" exact element={<FoodListing />} />
             <Route path="orders" exact element={<Orders />} />
+            <Route path="/chat" exact element={<Chat />} />
           </Routes>
           {openAuth && (
             <Authentication setOpenAuth={setOpenAuth} openAuth={openAuth} />
