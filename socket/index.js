@@ -14,16 +14,16 @@ const io = new Server(server, {
   },
 });
 
+const PORT = 7000;
+
 io.on("connect", (socket) => {
   console.log(`User connected: ${socket.id}`);
-});
 
-server.listen(3030, () => {
-  console.log("Server is running");
-});
-
-app.get("/", async (req, res) => {
-  res.status(200).json({
-    message: "Hello ",
+  socket.on("sendMessage", (data) => {
+    console.log(data);
   });
+});
+
+server.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
 });

@@ -5,7 +5,7 @@ import styled, { ThemeProvider } from "styled-components";
 import Navbar from "./components/Navbar";
 import Authentication from "./pages/Authentication";
 import Cart from "./pages/Cart";
-import Chat from "./pages/chat";
+import Chat from "./pages/Chats";
 import FoodDetails from "./pages/FoodDetails";
 import FoodListing from "./pages/FoodListing";
 import Home from "./pages/Home";
