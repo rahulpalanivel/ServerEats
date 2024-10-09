@@ -30,9 +30,14 @@ export const deleteFromCart = async (token, data) =>
     headers: { Authorization: `Bearer ${token}` },
   });
 
+export const deleteAllFromCart = async (token) =>
+  await API.delete(`/user/cart/`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
 //Orders
 export const placeOrder = async (token, data) =>
-  await API.post(`/user/order/`, data, {
+  await API.post(`/user/orders/`, data, {
     headers: { Authorization: `Bearer ${token}` },
   });
 

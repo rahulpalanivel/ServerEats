@@ -58,15 +58,13 @@ const Orders = () => {
     display: flex;
     gap: 32px;
     width: 100%;
-    padding: 12px;
-    @media (max-width: 750px) {
-      flex-direction: column;
-    }
+    padding: 0px;
   `;
   const Left = styled.div`
     flex: 1;
     display: flex;
     flex-direction: column;
+    padding: 12px;
     gap: 12px;
     @media (max-width: 750px) {
       flex: 1.2;
@@ -161,7 +159,7 @@ const Orders = () => {
             </TableItem>
             <TableItem bold>Date</TableItem>
             <TableItem bold>Subtotal</TableItem>
-            <TableItem></TableItem>
+            <TableItem bold>Status</TableItem>
           </Table>
           {orders.map((item) => (
             <Table>
@@ -174,6 +172,7 @@ const Orders = () => {
               </TableItem>
               <TableItem>{item.createdAt.split("T")[0]}</TableItem>
               <TableItem>${item.total_amount}</TableItem>
+              <TableItem>{item.status}</TableItem>
             </Table>
           ))}
         </Left>

@@ -60,6 +60,25 @@ const removeFromCart = async (req, res, next) => {
   }
 };
 
+const removeAllFromCart = async (req, res, next) => {
+  try {
+    const userJWT = req.user;
+    const user = await User.findById(userJWT.id);
+    if (!user) {
+      return next(displayError(404, "User not found"));
+    }
+
+    user.cart = [];
+
+    await user.save();
+    return res
+      .status(200)
+      .json({ message: "Product quantity updated in cart", user });
+  } catch (err) {
+    next(err);
+  }
+};
+
 const getAllCartItems = async (req, res, next) => {
   try {
     const userJWT = req.user;
@@ -74,4 +93,9 @@ const getAllCartItems = async (req, res, next) => {
   }
 };
 
-module.exports = { addToCart, removeFromCart, getAllCartItems };
+module.exports = {
+  addToCart,
+  removeFromCart,
+  removeAllFromCart,
+  getAllCartItems,
+};

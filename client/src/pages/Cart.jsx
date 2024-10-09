@@ -2,13 +2,18 @@ import { DeleteOutline } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
-import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { addToCart, deleteFromCart, getCart, placeOrder } from "../api";
+import {
+  addToCart,
+  deleteAllFromCart,
+  deleteFromCart,
+  getCart,
+  placeOrder,
+} from "../api";
+import Button from "../components/Button";
 import { openSnackbar } from "../redux/reducers/SnackbarSlice";
 
 const Container = styled.div`
-  padding: 20px 30px;
   padding-bottom: 200px;
   min-height: 500px;
   max-width: 100%;
@@ -17,15 +22,11 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 30px;
-  @media (max-width: 768px) {
-    padding: 20px 12px;
-  }
   background: ${({ theme }) => theme.bg};
 `;
 const Section = styled.div`
   width: 100%;
   max-width: 1400px;
-  padding: 32px 16px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -33,44 +34,48 @@ const Section = styled.div`
   gap: 28px;
 `;
 const Title = styled.div`
-  font-size: 28px;
+  padding: 20px;
+  font-size: 36px;
   font-weight: 500;
   display: flex;
+  color: ${({ theme }) => theme.primary};
   justify-content: ${({ center }) => (center ? "center" : "space-between")};
   align-items: center;
 `;
 
 const Wrapper = styled.div`
   display: flex;
-  gap: 32px;
-  width: 100%;
-  padding: 12px;
-  @media (max-width: 750px) {
-    flex-direction: column;
-  }
+  width: 95%;
+  // gap: 32px;
+  // padding: 12px;
+  // @media (max-width: 750px) {
+  //   flex-direction: column;
+  // }
 `;
 const Left = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
-  gap: 12px;
+  gap: 30px;
   @media (max-width: 750px) {
     flex: 1.2;
   }
 `;
 const Table = styled.div`
+  padding: 10px;
   font-size: 16px;
   display: flex;
   align-items: center;
-  gap: 30px;
+  gap: 40px;
   ${({ head }) => head && `margin-bottom: 22px`}
 `;
 const TableItem = styled.div`
+  ${({ padding }) => padding && `padding: 0px 80px;`}
   ${({ flex }) => flex && `flex: 1; `}
   ${({ bold }) =>
     bold &&
     `font-weight: 600;
-  font-size: 18px;`}
+  font-size: 20px;`}
 `;
 const Counter = styled.div`
   display: flex;
@@ -86,70 +91,55 @@ const Product = styled.div`
   gap: 16px;
 `;
 const Img = styled.img`
+  border-radius: 15px;
   width: 200px;
   height: 150px;
 `;
 const Details = styled.div`
-  max-width: 130px;
+  max-width: 300px;
   @media (max-width: 700px) {
     max-width: 60px;
   }
 `;
 const Protitle = styled.div`
+  padding: 50px;
   color: black;
-  font-size: 16px;
+  font-size: 20px;
   font-weight: 500;
 `;
-const ProDesc = styled.div`
-  font-size: 14px;
-  font-weight: 400;
-  color: ${({ theme }) => theme.text_primary};
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-`;
-// const ProSize = styled.div`
-//   font-size: 14px;
-//   font-weight: 500;
-// `;
 
-const Right = styled.div`
-  flex: 1;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  @media (max-width: 750px) {
-    flex: 0.8;
-  }
-`;
 const Subtotal = styled.div`
+  padding: 20px;
   font-size: 22px;
   font-weight: 600;
   display: flex;
   justify-content: space-between;
 `;
-const Delivery = styled.div`
-  font-size: 18px;
-  font-weight: 500;
+
+const Tile = styled.div`
+  background: white;
+  border-radius: 15px;
+`;
+
+const Line = styled.div`
   display: flex;
-  gap: 6px;
-  flex-direction: column;
+`;
+
+const Buttonx = styled.div`
+  max-width: 300px;
+  padding: 20px;
+`;
+const Buttony = styled.div`
+  max-width: 300px;
+  padding: 20px;
 `;
 
 const Cart = () => {
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [reload, setReload] = useState(false);
   const [products, setProducts] = useState([]);
   const [buttonLoad, setButtonLoad] = useState(false);
-  const [deliveryDetails, setDeliveryDetails] = useState({
-    firstName: "",
-    lastName: "",
-    emailAddress: "",
-    phoneNumber: "",
-    completeAddress: "",
-  });
 
   const getProducts = async () => {
     setLoading(true);
@@ -160,8 +150,6 @@ const Cart = () => {
     });
   };
 
-  console.log(products);
-
   const calculateSubtotal = () => {
     return products.reduce(
       (total, item) => total + item.quantity * item?.product?.price,
@@ -169,37 +157,15 @@ const Cart = () => {
     );
   };
 
-  const convertAddressToString = (addressObj) => {
-    return `${addressObj.firstName} ${addressObj.lastName}, ${addressObj.completeAddress}, ${addressObj.phoneNumber}, ${addressObj.emailAddress}`;
-  };
-
   const PlaceOrder = async () => {
     setButtonLoad(true);
     try {
-      const isDeliveryDetailsFilled =
-        deliveryDetails.firstName &&
-        deliveryDetails.lastName &&
-        deliveryDetails.completeAddress &&
-        deliveryDetails.phoneNumber &&
-        deliveryDetails.emailAddress;
-
-      if (!isDeliveryDetailsFilled) {
-        // Show an error message or handle the situation where delivery details are incomplete
-        dispatch(
-          openSnackbar({
-            message: "Please fill in all required delivery details.",
-            severity: "error",
-          })
-        );
-        return;
-      }
-
       const token = localStorage.getItem("foodeli-app-token");
       const totalAmount = calculateSubtotal().toFixed(2);
       const orderDetails = {
-        products,
-        address: convertAddressToString(deliveryDetails),
-        totalAmount,
+        products: products,
+        location: "A-33",
+        totalAmount: totalAmount,
       };
 
       await placeOrder(token, orderDetails);
@@ -209,8 +175,9 @@ const Cart = () => {
           severity: "success",
         })
       );
+
       setButtonLoad(false);
-      // Clear the cart and update the UI
+      await deleteCart();
       setReload(!reload);
     } catch (err) {
       dispatch(
@@ -265,6 +232,23 @@ const Cart = () => {
         );
       });
   };
+
+  const deleteCart = async () => {
+    const token = localStorage.getItem("foodeli-app-token");
+    await deleteAllFromCart(token)
+      .then((res) => {
+        setReload(!reload);
+      })
+      .catch((err) => {
+        setReload(!reload);
+        dispatch(
+          openSnackbar({
+            message: err.message,
+            severity: "error",
+          })
+        );
+      });
+  };
   return (
     <Container>
       <Section>
@@ -279,7 +263,7 @@ const Cart = () => {
               <Wrapper>
                 <Left>
                   <Table>
-                    <TableItem bold flex>
+                    <TableItem bold flex padding>
                       Product
                     </TableItem>
                     <TableItem bold>Price</TableItem>
@@ -288,62 +272,89 @@ const Cart = () => {
                     <TableItem></TableItem>
                   </Table>
                   {products.map((item) => (
-                    <Table>
-                      <TableItem flex>
-                        <Product>
-                          <Img src={item?.product?.img} />
-                          <Details>
-                            <Protitle>{item?.product?.name}</Protitle>
-                          </Details>
-                        </Product>
-                      </TableItem>
-                      <TableItem>${item?.product?.price}</TableItem>
-                      <TableItem>
-                        <Counter>
-                          <div
-                            style={{
-                              cursor: "pointer",
-                              flex: 1,
-                            }}
+                    <Tile>
+                      <Table>
+                        <TableItem flex>
+                          <Product>
+                            <Img src={item?.product?.img} />
+                            <Details>
+                              <Protitle>{item?.product?.name}</Protitle>
+                            </Details>
+                          </Product>
+                        </TableItem>
+                        <TableItem>${item?.product?.price}</TableItem>
+                        <TableItem>
+                          <Counter>
+                            <div
+                              style={{
+                                cursor: "pointer",
+                                flex: 1,
+                              }}
+                              onClick={() =>
+                                removeCart(
+                                  item?.product?._id,
+                                  item?.quantity - 1
+                                )
+                              }
+                            >
+                              -
+                            </div>
+                            {item?.quantity}{" "}
+                            <div
+                              style={{
+                                cursor: "pointer",
+                                flex: 1,
+                              }}
+                              onClick={() => addCart(item?.product?._id)}
+                            >
+                              +
+                            </div>
+                          </Counter>
+                        </TableItem>
+                        <TableItem>
+                          {" "}
+                          ${(item.quantity * item?.product?.price).toFixed(2)}
+                        </TableItem>
+                        <TableItem>
+                          <DeleteOutline
+                            sx={{ color: "red" }}
                             onClick={() =>
-                              removeCart(item?.product?._id, item?.quantity - 1)
+                              removeCart(
+                                item?.product?._id,
+                                item?.quantity - 1,
+                                "full"
+                              )
                             }
-                          >
-                            -
-                          </div>
-                          {item?.quantity}{" "}
-                          <div
-                            style={{
-                              cursor: "pointer",
-                              flex: 1,
-                            }}
-                            onClick={() => addCart(item?.product?._id)}
-                          >
-                            +
-                          </div>
-                        </Counter>
-                      </TableItem>
-                      <TableItem>
-                        {" "}
-                        ${(item.quantity * item?.product?.price).toFixed(2)}
-                      </TableItem>
-                      <TableItem>
-                        <DeleteOutline
-                          sx={{ color: "red" }}
-                          onClick={() =>
-                            removeCart(
-                              item?.product?._id,
-                              item?.quantity - 1,
-                              "full"
-                            )
-                          }
-                        />
-                      </TableItem>
-                    </Table>
+                          />
+                        </TableItem>
+                      </Table>
+                    </Tile>
                   ))}
-                  <Subtotal>
-                    Subtotal : ${calculateSubtotal().toFixed(2)}
-                  </Subtotal>
+                  <Tile>
+                    <Line>
+                      <Subtotal>
+                        Subtotal : ${calculateSubtotal().toFixed(2)}
+                      </Subtotal>
+                      <Buttonx>
+                        <Button
+                          text="Place Order"
+                          small
+                          onClick={PlaceOrder}
+                          isLoading={buttonLoad}
+                          isDisabled={buttonLoad}
+                        />
+                      </Buttonx>
+                      <Buttony>
+                        <Button
+                          text="Clear Cart"
+                          small
+                          onClick={deleteCart}
+                          isLoading={buttonLoad}
+                          isDisabled={buttonLoad}
+                        />
+                      </Buttony>
+                    </Line>
+                  </Tile>
                 </Left>
 
                 {/* <Right>
@@ -435,13 +446,6 @@ const Cart = () => {
                       <TextInput small placeholder="Card Holder name" />
                     </div>
                   </Delivery>
-                  <Button
-                    text="Pace Order"
-                    small
-                    onClick={PlaceOrder}
-                    isLoading={buttonLoad}
-                    isDisabled={buttonLoad}
-                  />
                 </Right> */}
               </Wrapper>
             )}
