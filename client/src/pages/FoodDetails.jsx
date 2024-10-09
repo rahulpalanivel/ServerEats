@@ -151,7 +151,7 @@ const FoodDetails = () => {
     await addToCart(token, { productId: id, quantity: 1 })
       .then((res) => {
         setCartLoading(false);
-        // navigate("/cart");
+        //navigate("/cart");
       })
       .catch((err) => {
         setCartLoading(false);

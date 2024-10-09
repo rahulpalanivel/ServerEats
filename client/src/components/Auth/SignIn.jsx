@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
-import { UserSignUp } from "../api";
-import { openSnackbar } from "../redux/reducers/SnackbarSlice";
-import { loginSuccess } from "../redux/reducers/UserSlice";
-import Button from "./Button";
-import TextInput from "./TextInput";
+import { UserSignIn } from "../../api";
+import { openSnackbar } from "../../redux/reducers/SnackbarSlice";
+import { loginSuccess } from "../../redux/reducers/UserSlice";
+import Button from "../Button";
+import TextInput from "../TextInput";
 
 const Container = styled.div`
   width: 100%;
@@ -24,34 +24,44 @@ const Span = styled.div`
   font-weight: 400;
   color: ${({ theme }) => theme.text_secondary + 90};
 `;
+const TextButton = styled.div`
+  width: 100%;
+  text-align: end;
+  color: ${({ theme }) => theme.text_primary};
+  cursor: pointer;
+  font-size: 14px;
+  transition: all 0.3s ease;
+  font-weight: 500;
+  &:hover {
+    color: ${({ theme }) => theme.primary};
+  }
+`;
 
-const SignUp = ({ setOpenAuth }) => {
+const SignIn = ({ setOpenAuth }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [buttonDisabled, setButtonDisabled] = useState(false);
-  const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
   const validateInputs = () => {
-    if (!name || !email || !password) {
+    if (!email || !password) {
       alert("Please fill in all fields");
       return false;
     }
     return true;
   };
 
-  const handleSignUp = async () => {
+  const handelSignIn = async () => {
     setLoading(true);
     setButtonDisabled(true);
-
     if (validateInputs()) {
-      await UserSignUp({ name, email, password })
+      await UserSignIn({ email, password })
         .then((res) => {
           dispatch(loginSuccess(res.data));
           dispatch(
             openSnackbar({
-              message: "Sign Up Successful",
+              message: "Login Successful",
               severity: "success",
             })
           );
@@ -60,43 +70,25 @@ const SignUp = ({ setOpenAuth }) => {
           setOpenAuth(false);
         })
         .catch((err) => {
+          setLoading(false);
           setButtonDisabled(false);
-          if (err.response) {
-            setLoading(false);
-            setButtonDisabled(false);
-            alert(err.response.data.message);
-            dispatch(
-              openSnackbar({
-                message: err.response.data.message,
-                severity: "error",
-              })
-            );
-          } else {
-            setLoading(false);
-            setButtonDisabled(false);
-            dispatch(
-              openSnackbar({
-                message: err.message,
-                severity: "error",
-              })
-            );
-          }
+          dispatch(
+            openSnackbar({
+              message: err.message,
+              severity: "error",
+            })
+          );
         });
     }
   };
+
   return (
     <Container>
       <div>
-        <Title>Create New Account 👋</Title>
-        <Span>Please enter your details to create a new account</Span>
+        <Title>Welcome to ServerEats 👋</Title>
+        <Span>Please login with your details here</Span>
       </div>
       <div style={{ display: "flex", gap: "20px", flexDirection: "column" }}>
-        <TextInput
-          label="Full Name"
-          placeholder="Enter your full name"
-          value={name}
-          handelChange={(e) => setName(e.target.value)}
-        />
         <TextInput
           label="Email Address"
           placeholder="Enter your email address"
@@ -110,9 +102,11 @@ const SignUp = ({ setOpenAuth }) => {
           value={password}
           handelChange={(e) => setPassword(e.target.value)}
         />
+
+        <TextButton>Forgot Password?</TextButton>
         <Button
-          text="Sign Up"
-          onClick={handleSignUp}
+          text="Sign In"
+          onClick={handelSignIn}
           isLoading={loading}
           isDisabled={buttonDisabled}
         />
@@ -121,4 +115,4 @@ const SignUp = ({ setOpenAuth }) => {
   );
 };
 
-export default SignUp;
+export default SignIn;

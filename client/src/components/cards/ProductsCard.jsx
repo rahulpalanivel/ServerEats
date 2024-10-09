@@ -19,6 +19,10 @@ const Card = styled.div`
   }
   background-color: white;
   border-radius: 15px;
+  box-shadow: 1px 1px 10px 1px ${({ theme }) => theme.black + 10};
+  &:hover {
+    box-shadow: 5px 5px 20px 10px ${({ theme }) => theme.primary + 50};
+  }
 `;
 const Image = styled.img`
   width: 100%;
@@ -85,6 +89,7 @@ const Rate = styled.div`
 `;
 const Details = styled.div`
   display: flex;
+  height: 80px;
   gap: 6px;
   flex-direction: column;
   padding: 4px 10px;

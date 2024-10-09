@@ -6,8 +6,8 @@ import ProductCard from "../components/cards/ProductsCard";
 import { filter } from "../utils/data";
 
 const Container = styled.div`
-  padding: 20px 30px;
-  padding-bottom: 200px;
+  padding: 100px 0px 10px 120px;
+  padding-bottom: 400px;
   height: 100%;
   overflow-y: scroll;
   display: flex;
@@ -26,8 +26,7 @@ const Filters = styled.div`
   left: 0;
   padding: 20px;
   flex: 1;
-  width: 100%;
-  max-width: 300px;
+  width: 25%;
   @media (max-width: 700px) {
     max-width: 440px;
   }
@@ -45,7 +44,7 @@ const Products = styled.div`
 const CardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
-  gap: 32px;
+  gap: 24px;
   justify-content: center;
   @media (max-width: 760px) {
     gap: 16px;
@@ -79,9 +78,9 @@ const Selectableitem = styled.div`
   ${({ selected, theme }) =>
     selected &&
     `
-  border: 1px solid ${theme.text_primary};
-  color: ${theme.text_primary};
-  background: ${theme.text_primary + 30};
+  border: 1px solid ${theme.primary};
+  color: white;
+  background: ${theme.primary};
   font-weight: 500;
   `}
 `;
@@ -105,7 +104,6 @@ const FoodListing = () => {
       setLoading(false);
     });
   };
-  console.log(selectedCategories.length);
 
   useEffect(() => {
     getFilteredProductsData();

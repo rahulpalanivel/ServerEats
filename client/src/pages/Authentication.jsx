@@ -2,10 +2,10 @@ import { Close } from "@mui/icons-material";
 import { Modal } from "@mui/material";
 import React, { useState } from "react";
 import styled from "styled-components";
-import SignIn from "../components/SignIn";
-import SignUp from "../components/SignUp";
+import SignIn from "../components/Auth/SignIn";
+import SignUp from "../components/Auth/SignUp";
 import AuthImage from "../utils/Images/FOOD.png";
-import LogoImage from "../utils/Images/Logo.png";
+import LogoImage from "../utils/Images/Logo4.png";
 
 const Container = styled.div`
   flex: 1;
@@ -22,11 +22,12 @@ const Left = styled.div`
 `;
 
 const Logo = styled.img`
+  padding: 20px;
   position: absolute;
   top: 0px;
   left: 0px;
   z-index: 10;
-  height: 100px;
+  height: 80px;
 `;
 const Image = styled.img`
   position: relative;

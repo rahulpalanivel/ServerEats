@@ -22,7 +22,7 @@ const Orders = () => {
   }, [reload]);
 
   const Container = styled.div`
-    padding: 20px 30px;
+    padding: 80px 0px 0px 0px;
     padding-bottom: 200px;
     min-height: 500px;
     max-width: 100%;
@@ -149,7 +149,7 @@ const Orders = () => {
   `;
 
   return (
-    <div>
+    <Container>
       <h1>Your previous orders</h1>
       <Wrapper>
         <Left>
@@ -177,7 +177,7 @@ const Orders = () => {
           ))}
         </Left>
       </Wrapper>
-    </div>
+    </Container>
   );
 };
 

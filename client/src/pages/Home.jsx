@@ -1,10 +1,12 @@
 import { CircularProgress } from "@mui/material";
-import { blue } from "@mui/material/colors";
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getAllProducts } from "../api";
+import Button from "../components/Button";
 import ProductCategoryCard from "../components/cards/ProductCategoryCard";
 import ProductsCard from "../components/cards/ProductsCard";
+import Footer from "../components/footer";
 import AutoImageSlider from "../components/imageSlider";
 import { category } from "../utils/data";
 import HomeImage from "../utils/Images/Home1.jpg";
@@ -17,19 +19,19 @@ const Container = styled.div`
   align-items: center;
   flex-direction: column;
   gap: 30px;
-
   background-color: rgb(249, 249, 249);
 `;
 const Section = styled.div`
-  max-width: 1400px;
-  padding: 16px 16px;
   display: flex;
   flex-direction: column;
-  gap: 28px;
+  width: 100%;
+  // gap: 30px;
 `;
 
 const Title = styled.div`
-  font-size: 28px;
+  color: ${({ theme }) => theme.primary};
+  padding: 20px;
+  font-size: 30px;
   font-weight: 500;
   display: flex;
   justify-content: ${({ center }) => (center ? "center" : "space-between")};
@@ -45,27 +47,43 @@ const CardWrapper = styled.div`
   }
 `;
 
+const Img = styled.img`
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+`;
+
 const ImgText = styled.div`
   width: 1000px;
   position: absolute;
-  color: white;
-  font-size: 80px;
+
   left: 17%;
   top: 25%;
+  font-size: 80px;
+  font-weight: 800;
+  color: ${({ theme }) => theme.primary};
 `;
 
-const Button = styled.div`
+const Buttonx = styled.div`
   position: absolute;
   color: white;
   left: 43%;
-  top: 55%;
+  top: 45%;
+  width: 200px;
 `;
 
-const Row = styled.div``;
+const Row = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 50px;
+  width: 1420px;
+  background-color: ${({ theme }) => theme.primary};
+`;
 
 const Home = () => {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
+  const navigate = useNavigate();
 
   const getProducts = async () => {
     setLoading(true);
@@ -80,50 +98,46 @@ const Home = () => {
   }, []);
 
   return (
-    <Container>
-      <img src={HomeImage} height={600} width={1400} />
-      <ImgText>Welcome to ServerEats </ImgText>
-      <Button>
-        <button
-          title="Explore"
-          style={{
-            height: 50,
-            width: 200,
-            borderRadius: 20,
-            background: blue,
-          }}
-        >
-          Explore
-        </button>
-      </Button>
-      <Section>
-        <Row></Row>
-      </Section>
-      <Section>
-        <AutoImageSlider />
-      </Section>
-      <Section>
-        <Title>Food Categories</Title>
-        <CardWrapper>
-          {category.map((category) => (
-            <ProductCategoryCard category={category} />
-          ))}
-        </CardWrapper>
-      </Section>
+    <>
+      <Container>
+        <Section>
+          <Img src={HomeImage} />
+          <Row>yo</Row>
+        </Section>
 
-      <Section>
-        <Title>Most Popular</Title>
-        {loading ? (
-          <CircularProgress />
-        ) : (
+        <ImgText>Welcome to ServerEats </ImgText>
+        <Buttonx>
+          <Button text="Explore" onClick={() => navigate("/dishes")}>
+            Explore
+          </Button>
+        </Buttonx>
+        <Section></Section>
+        <Section>
+          <AutoImageSlider />
+        </Section>
+        <Section>
+          <Title>Food Categories</Title>
           <CardWrapper>
-            {products.map((product) => (
-              <ProductsCard product={product} />
+            {category.map((category) => (
+              <ProductCategoryCard category={category} />
             ))}
           </CardWrapper>
-        )}
-      </Section>
-    </Container>
+        </Section>
+        <Section>
+          <Title>Most Popular</Title>
+          {loading ? (
+            <CircularProgress />
+          ) : (
+            <CardWrapper>
+              {products.map((product) => (
+                <ProductsCard product={product} />
+              ))}
+            </CardWrapper>
+          )}
+        </Section>
+      </Container>
+      <Footer />
+    </>
   );
 };
 

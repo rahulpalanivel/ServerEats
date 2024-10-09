@@ -5,7 +5,9 @@ import HeaderImage2 from "../utils/Images/Header2.jpg";
 import HeaderImage3 from "../utils/Images/Header3.jpg";
 
 const Img = styled.img`
-  max-width: 1400px;
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
 `;
 
 function AutoImageSlider() {
@@ -22,7 +24,7 @@ function AutoImageSlider() {
   }, [currentIndex, images.length]);
 
   return (
-    <div className="slider">
+    <div>
       <Img src={images[currentIndex]} alt="slider image" />
     </div>
   );

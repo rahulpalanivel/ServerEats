@@ -11,7 +11,10 @@ import Home from "./pages/Home";
 import Orders from "./pages/Orders";
 import { lightTheme } from "./utils/Themes";
 
-const Container = styled.div``;
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+`;
 
 function App() {
   const { currentUser } = useSelector((state) => state.user);
@@ -36,7 +39,6 @@ function App() {
           {openAuth && (
             <Authentication setOpenAuth={setOpenAuth} openAuth={openAuth} />
           )}
-          {/* <Footer /> */}
         </Container>
       </BrowserRouter>
     </ThemeProvider>

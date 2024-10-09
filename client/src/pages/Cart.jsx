@@ -14,6 +14,7 @@ import Button from "../components/Button";
 import { openSnackbar } from "../redux/reducers/SnackbarSlice";
 
 const Container = styled.div`
+  padding: 80px 0px 0px 0px;
   padding-bottom: 200px;
   min-height: 500px;
   max-width: 100%;
@@ -114,11 +115,13 @@ const Subtotal = styled.div`
   font-weight: 600;
   display: flex;
   justify-content: space-between;
+  color: ${({ theme }) => theme.primary};
 `;
 
 const Tile = styled.div`
   background: white;
   border-radius: 15px;
+  box-shadow: 1px 1px 10px 1px ${({ theme }) => theme.primary + 60};
 `;
 
 const Line = styled.div`
@@ -282,7 +285,7 @@ const Cart = () => {
                             </Details>
                           </Product>
                         </TableItem>
-                        <TableItem>${item?.product?.price}</TableItem>
+                        <TableItem>₹{item?.product?.price}</TableItem>
                         <TableItem>
                           <Counter>
                             <div
@@ -313,7 +316,7 @@ const Cart = () => {
                         </TableItem>
                         <TableItem>
                           {" "}
-                          ${(item.quantity * item?.product?.price).toFixed(2)}
+                          ₹{(item.quantity * item?.product?.price).toFixed(2)}
                         </TableItem>
                         <TableItem>
                           <DeleteOutline
@@ -333,7 +336,7 @@ const Cart = () => {
                   <Tile>
                     <Line>
                       <Subtotal>
-                        Subtotal : ${calculateSubtotal().toFixed(2)}
+                        Subtotal : ₹{calculateSubtotal().toFixed(2)}
                       </Subtotal>
                       <Buttonx>
                         <Button

@@ -1,29 +1,26 @@
 import React from "react";
 import styled from "styled-components";
 
-const PageContainer = styled.div`
+const Container = styled.div`
   display: flex;
   flex-direction: column;
   margin-top: auto;
-  min-height: 20px;
+
+  height: 300px;
+  align-items: center;
+  justify-content: center;
+  background: rgb(26, 38, 56);
 `;
 
-const FooterContainer = styled.footer`
-  background-color: #333;
-  color: #fff;
-  padding: 20px;
-  text-align: center;
-  margin-top: auto;
-  min-height: 20px;
+const Bottom = styled.div`
+  color: white;
 `;
 
 const Footer = () => {
   return (
-    <PageContainer>
-      <FooterContainer>
-        <p>&copy; 2024 ServerEats</p>
-      </FooterContainer>
-    </PageContainer>
+    <Container>
+      <Bottom>&copy; 2024 ServerEats All Rights Reserved</Bottom>
+    </Container>
   );
 };
 

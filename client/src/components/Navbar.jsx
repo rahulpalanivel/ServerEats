@@ -4,22 +4,24 @@ import {
   ShoppingCartOutlined,
 } from "@mui/icons-material";
 import { Avatar } from "@mui/material";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link as LinkR, NavLink } from "react-router-dom";
 import styled from "styled-components";
 import { logout } from "../redux/reducers/UserSlice";
-import LogoImg from "../utils/Images/Logo.png";
+import LogoImg from "../utils/Images/Logo4.png";
 import Button from "./Button";
 
 const Nav = styled.div`
-  background-color: ${({ theme }) => theme.bg};
+  background-color: ${(props) => (props.scrolled ? "#ffffff" : "transparent")};
+  transition: background-color 0.6s ease-in-out;
   height: 80px;
   display: flex;
   align-items: center;
   justify-content: center;
   font-size: 1rem;
-  position: sticky;
+  position: fixed;
+  width: 100%;
   top: 0;
   z-index: 10;
   color: white;
@@ -45,7 +47,8 @@ const NavLogo = styled(LinkR)`
   color: inherit;
 `;
 const Logo = styled.img`
-  height: 80px;
+  padding: 10px;
+  height: 60px;
 `;
 const NavItems = styled.ul`
   width: 100%;
@@ -145,9 +148,27 @@ const TextButton = styled.span`
 
 const Navbar = ({ setOpenAuth, openAuth, currentUser }) => {
   const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 0) {
+        setScrolled(true);
+      } else {
+        setScrolled(false);
+      }
+    };
+
+    window.addEventListener("scroll", handleScroll);
+
+    return () => {
+      window.removeEventListener("scroll", handleScroll);
+    };
+  }, []);
+
   return (
-    <Nav>
+    <Nav scrolled={scrolled}>
       <NavContainer>
         <MobileIcon onClick={() => setIsOpen(!isOpen)}>
           <MenuRounded style={{ color: "inherit" }} />
@@ -230,7 +251,7 @@ const Navbar = ({ setOpenAuth, openAuth, currentUser }) => {
                 />
               </Navlink>
               <Avatar src={currentUser?.img}>{currentUser?.name[0]}</Avatar>
-              <TextButton onClick={() => dispatch(logout())}>Logout</TextButton>
+              <Button text="Logout" small onClick={() => dispatch(logout())} />
             </>
           ) : (
             <>
