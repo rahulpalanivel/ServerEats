@@ -137,6 +137,18 @@ const Buttony = styled.div`
   padding: 20px;
 `;
 
+const InputBox = styled.input`
+  padding: 0px 10px 0px 0px;
+  height: 40px;
+  border: solid 2px ${({ theme }) => theme.primary};
+  border-radius: 10px;
+  background: white;
+
+  &:focus {
+    border: solid 2px ${({ theme }) => theme.primary};
+  }
+`;
+
 const Cart = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -160,14 +172,19 @@ const Cart = () => {
     );
   };
 
+  const getLocation = () => {
+    return document.getElementById("inp").value;
+  };
+
   const PlaceOrder = async () => {
     setButtonLoad(true);
     try {
       const token = localStorage.getItem("foodeli-app-token");
       const totalAmount = calculateSubtotal().toFixed(2);
+      const location = getLocation();
       const orderDetails = {
         products: products,
-        location: "A-33",
+        location: location,
         totalAmount: totalAmount,
       };
 
@@ -347,7 +364,7 @@ const Cart = () => {
                           isDisabled={buttonLoad}
                         />
                       </Buttonx>
-                      <Buttony>
+                      <Buttonx>
                         <Button
                           text="Clear Cart"
                           small
@@ -355,6 +372,9 @@ const Cart = () => {
                           isLoading={buttonLoad}
                           isDisabled={buttonLoad}
                         />
+                      </Buttonx>
+                      <Buttony>
+                        <InputBox id="inp" placeholder="Table Number" />
                       </Buttony>
                     </Line>
                   </Tile>

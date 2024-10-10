@@ -169,97 +169,91 @@ const Navbar = ({ setOpenAuth, openAuth, currentUser }) => {
 
   return (
     <Nav scrolled={scrolled}>
-      <NavContainer>
-        <MobileIcon onClick={() => setIsOpen(!isOpen)}>
-          <MenuRounded style={{ color: "inherit" }} />
-        </MobileIcon>
-        <NavLogo to="/">
-          <Logo src={LogoImg} />
-        </NavLogo>
+      {/* <NavContainer> */}
+      <MobileIcon onClick={() => setIsOpen(!isOpen)}>
+        <MenuRounded style={{ color: "inherit" }} />
+      </MobileIcon>
+      <NavLogo to="/">
+        <Logo src={LogoImg} />
+      </NavLogo>
 
-        <MobileIcons>
-          <Navlink to="/orders">
-            <HistoryOutlined sx={{ color: "inherit", fontSize: "28px" }} />
-          </Navlink>
-          <Navlink to="/cart">
-            <ShoppingCartOutlined sx={{ color: "inherit", fontSize: "28px" }} />
-          </Navlink>
-          {currentUser && (
-            <Avatar src={currentUser?.img}>{currentUser?.name[0]}</Avatar>
-          )}
-        </MobileIcons>
-
-        <NavItems>
-          <Navlink to="/">Home</Navlink>
-          <Navlink to="/dishes">Dishes</Navlink>
-          <Navlink to="/about">About us</Navlink>
-          <Navlink to="/contact">Contact</Navlink>
-        </NavItems>
-
-        {isOpen && (
-          <MobileMenu isOpen={isOpen}>
-            <Navlink to="/" onClick={() => setIsOpen(false)}>
-              Home
-            </Navlink>
-            <Navlink to="/dishes" onClick={() => setIsOpen(false)}>
-              Dishes
-            </Navlink>
-            <Navlink to="/orders" onClick={() => setIsOpen(false)}>
-              Orders
-            </Navlink>
-            <Navlink to="/contact" onClick={() => setIsOpen(false)}>
-              Contact
-            </Navlink>
-            {currentUser ? (
-              <>
-                <TextButton onClick={() => dispatch(logout())}>
-                  Logout
-                </TextButton>
-              </>
-            ) : (
-              <div
-                style={{
-                  display: "flex",
-                  gap: "12px",
-                }}
-              >
-                <Button
-                  text="Sign Up"
-                  outlined
-                  small
-                  onClick={() => setOpenAuth(true)}
-                />
-                <Button
-                  text="Sign In"
-                  small
-                  onClick={() => setOpenAuth(true)}
-                />
-              </div>
-            )}
-          </MobileMenu>
+      <MobileIcons>
+        <Navlink to="/orders">
+          <HistoryOutlined sx={{ color: "inherit", fontSize: "28px" }} />
+        </Navlink>
+        <Navlink to="/cart">
+          <ShoppingCartOutlined sx={{ color: "inherit", fontSize: "28px" }} />
+        </Navlink>
+        {currentUser && (
+          <Avatar src={currentUser?.img}>{currentUser?.name[0]}</Avatar>
         )}
+      </MobileIcons>
 
-        <ButtonContainer>
+      <NavItems>
+        <Navlink to="/">Home</Navlink>
+        <Navlink to="/dishes">Dishes</Navlink>
+        <Navlink to="/about">About us</Navlink>
+        <Navlink to="/contact">Contact</Navlink>
+      </NavItems>
+
+      {isOpen && (
+        <MobileMenu isOpen={isOpen}>
+          <Navlink to="/" onClick={() => setIsOpen(false)}>
+            Home
+          </Navlink>
+          <Navlink to="/dishes" onClick={() => setIsOpen(false)}>
+            Dishes
+          </Navlink>
+          <Navlink to="/orders" onClick={() => setIsOpen(false)}>
+            Orders
+          </Navlink>
+          <Navlink to="/contact" onClick={() => setIsOpen(false)}>
+            Contact
+          </Navlink>
           {currentUser ? (
             <>
-              <NavLink to="/orders">
-                <HistoryOutlined sx={{ color: "black", fontSize: "28px" }} />
-              </NavLink>
-              <Navlink to="/cart">
-                <ShoppingCartOutlined
-                  sx={{ color: "inherit", fontSize: "28px" }}
-                />
-              </Navlink>
-              <Avatar src={currentUser?.img}>{currentUser?.name[0]}</Avatar>
-              <Button text="Logout" small onClick={() => dispatch(logout())} />
+              <TextButton onClick={() => dispatch(logout())}>Logout</TextButton>
             </>
           ) : (
-            <>
+            <div
+              style={{
+                display: "flex",
+                gap: "12px",
+              }}
+            >
+              <Button
+                text="Sign Up"
+                outlined
+                small
+                onClick={() => setOpenAuth(true)}
+              />
               <Button text="Sign In" small onClick={() => setOpenAuth(true)} />
-            </>
+            </div>
           )}
-        </ButtonContainer>
-      </NavContainer>
+        </MobileMenu>
+      )}
+
+      <ButtonContainer>
+        {currentUser ? (
+          <>
+            <NavLink to="/orders">
+              <HistoryOutlined sx={{ color: "black", fontSize: "28px" }} />
+            </NavLink>
+            <Navlink to="/cart">
+              <ShoppingCartOutlined
+                sx={{ color: "inherit", fontSize: "28px" }}
+              />
+            </Navlink>
+            <Avatar src={currentUser?.img}>{currentUser?.name[0]}</Avatar>
+            <Button text="Logout" small onClick={() => dispatch(logout())} />
+          </>
+        ) : (
+          <>
+            <Button text="Sign In" small onClick={() => setOpenAuth(true)} />
+          </>
+        )}
+      </ButtonContainer>
+      {/* </NavContainer> */}
     </Nav>
   );
 };

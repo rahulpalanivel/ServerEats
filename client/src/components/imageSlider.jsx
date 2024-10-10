@@ -4,10 +4,15 @@ import HeaderImage1 from "../utils/Images/Header1.jpg";
 import HeaderImage2 from "../utils/Images/Header2.jpg";
 import HeaderImage3 from "../utils/Images/Header3.jpg";
 
+const Container = styled.div`
+  transition: 0.6s ease-in-out;
+`;
+
 const Img = styled.img`
   height: 100%;
   width: 100%;
   object-fit: cover;
+  transition: 0.6s ease-in-out;
 `;
 
 function AutoImageSlider() {
@@ -24,9 +29,9 @@ function AutoImageSlider() {
   }, [currentIndex, images.length]);
 
   return (
-    <div>
-      <Img src={images[currentIndex]} alt="slider image" />
-    </div>
+    <Container>
+      <Img src={images[currentIndex]} />
+    </Container>
   );
 }
 

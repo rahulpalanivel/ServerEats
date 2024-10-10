@@ -41,7 +41,7 @@ const Top = styled.div`
 const Menu = styled.div`
   width: 100%;
   position: absolute;
-  z-index: 10;
+  //z-index: 10;
   color: ${({ theme }) => theme.text_primary};
   bottom: 0px;
   left: 50;
@@ -62,9 +62,6 @@ const Button = styled.div`
     ${({ theme }) => theme.black} 30%,
     transparent
   );
-  @media (max-width: 600px) {
-    padding: 6px 14px;
-  }
 `;
 
 const ProductCategoryCard = ({ category }) => {
