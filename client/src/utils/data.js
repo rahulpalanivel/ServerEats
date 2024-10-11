@@ -40,18 +40,19 @@ export const filter = [
   {
     name: "Food Categories",
     value: "category",
-    items: [
-      "veg",
-      "Non-veg",
-      "Starters",
-      "Main-course",
-      "Curries",
-      "Dessert",
-      "Beverages",
-      "Salads",
-      "Indian",
-      "Italian",
-      "Mexican",
+    sub: [
+      {
+        name: "Type",
+        items: ["veg", "Non-veg"],
+      },
+      {
+        name: "course",
+        items: ["Starters", "Main-course", "Curries", "Dessert", "Beverages"],
+      },
+      {
+        name: "Cuisine",
+        items: ["Indian", "Italian", "Mexican"],
+      },
     ],
   },
   {

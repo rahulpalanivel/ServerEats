@@ -40,10 +40,10 @@ const getFoodItems = async (req, res, next) => {
 
     const filter = {};
     if (categories && Array.isArray(categories)) {
-      filter.category = { $in: categories }; // Match products in any of the specified categories
+      filter.category = { $all: categories };
     }
     if (ingredients && Array.isArray(ingredients)) {
-      filter.ingredients = { $in: ingredients }; // Match products in any of the specified ingredients
+      filter.ingredients = { $in: ingredients };
     }
     if (maxPrice || minPrice) {
       filter["price"] = {};
@@ -56,10 +56,11 @@ const getFoodItems = async (req, res, next) => {
     }
     if (search) {
       filter.$or = [
-        { title: { $regex: new RegExp(search, "i") } }, // Case-insensitive title search
-        { desc: { $regex: new RegExp(search, "i") } }, // Case-insensitive description search
+        { title: { $regex: new RegExp(search, "i") } },
+        { desc: { $regex: new RegExp(search, "i") } },
       ];
     }
+
     const foodList = await Food.find(filter);
 
     return res.status(200).json(foodList);
