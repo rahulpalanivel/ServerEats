@@ -1,12 +1,10 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-import HeaderImage1 from "../utils/Images/Header1.jpg";
-import HeaderImage2 from "../utils/Images/Header2.jpg";
-import HeaderImage3 from "../utils/Images/Header3.jpg";
+// import HeaderImage1 from "../utils/Images/Header1.jpg";
+// import HeaderImage2 from "../utils/Images/Header2.jpg";
+// import HeaderImage3 from "../utils/Images/Header3.jpg";
 
-const Container = styled.div`
-  transition: 0.6s ease-in-out;
-`;
+const Container = styled.div``;
 
 const Img = styled.img`
   height: 100%;
@@ -15,8 +13,8 @@ const Img = styled.img`
   transition: 0.6s ease-in-out;
 `;
 
-function AutoImageSlider() {
-  const images = [HeaderImage1, HeaderImage2, HeaderImage3];
+function AutoImageSlider({ images }) {
+  //const images = [HeaderImage1, HeaderImage2, HeaderImage3];
 
   const [currentIndex, setCurrentIndex] = useState(0);
 

@@ -8,17 +8,14 @@ import Button from "../components/Button";
 import { openSnackbar } from "../redux/reducers/SnackbarSlice";
 
 const Container = styled.div`
-  padding: 20px 30px;
-  padding-bottom: 250px;
-  height: 100%;
-  overflow-y: scroll;
+  padding: 8% 5% 15% 5%;
+  min-height: 100%;
+  bottom: 0;
+  //overflow-y: scroll;
   display: flex;
   align-items: center;
   flex-direction: column;
   gap: 30px;
-  @media (max-width: 768px) {
-    padding: 20px 16px;
-  }
   background: ${({ theme }) => theme.bg};
 `;
 
@@ -151,7 +148,6 @@ const FoodDetails = () => {
     await addToCart(token, { productId: id, quantity: 1 })
       .then((res) => {
         setCartLoading(false);
-        //navigate("/cart");
       })
       .catch((err) => {
         setCartLoading(false);
@@ -178,10 +174,7 @@ const FoodDetails = () => {
               <Title>{product?.name}</Title>
             </div>
             <Rating value={3.5} />
-            <Price>
-              ₹{product?.price}
-              {/* <Percent> (₹{product?.price?.off}% Off) </Percent> */}
-            </Price>
+            <Price>₹{product?.price}</Price>
 
             <Desc>{product?.desc}</Desc>
 
@@ -204,7 +197,7 @@ const FoodDetails = () => {
                 isLoading={cartLoading}
                 onClick={() => addCart()}
               />
-              <Button text="Order Now" full />
+              <Button text="Order Now" full onClick={() => {}} />
             </ButtonWrapper>
           </Details>
         </Wrapper>

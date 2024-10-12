@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getOrders } from "../api";
 
@@ -6,6 +7,7 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
   const [reload, setReload] = useState(false);
+  const navigate = useNavigate();
 
   const getAllOrders = async () => {
     setLoading(true);
@@ -20,6 +22,10 @@ const Orders = () => {
   useEffect(() => {
     getAllOrders();
   }, [reload]);
+
+  const showOrder = (item) => {
+    navigate("/details", { state: item });
+  };
 
   const Container = styled.div`
     padding: 80px 0px 0px 0px;
@@ -47,42 +53,43 @@ const Orders = () => {
     gap: 28px;
   `;
   const Title = styled.div`
-    font-size: 28px;
+    padding: 20px;
+    font-size: 36px;
     font-weight: 500;
     display: flex;
+    color: ${({ theme }) => theme.primary};
     justify-content: ${({ center }) => (center ? "center" : "space-between")};
     align-items: center;
   `;
 
   const Wrapper = styled.div`
     display: flex;
-    gap: 32px;
-    width: 100%;
-    padding: 0px;
+    width: 95%;
   `;
   const Left = styled.div`
     flex: 1;
     display: flex;
     flex-direction: column;
-    padding: 12px;
-    gap: 12px;
+    gap: 30px;
     @media (max-width: 750px) {
       flex: 1.2;
     }
   `;
   const Table = styled.div`
+    padding: 10px;
     font-size: 16px;
     display: flex;
     align-items: center;
-    gap: 30px;
+    gap: 40px;
     ${({ head }) => head && `margin-bottom: 22px`}
   `;
   const TableItem = styled.div`
+    ${({ padding }) => padding && `padding: 0px 60px;`}
     ${({ flex }) => flex && `flex: 1; `}
-    ${({ bold }) =>
+  ${({ bold }) =>
       bold &&
       `font-weight: 600;
-  font-size: 18px;`}
+  font-size: 20px;`}
   `;
   const Counter = styled.div`
     display: flex;
@@ -148,13 +155,21 @@ const Orders = () => {
     flex-direction: column;
   `;
 
+  const Tile = styled.div`
+    padding: 20px;
+    min-height: 40px;
+    background: white;
+    border-radius: 15px;
+    box-shadow: 1px 1px 10px 1px ${({ theme }) => theme.primary + 60};
+  `;
+
   return (
     <Container>
-      <h1>Your previous orders</h1>
+      <Title>Your previous orders</Title>
       <Wrapper>
         <Left>
           <Table>
-            <TableItem bold flex>
+            <TableItem bold flex padding>
               Location
             </TableItem>
             <TableItem bold>Date</TableItem>
@@ -162,18 +177,20 @@ const Orders = () => {
             <TableItem bold>Status</TableItem>
           </Table>
           {orders.map((item) => (
-            <Table>
-              <TableItem flex>
-                <Product>
-                  <Details>
-                    <Protitle>{item.location}</Protitle>
-                  </Details>
-                </Product>
-              </TableItem>
-              <TableItem>{item.createdAt.split("T")[0]}</TableItem>
-              <TableItem>${item.total_amount}</TableItem>
-              <TableItem>{item.status}</TableItem>
-            </Table>
+            <Tile onClick={() => showOrder(item)}>
+              <Table>
+                <TableItem flex>
+                  <Product>
+                    <Details>
+                      <Protitle>{item.location}</Protitle>
+                    </Details>
+                  </Product>
+                </TableItem>
+                <TableItem>{item.createdAt.split("T")[0]}</TableItem>
+                <TableItem>${item.total_amount}</TableItem>
+                <TableItem>{item.status}</TableItem>
+              </Table>
+            </Tile>
           ))}
         </Left>
       </Wrapper>

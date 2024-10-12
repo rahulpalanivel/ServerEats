@@ -3,43 +3,35 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getAllProducts } from "../api";
 import ProductCard from "../components/cards/ProductsCard";
+import AutoImageSlider from "../components/imageSlider";
 import { filter } from "../utils/data";
+import head1 from "../utils/Images/Head1.jpg";
+import head2 from "../utils/Images/Head2.jpg";
+import head3 from "../utils/Images/Head3.jpg";
 
 const Container = styled.div`
-  padding: 100px 0px 10px 120px;
-  padding-bottom: 400px;
+  padding: 20px 0px 0px 0px;
   height: 100%;
+  padding-bottom: 20px;
   overflow-y: scroll;
   display: flex;
   align-items: center;
   flex-direction: row;
-  gap: 30px;
-  @media (max-width: 700px) {
-    flex-direction: column;
-    padding: 20px 12px;
-  }
   background: ${({ theme }) => theme.bg};
 `;
-const Filters = styled.div`
-  position: fixed;
-  top: 20%;
-  left: 0;
-  padding: 20px;
-  flex: 1;
-  width: 25%;
-  @media (max-width: 700px) {
-    max-width: 440px;
-  }
-`;
+
 const Menu = styled.div`
+  padding: 20px;
+  width: 25%;
+  position: absolute;
+  top: 700px;
   display: flex;
   flex-direction: column;
   gap: 4px;
 `;
 const Products = styled.div`
-  flex: 1;
-  margin-left: 20%; /* adjust the margin to match the width of the left div */
-  overflow-y: auto;
+  margin-left: 30%;
+  width: 100%;
 `;
 const CardWrapper = styled.div`
   display: flex;
@@ -52,14 +44,29 @@ const CardWrapper = styled.div`
 `;
 
 const FilterSection = styled.div`
+  color: ${({ theme }) => theme.primary};
   display: flex;
   flex-direction: column;
   gap: 16px;
   padding: 12px;
 `;
 const Title = styled.div`
+  color: ${({ theme }) => theme.primary};
   font-size: 20px;
   font-weight: 500;
+`;
+
+const MainTitle = styled.div`
+  padding: 20px;
+  text-align: center;
+  color: ${({ theme }) => theme.primary};
+  font-size: 40px;
+  font-weight: 500;
+`;
+
+const SubTitle = styled.div`
+  font-size: 16px;
+  font-weight: 300;
 `;
 const Item = styled.div`
   display: flex;
@@ -85,6 +92,10 @@ const Selectableitem = styled.div`
   `}
 `;
 
+const Hero = styled.div`
+  padding: 100px 0px 0px 0px;
+`;
+
 const FoodListing = () => {
   const [loading, setLoading] = useState(false);
   const [products, setProducts] = useState([]);
@@ -108,9 +119,14 @@ const FoodListing = () => {
   useEffect(() => {
     getFilteredProductsData();
   }, [priceRange, selectedCategories]);
+
+  const images = [head1, head2, head3];
   return (
-    <Container>
-      <Filters>
+    <>
+      <Hero>
+        <AutoImageSlider images={images} />
+      </Hero>
+      <Container>
         <Menu>
           {filter.map((filters) => (
             <FilterSection>
@@ -132,44 +148,51 @@ const FoodListing = () => {
                   onChange={(e, newValue) => setPriceRange(newValue)}
                 />
               ) : filters.value === "category" ? (
-                <Item>
-                  {filters.items.map((item) => (
-                    <Selectableitem
-                      key={item}
-                      selected={selectedCategories.includes(item)}
-                      onClick={() =>
-                        setSelectedCategories((prevCategories) =>
-                          prevCategories.includes(item)
-                            ? prevCategories.filter(
-                                (category) => category !== item
-                              )
-                            : [...prevCategories, item]
-                        )
-                      }
-                    >
-                      {item}
-                    </Selectableitem>
-                  ))}
-                </Item>
+                filters.sub.map((item) => (
+                  <>
+                    <SubTitle>{item.name}</SubTitle>
+                    <Item>
+                      {item.items.map((it) => (
+                        <Selectableitem
+                          key={it}
+                          selected={selectedCategories.includes(it)}
+                          onClick={() =>
+                            setSelectedCategories((prevCategories) =>
+                              prevCategories.includes(it)
+                                ? prevCategories.filter(
+                                    (category) => category !== it
+                                  )
+                                : [...prevCategories, it]
+                            )
+                          }
+                        >
+                          {it}
+                        </Selectableitem>
+                      ))}
+                    </Item>
+                  </>
+                ))
               ) : null}
             </FilterSection>
           ))}
         </Menu>
-      </Filters>
-      <Products>
-        <CardWrapper>
-          {loading ? (
-            <CircularProgress />
-          ) : (
-            <>
-              {products.map((product) => (
-                <ProductCard key={product._id} product={product} />
-              ))}
-            </>
-          )}
-        </CardWrapper>
-      </Products>
-    </Container>
+
+        <Products>
+          <MainTitle>Menu</MainTitle>
+          <CardWrapper>
+            {loading ? (
+              <CircularProgress />
+            ) : (
+              <>
+                {products.map((product) => (
+                  <ProductCard key={product._id} product={product} />
+                ))}
+              </>
+            )}
+          </CardWrapper>
+        </Products>
+      </Container>
+    </>
   );
 };
 

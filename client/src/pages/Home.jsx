@@ -10,6 +10,9 @@ import Footer from "../components/footer";
 import AutoImageSlider from "../components/imageSlider";
 import { category } from "../utils/data";
 import Cover from "../utils/Images/cover.jpg";
+import HeaderImage1 from "../utils/Images/Header1.jpg";
+import HeaderImage2 from "../utils/Images/Header2.jpg";
+import HeaderImage3 from "../utils/Images/Header3.jpg";
 import HomeImage from "../utils/Images/Home1.jpg";
 import Option from "../utils/Images/options.png";
 import Logo1 from "../utils/Images/smallLogo1.png";
@@ -167,6 +170,8 @@ const Home = () => {
     getProducts();
   }, []);
 
+  const images = [HeaderImage1, HeaderImage2, HeaderImage3];
+
   return (
     <>
       <Container>
@@ -215,7 +220,7 @@ const Home = () => {
           </Images>
         </Section>
         <Section>
-          <AutoImageSlider />
+          <AutoImageSlider images={images} />
         </Section>
         <Section>
           <Title>Food Categories</Title>
@@ -231,7 +236,7 @@ const Home = () => {
             Have a look at our exquisite handcrafted menu{" "}
           </CoverTitle>
           <Buttony>
-            <Button text="Menu" small onClick={() => navigate("/dishes")}>
+            <Button text="Order Now" small onClick={() => navigate("/dishes")}>
               Explore
             </Button>
           </Buttony>

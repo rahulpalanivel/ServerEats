@@ -192,7 +192,7 @@ const Navbar = ({ setOpenAuth, openAuth, currentUser }) => {
       <NavItems>
         <Navlink to="/">Home</Navlink>
         <Navlink to="/dishes">Dishes</Navlink>
-        <Navlink to="/about">About us</Navlink>
+        <Navlink to="/aboutus">About us</Navlink>
         <Navlink to="/contact">Contact</Navlink>
       </NavItems>
 

@@ -3,11 +3,13 @@ import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import Navbar from "./components/Navbar";
+import Aboutus from "./pages/Aboutus";
 import Authentication from "./pages/Authentication";
 import Cart from "./pages/Cart";
 import FoodDetails from "./pages/FoodDetails";
 import FoodListing from "./pages/FoodListing";
 import Home from "./pages/Home";
+import Detail from "./pages/OrderDetails";
 import Orders from "./pages/Orders";
 import { lightTheme } from "./utils/Themes";
 
@@ -34,7 +36,9 @@ function App() {
             <Route path="/cart" exact element={<Cart />} />
             <Route path="/dishes/:id" exact element={<FoodDetails />} />
             <Route path="/dishes" exact element={<FoodListing />} />
-            <Route path="orders" exact element={<Orders />} />
+            <Route path="/orders" exact element={<Orders />} />
+            <Route path="/details" exact element={<Detail />} />
+            <Route path="/aboutus" exact element={<Aboutus />} />
           </Routes>
           {openAuth && (
             <Authentication setOpenAuth={setOpenAuth} openAuth={openAuth} />
