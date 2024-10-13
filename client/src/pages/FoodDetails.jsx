@@ -8,10 +8,9 @@ import Button from "../components/Button";
 import { openSnackbar } from "../redux/reducers/SnackbarSlice";
 
 const Container = styled.div`
-  padding: 8% 5% 15% 5%;
-  min-height: 100%;
-  bottom: 0;
-  //overflow-y: scroll;
+  padding: 80px 0px 0px 0px;
+  padding-bottom: 100px;
+  min-height: 680px;
   display: flex;
   align-items: center;
   flex-direction: column;
@@ -144,7 +143,7 @@ const FoodDetails = () => {
 
   const addCart = async () => {
     setCartLoading(true);
-    const token = localStorage.getItem("foodeli-app-token");
+    const token = localStorage.getItem("ServerEats");
     await addToCart(token, { productId: id, quantity: 1 })
       .then((res) => {
         setCartLoading(false);

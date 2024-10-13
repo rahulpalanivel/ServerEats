@@ -1,14 +1,14 @@
 import { CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getProductDetails } from "../api";
 import Button from "../components/Button";
 
 const Container = styled.div`
   padding: 80px 0px 0px 0px;
-  padding-bottom: 200px;
-  min-height: 500px;
+  padding-bottom: 100px;
+  min-height: 680px;
   max-width: 100%;
   overflow-y: scroll;
   display: flex;
@@ -36,14 +36,19 @@ const Title = styled.div`
   align-items: center;
 `;
 
+const SubTitle = styled.div`
+  width: 90%;
+  font-size: 20px;
+  font-weight: 400;
+  display: flex;
+  color: ${({ theme }) => theme.primary};
+  justify-content: center;
+  align-items: center;
+`;
+
 const Wrapper = styled.div`
   display: flex;
   width: 95%;
-  // gap: 32px;
-  // padding: 12px;
-  // @media (max-width: 750px) {
-  //   flex-direction: column;
-  // }
 `;
 const Left = styled.div`
   flex: 1;
@@ -63,7 +68,7 @@ const Table = styled.div`
   ${({ head }) => head && `margin-bottom: 22px`}
 `;
 const TableItem = styled.div`
-  ${({ padding }) => padding && `padding: 0px 80px;`}
+  ${({ padding }) => padding && `padding: 0px 20px;`}
   ${({ flex }) => flex && `flex: 1; `}
   ${({ bold }) =>
     bold &&
@@ -118,36 +123,23 @@ const Tile = styled.div`
 
 const Line = styled.div`
   display: flex;
+  justify-content: space-around;
 `;
 
-const Buttonx = styled.div`
-  max-width: 300px;
-  padding: 20px;
-`;
-const Buttony = styled.div`
-  max-width: 300px;
-  padding: 20px;
+const Buton = styled.div`
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  width: 100%;
 `;
 
-const InputBox = styled.input`
-  padding: 0px 10px 0px 0px;
-  height: 40px;
-  border: solid 2px ${({ theme }) => theme.primary};
-  border-radius: 10px;
-  background: white;
-
-  &:focus {
-    border: solid 2px ${({ theme }) => theme.primary};
-  }
-`;
 const Detail = () => {
   const location = useLocation();
   const order = location.state;
 
   const [loading, setLoading] = useState(false);
-  const [reload, setReload] = useState(false);
-  const [products, setProducts] = useState([]);
   const [productData, setProductData] = useState([]);
+  const navigate = useNavigate();
 
   const calculateSubtotal = () => {
     return order.products.reduce((total, item, index) => {
@@ -156,19 +148,17 @@ const Detail = () => {
     }, 0);
   };
 
-  useEffect(() => {
-    //getProducts();
-  }, [reload]);
-
   const getProduct = async (id) => {
     const response = await getProductDetails(id);
     return response.data;
   };
 
   const loadProducts = async () => {
+    setLoading(true);
     const promises = order.products.map((item) => getProduct(item.product));
     const data = await Promise.all(promises);
     setProductData(data);
+    setLoading(false);
   };
 
   useEffect(() => {
@@ -178,7 +168,8 @@ const Detail = () => {
   return (
     <Container>
       <Section>
-        <Title>Your Order</Title>
+        <Title>Thank you for ordering with ServerEats</Title>
+        <SubTitle>Order ID : {order._id}</SubTitle>
         {loading ? (
           <CircularProgress />
         ) : (
@@ -195,10 +186,13 @@ const Detail = () => {
                     <TableItem bold>Price</TableItem>
                     <TableItem bold>Quantity</TableItem>
                     <TableItem bold>Subtotal</TableItem>
-                    <TableItem></TableItem>
                   </Table>
                   {productData.map((product, index) => (
-                    <Tile>
+                    <Tile
+                      onClick={() => {
+                        navigate(`/dishes/${product._id}`);
+                      }}
+                    >
                       <Table>
                         <TableItem flex>
                           <Product>
@@ -208,11 +202,11 @@ const Detail = () => {
                             </Details>
                           </Product>
                         </TableItem>
-                        <TableItem>₹{product.price}</TableItem>
-                        <TableItem>
+                        <TableItem padding>₹{product.price}</TableItem>
+                        <TableItem padding>
                           <Counter>{order.products[index].quantity} </Counter>
                         </TableItem>
-                        <TableItem>
+                        <TableItem padding>
                           ₹
                           {(
                             order.products[index].quantity * product.price
@@ -226,12 +220,18 @@ const Detail = () => {
                       <Subtotal>
                         Subtotal : ₹{calculateSubtotal().toFixed(2)}
                       </Subtotal>
+                      <Subtotal>Date: {order.createdAt.split("T")[0]}</Subtotal>
+                      <Subtotal>
+                        Time: {order.createdAt.split("T")[1].split(".")[0]}
+                      </Subtotal>
                       <Subtotal>Table: {order.location}</Subtotal>
                       <Subtotal>Status: {order.status}</Subtotal>
                     </Line>
                   </Tile>
                   {order.status !== "Payment Done" ? (
-                    <Button text="Chat" small />
+                    <Buton>
+                      <Button text="Chat" small />
+                    </Buton>
                   ) : (
                     <></>
                   )}

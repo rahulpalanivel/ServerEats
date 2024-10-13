@@ -1,3 +1,4 @@
+import { CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
@@ -6,12 +7,12 @@ import { getOrders } from "../api";
 const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [reload, setReload] = useState(false);
+  //const [reload, setReload] = useState(false);
   const navigate = useNavigate();
 
   const getAllOrders = async () => {
     setLoading(true);
-    const token = localStorage.getItem("foodeli-app-token");
+    const token = localStorage.getItem("ServerEats");
     await getOrders(token).then((res) => {
       console.log(res.data);
       setOrders(res.data);
@@ -21,7 +22,7 @@ const Orders = () => {
 
   useEffect(() => {
     getAllOrders();
-  }, [reload]);
+  }, []);
 
   const showOrder = (item) => {
     navigate("/details", { state: item });
@@ -29,8 +30,8 @@ const Orders = () => {
 
   const Container = styled.div`
     padding: 80px 0px 0px 0px;
-    padding-bottom: 200px;
-    min-height: 500px;
+    padding-bottom: 100px;
+    min-height: 680px;
     max-width: 100%;
     overflow-y: scroll;
     display: flex;
@@ -165,35 +166,41 @@ const Orders = () => {
 
   return (
     <Container>
-      <Title>Your previous orders</Title>
-      <Wrapper>
-        <Left>
-          <Table>
-            <TableItem bold flex padding>
-              Location
-            </TableItem>
-            <TableItem bold>Date</TableItem>
-            <TableItem bold>Subtotal</TableItem>
-            <TableItem bold>Status</TableItem>
-          </Table>
-          {orders.map((item) => (
-            <Tile onClick={() => showOrder(item)}>
+      {loading ? (
+        <CircularProgress />
+      ) : (
+        <>
+          <Title>Your previous orders</Title>
+          <Wrapper>
+            <Left>
               <Table>
-                <TableItem flex>
-                  <Product>
-                    <Details>
-                      <Protitle>{item.location}</Protitle>
-                    </Details>
-                  </Product>
+                <TableItem bold flex padding>
+                  Location
                 </TableItem>
-                <TableItem>{item.createdAt.split("T")[0]}</TableItem>
-                <TableItem>${item.total_amount}</TableItem>
-                <TableItem>{item.status}</TableItem>
+                <TableItem bold>Date</TableItem>
+                <TableItem bold>Subtotal</TableItem>
+                <TableItem bold>Status</TableItem>
               </Table>
-            </Tile>
-          ))}
-        </Left>
-      </Wrapper>
+              {orders.map((item) => (
+                <Tile onClick={() => showOrder(item)}>
+                  <Table>
+                    <TableItem flex>
+                      <Product>
+                        <Details>
+                          <Protitle>{item.location}</Protitle>
+                        </Details>
+                      </Product>
+                    </TableItem>
+                    <TableItem>{item.createdAt.split("T")[0]}</TableItem>
+                    <TableItem>${item.total_amount}</TableItem>
+                    <TableItem>{item.status}</TableItem>
+                  </Table>
+                </Tile>
+              ))}
+            </Left>
+          </Wrapper>
+        </>
+      )}
     </Container>
   );
 };

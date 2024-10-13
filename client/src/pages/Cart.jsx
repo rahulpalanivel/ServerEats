@@ -11,12 +11,13 @@ import {
   placeOrder,
 } from "../api";
 import Button from "../components/Button";
+import TextInput from "../components/TextInput";
 import { openSnackbar } from "../redux/reducers/SnackbarSlice";
 
 const Container = styled.div`
   padding: 80px 0px 0px 0px;
-  padding-bottom: 200px;
-  min-height: 500px;
+  padding-bottom: 100px;
+  min-height: 680px;
   max-width: 100%;
   overflow-y: scroll;
   display: flex;
@@ -114,6 +115,7 @@ const Subtotal = styled.div`
   font-size: 22px;
   font-weight: 600;
   display: flex;
+  flex: 1;
   justify-content: space-between;
   color: ${({ theme }) => theme.primary};
 `;
@@ -155,10 +157,11 @@ const Cart = () => {
   const [reload, setReload] = useState(false);
   const [products, setProducts] = useState([]);
   const [buttonLoad, setButtonLoad] = useState(false);
+  const [location, setLocation] = useState("");
 
   const getProducts = async () => {
     setLoading(true);
-    const token = localStorage.getItem("foodeli-app-token");
+    const token = localStorage.getItem("ServerEats");
     await getCart(token).then((res) => {
       setProducts(res.data);
       setLoading(false);
@@ -179,9 +182,8 @@ const Cart = () => {
   const PlaceOrder = async () => {
     setButtonLoad(true);
     try {
-      const token = localStorage.getItem("foodeli-app-token");
+      const token = localStorage.getItem("ServerEats");
       const totalAmount = calculateSubtotal().toFixed(2);
-      const location = getLocation();
       const orderDetails = {
         products: products,
         location: location,
@@ -215,7 +217,7 @@ const Cart = () => {
   }, [reload]);
 
   const addCart = async (id) => {
-    const token = localStorage.getItem("foodeli-app-token");
+    const token = localStorage.getItem("ServerEats");
     await addToCart(token, { productId: id, quantity: 1 })
       .then((res) => {
         setReload(!reload);
@@ -232,7 +234,7 @@ const Cart = () => {
   };
 
   const removeCart = async (id, quantity, type) => {
-    const token = localStorage.getItem("foodeli-app-token");
+    const token = localStorage.getItem("ServerEats");
     let qnt = quantity > 0 ? 1 : null;
     if (type === "full") qnt = null;
     await deleteFromCart(token, {
@@ -254,7 +256,7 @@ const Cart = () => {
   };
 
   const deleteCart = async () => {
-    const token = localStorage.getItem("foodeli-app-token");
+    const token = localStorage.getItem("ServerEats");
     await deleteAllFromCart(token)
       .then((res) => {
         setReload(!reload);
@@ -355,15 +357,17 @@ const Cart = () => {
                       <Subtotal>
                         Subtotal : ₹{calculateSubtotal().toFixed(2)}
                       </Subtotal>
-                      <Buttonx>
-                        <Button
-                          text="Place Order"
+
+                      <Buttony>
+                        <TextInput
                           small
-                          onClick={PlaceOrder}
-                          isLoading={buttonLoad}
-                          isDisabled={buttonLoad}
+                          placeholder="Table Number"
+                          handelChange={(e) => {
+                            setLocation(e.target.value);
+                          }}
                         />
-                      </Buttonx>
+                      </Buttony>
+
                       <Buttonx>
                         <Button
                           text="Clear Cart"
@@ -373,9 +377,15 @@ const Cart = () => {
                           isDisabled={buttonLoad}
                         />
                       </Buttonx>
-                      <Buttony>
-                        <InputBox id="inp" placeholder="Table Number" />
-                      </Buttony>
+                      <Buttonx>
+                        <Button
+                          text="Place Order"
+                          small
+                          onClick={PlaceOrder}
+                          isLoading={buttonLoad}
+                          isDisabled={buttonLoad}
+                        />
+                      </Buttonx>
                     </Line>
                   </Tile>
                 </Left>
@@ -393,17 +403,7 @@ const Cart = () => {
                           gap: "6px",
                         }}
                       >
-                        <TextInput
-                          small
-                          placeholder="First Name"
-                          value={deliveryDetails.firstName}
-                          handelChange={(e) =>
-                            setDeliveryDetails({
-                              ...deliveryDetails,
-                              firstName: e.target.value,
-                            })
-                          }
-                        />
+                        
                         <TextInput
                           small
                           placeholder="Last Name"

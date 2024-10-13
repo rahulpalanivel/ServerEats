@@ -124,7 +124,7 @@ const ProductsCard = ({ product }) => {
   const navigate = useNavigate();
 
   const addCart = async (id) => {
-    const token = localStorage.getItem("foodeli-app-token");
+    const token = localStorage.getItem("ServerEats");
     await addToCart(token, { productId: id, quantity: 1 })
       .then((res) => {
         navigate("/cart");

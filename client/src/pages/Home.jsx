@@ -192,7 +192,7 @@ const Home = () => {
           <Service>Our Services</Service>
           <ServiceP>
             We offer various services to ensure complete customer satisfaction
-            and an unforgettable experiance.
+            and an unforgettable experience.
           </ServiceP>
           <Images>
             <Imgdiv>

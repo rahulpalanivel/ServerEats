@@ -1,4 +1,4 @@
-import { CircularProgress, Slider } from "@mui/material";
+import { Slider } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getAllProducts } from "../api";
@@ -9,8 +9,11 @@ import head1 from "../utils/Images/Head1.jpg";
 import head2 from "../utils/Images/Head2.jpg";
 import head3 from "../utils/Images/Head3.jpg";
 
-const Container = styled.div`
+const Container = styled.div``;
+
+const Box = styled.div`
   padding: 20px 0px 0px 0px;
+  min-height: 680px;
   height: 100%;
   padding-bottom: 20px;
   overflow-y: scroll;
@@ -122,11 +125,11 @@ const FoodListing = () => {
 
   const images = [head1, head2, head3];
   return (
-    <>
+    <Container>
       <Hero>
         <AutoImageSlider images={images} />
       </Hero>
-      <Container>
+      <Box>
         <Menu>
           {filter.map((filters) => (
             <FilterSection>
@@ -180,19 +183,13 @@ const FoodListing = () => {
         <Products>
           <MainTitle>Menu</MainTitle>
           <CardWrapper>
-            {loading ? (
-              <CircularProgress />
-            ) : (
-              <>
-                {products.map((product) => (
-                  <ProductCard key={product._id} product={product} />
-                ))}
-              </>
-            )}
+            {products.map((product) => (
+              <ProductCard key={product._id} product={product} />
+            ))}
           </CardWrapper>
         </Products>
-      </Container>
-    </>
+      </Box>
+    </Container>
   );
 };
 

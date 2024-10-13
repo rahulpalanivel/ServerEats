@@ -32,7 +32,7 @@ const Label = styled.label`
 
 const OutlinedInput = styled.div`
   border-radius: 8px;
-  border: 0.5px solid ${({ theme }) => theme.text_secondary};
+  border: 2px solid ${({ theme }) => theme.primary};
   background-color: transparent;
   color: ${({ theme }) => theme.text_primary};
   outline: none;
@@ -41,7 +41,7 @@ const OutlinedInput = styled.div`
   align-items: center;
   gap: 12px;
   &:focus-within {
-    border-color: ${({ theme }) => theme.secondary};
+    border-color: ${({ theme }) => theme.primary};
   }
   ${({ error, theme }) =>
     error &&
