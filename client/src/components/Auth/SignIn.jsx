@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { UserSignIn } from "../../api";
 import { openSnackbar } from "../../redux/reducers/SnackbarSlice";
@@ -43,6 +44,7 @@ const SignIn = ({ setOpenAuth }) => {
   const [buttonDisabled, setButtonDisabled] = useState(false);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const navigate = useNavigate();
 
   const validateInputs = () => {
     if (!email || !password) {
@@ -58,6 +60,11 @@ const SignIn = ({ setOpenAuth }) => {
     if (validateInputs()) {
       await UserSignIn({ email, password })
         .then((res) => {
+          if (res.data.user.role === "chef") {
+            navigate("/chef");
+          } else if (res.data.user.role === "admin") {
+            navigate("/admin");
+          }
           dispatch(loginSuccess(res.data));
           dispatch(
             openSnackbar({

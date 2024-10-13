@@ -2,8 +2,8 @@ import { CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getProductDetails } from "../api";
-import Button from "../components/Button";
+import { getProductDetails } from "../../api";
+import Button from "../../components/Button";
 
 const Container = styled.div`
   padding: 80px 0px 0px 0px;

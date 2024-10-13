@@ -2,7 +2,7 @@ import { CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getOrders } from "../api";
+import { getOrders } from "../../api";
 
 const Orders = () => {
   const [orders, setOrders] = useState([]);

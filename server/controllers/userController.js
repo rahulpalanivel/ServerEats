@@ -23,9 +23,13 @@ const UserRegister = async (req, res, next) => {
       password: hashedPassword,
     });
     const createdUser = await user.save();
-    const token = jwt.sign({ id: createdUser._id }, process.env.JWT, {
-      expiresIn: "9999 years",
-    });
+    const token = jwt.sign(
+      { id: createdUser._id, role: createdUser.role },
+      process.env.JWT,
+      {
+        expiresIn: "1 years",
+      }
+    );
     return res.status(201).json({ token, user });
   } catch (err) {
     next(err);
@@ -47,12 +51,12 @@ const UserLogin = async (req, res, next) => {
       return next(displayError(403, "Incorrect password"));
     }
 
-    const token = jwt.sign({ id: user._id }, process.env.JWT, {
-      expiresIn: "9999 years",
+    const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT, {
+      expiresIn: "1 years",
     });
     return res.status(200).json({ token, user });
   } catch (err) {
-    console.log(err.message)
+    console.log(err.message);
     next(err);
   }
 };

@@ -5,13 +5,15 @@ import styled, { ThemeProvider } from "styled-components";
 import Navbar from "./components/Navbar";
 import Aboutus from "./pages/Aboutus";
 import Authentication from "./pages/Authentication";
-import Cart from "./pages/Cart";
 import Contactus from "./pages/Contactus";
 import FoodDetails from "./pages/FoodDetails";
 import FoodListing from "./pages/FoodListing";
 import Home from "./pages/Home";
-import Detail from "./pages/OrderDetails";
-import Orders from "./pages/Orders";
+import AdminDashboard from "./pages/admin/AdminDashboard";
+import ChefHome from "./pages/chef/ChefHomePage";
+import Cart from "./pages/customer/Cart";
+import Detail from "./pages/customer/OrderDetails";
+import Orders from "./pages/customer/Orders";
 import { lightTheme } from "./utils/Themes";
 
 const Container = styled.div`
@@ -41,6 +43,10 @@ function App() {
             <Route path="/details" exact element={<Detail />} />
             <Route path="/aboutus" exact element={<Aboutus />} />
             <Route path="/contactus" exact element={<Contactus />} />
+
+            <Route path="/chef" exact element={<ChefHome />} />
+
+            <Route path="/admin" exact element={<AdminDashboard />} />
           </Routes>
           {openAuth && (
             <Authentication setOpenAuth={setOpenAuth} openAuth={openAuth} />

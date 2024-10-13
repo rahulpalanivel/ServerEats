@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import TextInput from "../components/TextInput";
-import img from "../utils/Images/reception.jpg";
+import img from "../utils/Images/rec.jpg";
 
 const Container = styled.div`
   display: flex;
@@ -22,7 +22,7 @@ const Section = styled.div`
 `;
 
 const Left = styled.div`
-  padding: 20px;
+  padding: 40px;
   width: 60%;
   gap: 32px;
 `;
@@ -30,7 +30,7 @@ const Left = styled.div`
 const Right = styled.div`
   display: flex;
   background-color: ${({ theme }) => theme.bg};
-  width: 40%;
+  width: 50%;
 `;
 
 const Img = styled.img`

@@ -9,10 +9,10 @@ import {
   deleteFromCart,
   getCart,
   placeOrder,
-} from "../api";
-import Button from "../components/Button";
-import TextInput from "../components/TextInput";
-import { openSnackbar } from "../redux/reducers/SnackbarSlice";
+} from "../../api";
+import Button from "../../components/Button";
+import TextInput from "../../components/TextInput";
+import { openSnackbar } from "../../redux/reducers/SnackbarSlice";
 
 const Container = styled.div`
   padding: 80px 0px 0px 0px;
