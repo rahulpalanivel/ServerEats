@@ -193,7 +193,7 @@ const Navbar = ({ setOpenAuth, openAuth, currentUser }) => {
         <Navlink to="/">Home</Navlink>
         <Navlink to="/dishes">Dishes</Navlink>
         <Navlink to="/aboutus">About us</Navlink>
-        <Navlink to="/contact">Contact</Navlink>
+        <Navlink to="/contactus">Contact</Navlink>
       </NavItems>
 
       {isOpen && (
@@ -207,7 +207,7 @@ const Navbar = ({ setOpenAuth, openAuth, currentUser }) => {
           <Navlink to="/orders" onClick={() => setIsOpen(false)}>
             Orders
           </Navlink>
-          <Navlink to="/contact" onClick={() => setIsOpen(false)}>
+          <Navlink to="/contactus" onClick={() => setIsOpen(false)}>
             Contact
           </Navlink>
           {currentUser ? (

@@ -1,11 +1,13 @@
 import styled from "styled-components";
 import aboutus from "../utils/Images/aboutus.jpg";
+
 const Container = styled.div`
   display: flex;
   flex-direction: row;
   padding: 80px 0px 0px 0px;
   min-height: 780px;
   height: 100%;
+  background-color: ${({ theme }) => theme.bg};
 `;
 
 const Title = styled.div`

@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar";
 import Aboutus from "./pages/Aboutus";
 import Authentication from "./pages/Authentication";
 import Cart from "./pages/Cart";
+import Contactus from "./pages/Contactus";
 import FoodDetails from "./pages/FoodDetails";
 import FoodListing from "./pages/FoodListing";
 import Home from "./pages/Home";
@@ -39,6 +40,7 @@ function App() {
             <Route path="/orders" exact element={<Orders />} />
             <Route path="/details" exact element={<Detail />} />
             <Route path="/aboutus" exact element={<Aboutus />} />
+            <Route path="/contactus" exact element={<Contactus />} />
           </Routes>
           {openAuth && (
             <Authentication setOpenAuth={setOpenAuth} openAuth={openAuth} />
