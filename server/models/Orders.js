@@ -13,7 +13,7 @@ const OrderSchema = new mongoose.Schema(
     status: {
       type: String,
       default: "Order-Pending",
-      // [Order pending, order accepted, preparing, delivered, paid]
+      // [Order pending, preparing, delivered]
     },
     user: {
       type: mongoose.Types.ObjectId,

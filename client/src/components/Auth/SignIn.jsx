@@ -61,9 +61,9 @@ const SignIn = ({ setOpenAuth }) => {
       await UserSignIn({ email, password })
         .then((res) => {
           if (res.data.user.role === "chef") {
-            navigate("/chef");
+            navigate("/chef", { state: res.data.user });
           } else if (res.data.user.role === "admin") {
-            navigate("/admin");
+            navigate("/admin", { state: res.data.user });
           }
           dispatch(loginSuccess(res.data));
           dispatch(
