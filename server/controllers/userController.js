@@ -8,7 +8,6 @@ const UserRegister = async (req, res, next) => {
   try {
     const { email, password, name } = req.body;
 
-    //Check for existing user
     const existingUser = await User.findOne({ email }).exec();
     if (existingUser) {
       return next(displayError(409, "Email is already in use."));
@@ -27,7 +26,7 @@ const UserRegister = async (req, res, next) => {
       { id: createdUser._id, role: createdUser.role },
       process.env.JWT,
       {
-        expiresIn: "1 years",
+        expiresIn: "10h",
       }
     );
     return res.status(201).json({ token, user });
@@ -40,7 +39,6 @@ const UserLogin = async (req, res, next) => {
   try {
     const { email, password } = req.body;
 
-    //Check for existing user
     const user = await User.findOne({ email: email }).exec();
     if (!user) {
       return next(displayError(409, "User not found."));
@@ -52,7 +50,7 @@ const UserLogin = async (req, res, next) => {
     }
 
     const token = jwt.sign({ id: user._id, role: user.role }, process.env.JWT, {
-      expiresIn: "1 years",
+      expiresIn: "10h",
     });
     return res.status(200).json({ token, user });
   } catch (err) {

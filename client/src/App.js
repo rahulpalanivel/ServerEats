@@ -10,7 +10,8 @@ import FoodDetails from "./pages/FoodDetails";
 import FoodListing from "./pages/FoodListing";
 import Home from "./pages/Home";
 import AdminDashboard from "./pages/admin/AdminDashboard";
-import ChefHome from "./pages/chef/ChefHomePage";
+// import ChefHome from "./pages/chef/ChefHomePage";
+import Chef from "./pages/chef/ChefPage";
 import Cart from "./pages/customer/Cart";
 import Detail from "./pages/customer/OrderDetails";
 import Orders from "./pages/customer/Orders";
@@ -44,7 +45,8 @@ function App() {
             <Route path="/aboutus" exact element={<Aboutus />} />
             <Route path="/contactus" exact element={<Contactus />} />
 
-            <Route path="/chef" exact element={<ChefHome />} />
+            {/* <Route path="/chef" exact element={<ChefHome />} /> */}
+            <Route path="/chef" exact element={<Chef />} />
 
             <Route path="/admin" exact element={<AdminDashboard />} />
           </Routes>

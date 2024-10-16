@@ -1,6 +1,6 @@
 import { CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getOrders, updateOrder } from "../../api";
 import Button from "../../components/Button";
@@ -12,6 +12,7 @@ const ChefHome = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
   const [reload, setReload] = useState(false);
+  const navigate = useNavigate();
   const getAllOrders = async () => {
     setLoading(true);
     const token = localStorage.getItem("ServerEats");
@@ -35,29 +36,20 @@ const ChefHome = () => {
     getAllOrders();
   }, [reload]);
 
+  const showOrder = (item) => {
+    navigate("/details", { state: item });
+  };
+
   const Container = styled.div`
-    padding: 80px 0px 0px 0px;
-    padding-bottom: 100px;
-    min-height: 680px;
-    max-width: 100%;
+    // padding: 80px 0px 0px 0px;
+    // padding-bottom: 100px;
+    // min-height: 680px;
+    // max-width: 100%;
     overflow-y: scroll;
     display: flex;
     align-items: center;
     flex-direction: column;
-    gap: 30px;
-    @media (max-width: 768px) {
-      padding: 20px 12px;
-    }
     background: ${({ theme }) => theme.bg};
-  `;
-
-  const ProTitle = styled.div`
-    padding: 10px;
-    font-size: 36px;
-    font-weight: 500;
-    width: 95%;
-    color: ${({ theme }) => theme.primary};
-    text-align: Left;
   `;
 
   const Title = styled.div`
@@ -127,7 +119,6 @@ font-size: 20px;`}
 
   return (
     <Container>
-      <ProTitle>Welcome chef: {name}</ProTitle>
       {loading ? (
         <CircularProgress />
       ) : (
@@ -144,7 +135,7 @@ font-size: 20px;`}
                 <TableItem bold>Status</TableItem>
               </Table>
               {orders.map((item) => (
-                <Tile>
+                <Tile onClick={() => showOrder(item)}>
                   <Table>
                     <TableItem flex>
                       <Product>

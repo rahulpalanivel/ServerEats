@@ -24,12 +24,6 @@ app.use("/api/food/", FoodRoutes);
 // error handler
 app.use(errorHandler);
 
-app.get("/", async (req, res) => {
-  res.status(200).json({
-    message: "Hello ",
-  });
-});
-
 connectDb();
 try {
   app.listen(port, () => console.log(`Server Running on port ${port}`));

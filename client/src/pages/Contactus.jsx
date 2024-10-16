@@ -1,4 +1,5 @@
 import styled from "styled-components";
+import Button from "../components/Button";
 import TextInput from "../components/TextInput";
 import img from "../utils/Images/rec.jpg";
 
@@ -47,6 +48,12 @@ const Text = styled.div`
   color: ${({ theme }) => theme.primary};
 `;
 
+const Btn = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 20px;
+`;
+
 const Contactus = () => {
   return (
     <Container>
@@ -76,6 +83,9 @@ const Contactus = () => {
             rows={7}
             handelChange={(e) => {}}
           />
+          <Btn>
+            <Button text="Submit" small />
+          </Btn>
         </Left>
         <Right>
           <Img src={img} />
