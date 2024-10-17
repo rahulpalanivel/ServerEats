@@ -8,6 +8,7 @@ import ProtectedRoute from "./config/routeProtector";
 import Aboutus from "./pages/Aboutus";
 import Authentication from "./pages/Authentication";
 import Contactus from "./pages/Contactus";
+import Error from "./pages/Error";
 import FoodDetails from "./pages/FoodDetails";
 import FoodListing from "./pages/FoodListing";
 import Home from "./pages/Home";
@@ -47,6 +48,7 @@ function App() {
             <Route path="/dishes" exact element={<FoodListing />} />
             <Route path="/aboutus" exact element={<Aboutus />} />
             <Route path="/contactus" exact element={<Contactus />} />
+            <Route path="*" exact element={<Error />} />
 
             <Route
               path="/auth"
