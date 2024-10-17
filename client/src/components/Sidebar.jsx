@@ -1,19 +1,32 @@
 import DoneOutlinedIcon from "@mui/icons-material/DoneOutlined";
 import HistoryIcon from "@mui/icons-material/History";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
+import LogoutIcon from "@mui/icons-material/Logout";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import { useDispatch } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import { logout } from "../redux/reducers/UserSlice";
+
 import styled from "styled-components";
 
 const Sidebar = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const Cheflogout = () => {
+    navigate("/");
+    dispatch(logout());
+  };
+
   const Container = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 20px 10px 0px 10px;
+    padding: 20px 0px 0px 10px;
     height: 95%;
     background-color: white;
     border-radius: 15px;
-    gap: 20px;
+    gap: 30px;
     border: 1px solid ${({ theme }) => theme.bg};
     box-shadow: 0px 0px 2px 0px grey;
   `;
@@ -48,6 +61,9 @@ const Sidebar = () => {
       </Button>
       <Button>
         <SettingsOutlinedIcon></SettingsOutlinedIcon>Settings
+      </Button>
+      <Button onClick={() => Cheflogout()}>
+        <LogoutIcon></LogoutIcon>Logout
       </Button>
     </Container>
   );

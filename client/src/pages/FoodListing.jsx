@@ -12,38 +12,28 @@ import head3 from "../utils/Images/Head3.jpg";
 const Container = styled.div``;
 
 const Box = styled.div`
-  padding: 20px 0px 0px 0px;
-  min-height: 680px;
-  height: 100%;
-  padding-bottom: 20px;
-  overflow-y: scroll;
   display: flex;
-  align-items: center;
-  flex-direction: row;
+  padding: 20px 0;
   background: ${({ theme }) => theme.bg};
 `;
 
 const Menu = styled.div`
   padding: 20px;
   width: 25%;
-  position: absolute;
-  top: 700px;
-  display: flex;
-  flex-direction: column;
+  position: sticky;
+  top: 90px;
   gap: 4px;
 `;
+
 const Products = styled.div`
-  margin-left: 30%;
-  width: 100%;
+  flex: 1; /* Allow Products to take the remaining space */
 `;
+
 const CardWrapper = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 24px;
   justify-content: center;
-  @media (max-width: 760px) {
-    gap: 16px;
-  }
 `;
 
 const FilterSection = styled.div`
@@ -53,6 +43,7 @@ const FilterSection = styled.div`
   gap: 16px;
   padding: 12px;
 `;
+
 const Title = styled.div`
   color: ${({ theme }) => theme.primary};
   font-size: 20px;
@@ -60,22 +51,24 @@ const Title = styled.div`
 `;
 
 const MainTitle = styled.div`
-  padding: 20px;
   text-align: center;
   color: ${({ theme }) => theme.primary};
   font-size: 40px;
   font-weight: 500;
+  padding: 30px;
 `;
 
 const SubTitle = styled.div`
   font-size: 16px;
   font-weight: 300;
 `;
+
 const Item = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 10px;
 `;
+
 const Selectableitem = styled.div`
   cursor: pointer;
   display: flex;
@@ -96,7 +89,7 @@ const Selectableitem = styled.div`
 `;
 
 const Hero = styled.div`
-  padding: 100px 0px 0px 0px;
+  padding: 100px 0 0 0;
 `;
 
 const FoodListing = () => {
@@ -104,6 +97,7 @@ const FoodListing = () => {
   const [products, setProducts] = useState([]);
   const [priceRange, setPriceRange] = useState([0, 1000]); // Default price range
   const [selectedCategories, setSelectedCategories] = useState([]); // Default selected categories
+
   const getFilteredProductsData = async () => {
     setLoading(true);
     // Call the API function for filtered products
@@ -124,6 +118,7 @@ const FoodListing = () => {
   }, [priceRange, selectedCategories]);
 
   const images = [head1, head2, head3];
+
   return (
     <Container>
       <Hero>
@@ -132,7 +127,7 @@ const FoodListing = () => {
       <Box>
         <Menu>
           {filter.map((filters) => (
-            <FilterSection>
+            <FilterSection key={filters.name}>
               <Title>{filters.name}</Title>
               {filters.value === "price" ? (
                 <Slider
@@ -153,7 +148,7 @@ const FoodListing = () => {
               ) : filters.value === "category" ? (
                 filters.sub.map((item) => (
                   <>
-                    <SubTitle>{item.name}</SubTitle>
+                    <SubTitle key={item.name}>{item.name}</SubTitle>
                     <Item>
                       {item.items.map((it) => (
                         <Selectableitem

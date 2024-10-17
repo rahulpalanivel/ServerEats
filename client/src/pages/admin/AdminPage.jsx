@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import Sidebar from "../../components/Sidebar";
-import ChefHome from "./ChefHomePage";
+import AdminDashboard from "./AdminDashboard";
 
-const Chef = () => {
+const Admin = () => {
   const Container = styled.div`
     display: flex;
     flex-direction: row;
@@ -29,10 +29,10 @@ const Chef = () => {
         <Sidebar />
       </Left>
       <Right>
-        <ChefHome />
+        <AdminDashboard />
       </Right>
     </Container>
   );
 };
 
-export default Chef;
+export default Admin;
