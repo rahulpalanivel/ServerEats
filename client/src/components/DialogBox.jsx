@@ -9,16 +9,16 @@ import {
 import styled from "styled-components";
 import Button from "../components/Button";
 
-const DialogBox = ({ isOpen, close, Confirm, Cancel }) => {
+const DialogBox = ({ isOpen, close, Confirm, Cancel, text }) => {
   const Container = styled.div``;
 
   return (
     <Container>
       <Dialog open={isOpen} onClose={close}>
-        <DialogTitle>Confirm Logout</DialogTitle>
+        <DialogTitle>Confirm {text}</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            Are You Sure You want to Logout?
+            Are You Sure You want to {text}?
           </DialogContentText>
         </DialogContent>
         <DialogActions>

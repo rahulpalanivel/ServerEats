@@ -3,6 +3,7 @@ const {
   placeOrder,
   getOrdersByCustomer,
   getOrders,
+  getOrdersByChef,
   updateOrder,
 } = require("../controllers/ordersController.js");
 
@@ -19,6 +20,7 @@ router.get(
   verifyRole("customer", "chef", "admin"),
   getOrdersByCustomer
 );
+router.get("/chef", verifyToken, verifyRole("chef", "admin"), getOrdersByChef);
 router.put("/", verifyToken, verifyRole("chef"), updateOrder);
 
 module.exports = router;

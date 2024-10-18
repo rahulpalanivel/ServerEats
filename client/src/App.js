@@ -12,6 +12,10 @@ import FoodDetails from "./pages/FoodDetails";
 import FoodListing from "./pages/FoodListing";
 import Home from "./pages/Home";
 import Admin from "./pages/admin/AdminPage";
+import ChefAccOrders from "./pages/chef/ChefAccOrders.jsx";
+import ChefAllOrders from "./pages/chef/ChefAllOrders.jsx";
+import ChefHome from "./pages/chef/ChefHome.jsx";
+import ChefOrders from "./pages/chef/ChefOrders";
 import Chef from "./pages/chef/ChefPage";
 import Cart from "./pages/customer/Cart";
 import Detail from "./pages/customer/OrderDetails";
@@ -61,7 +65,21 @@ function App() {
               <Route path="/orders" exact element={<Orders />} />
               <Route path="/details" exact element={<Detail />} />
 
-              <Route path="/chef" exact element={<Chef />} />
+              <Route element={<Chef />}>
+                <Route path="/chef/" exact element={<ChefHome />} />
+                <Route path="/chef/orders" exact element={<ChefOrders />} />
+                <Route
+                  path="/chef/accorders"
+                  exact
+                  element={<ChefAccOrders />}
+                />
+                <Route
+                  path="/chef/allorders"
+                  exact
+                  element={<ChefAllOrders />}
+                />
+              </Route>
+
               <Route path="/admin" exact element={<Admin />} />
             </Route>
           </Routes>

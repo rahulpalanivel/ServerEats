@@ -13,6 +13,7 @@ import {
   placeOrder,
 } from "../../api";
 import Button from "../../components/Button";
+import DialogBox from "../../components/DialogBox";
 import TextInput from "../../components/TextInput";
 import { openSnackbar } from "../../redux/reducers/SnackbarSlice";
 
@@ -141,18 +142,6 @@ const Buttony = styled.div`
   padding: 20px;
 `;
 
-const InputBox = styled.input`
-  padding: 0px 10px 0px 0px;
-  height: 40px;
-  border: solid 2px ${({ theme }) => theme.primary};
-  border-radius: 10px;
-  background: white;
-
-  &:focus {
-    border: solid 2px ${({ theme }) => theme.primary};
-  }
-`;
-
 const Cart = () => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
@@ -160,6 +149,7 @@ const Cart = () => {
   const [products, setProducts] = useState([]);
   const [buttonLoad, setButtonLoad] = useState(false);
   const [location, setLocation] = useState("");
+  const [dialog, setDialog] = useState(false);
 
   const getProducts = async () => {
     setLoading(true);
@@ -216,6 +206,19 @@ const Cart = () => {
       );
       setButtonLoad(false);
     }
+  };
+
+  const handleOpenDialog = () => {
+    setDialog(true);
+  };
+
+  const handleConfirm = async () => {
+    await PlaceOrder();
+    setDialog(false);
+  };
+
+  const handleCancel = () => {
+    setDialog(false);
   };
 
   useEffect(() => {
@@ -388,95 +391,21 @@ const Cart = () => {
                         <Button
                           text="Place Order"
                           small
-                          onClick={PlaceOrder}
+                          onClick={handleOpenDialog}
                           isLoading={buttonLoad}
                           isDisabled={buttonLoad}
                         />
                       </Buttonx>
+                      <DialogBox
+                        isOpen={dialog}
+                        close={() => setDialog(false)}
+                        Confirm={handleConfirm}
+                        Cancel={handleCancel}
+                        text="Place Order"
+                      />
                     </Line>
                   </Tile>
                 </Left>
-
-                {/* <Right>
-                  <Subtotal>
-                    Subtotal : ${calculateSubtotal().toFixed(2)}
-                  </Subtotal>
-                  <Delivery>
-                    Delivery Details:
-                    <div>
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: "6px",
-                        }}
-                      >
-                        
-                        <TextInput
-                          small
-                          placeholder="Last Name"
-                          value={deliveryDetails.lastName}
-                          handelChange={(e) =>
-                            setDeliveryDetails({
-                              ...deliveryDetails,
-                              lastName: e.target.value,
-                            })
-                          }
-                        />
-                      </div>
-                      <TextInput
-                        small
-                        placeholder="Email Address"
-                        value={deliveryDetails.emailAddress}
-                        handelChange={(e) =>
-                          setDeliveryDetails({
-                            ...deliveryDetails,
-                            emailAddress: e.target.value,
-                          })
-                        }
-                      />
-                      <TextInput
-                        small
-                        placeholder="Phone no. +91 XXXXX XXXXX"
-                        value={deliveryDetails.phoneNumber}
-                        handelChange={(e) =>
-                          setDeliveryDetails({
-                            ...deliveryDetails,
-                            phoneNumber: e.target.value,
-                          })
-                        }
-                      />
-                      <TextInput
-                        small
-                        textArea
-                        rows="5"
-                        placeholder="Complete Address (Address, State, Country, Pincode)"
-                        value={deliveryDetails.completeAddress}
-                        handelChange={(e) =>
-                          setDeliveryDetails({
-                            ...deliveryDetails,
-                            completeAddress: e.target.value,
-                          })
-                        }
-                      />
-                    </div>
-                  </Delivery>
-                  <Delivery>
-                    Payment Details:
-                    <div>
-                      <TextInput small placeholder="Card Number" />
-                      <div
-                        style={{
-                          display: "flex",
-                          gap: "6px",
-                        }}
-                      >
-                        <TextInput small placeholder="Expiry Date" />
-                        <TextInput small placeholder="CVV" />
-                      </div>
-                      <TextInput small placeholder="Card Holder name" />
-                    </div>
-                  </Delivery>
-                </Right> */}
               </Wrapper>
             )}
           </>

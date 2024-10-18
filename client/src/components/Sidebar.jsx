@@ -43,6 +43,7 @@ const Sidebar = () => {
     gap: 30px;
     border: 1px solid ${({ theme }) => theme.bg};
     box-shadow: 0px 0px 2px 0px grey;
+    min-height: 740px;
   `;
   const Button = styled.div`
     color: grey;
@@ -60,18 +61,19 @@ const Sidebar = () => {
   `;
   return (
     <Container>
-      <Button onClick={() => {}}>
+      <Button onClick={() => navigate("/chef/")}>
         <HomeOutlinedIcon></HomeOutlinedIcon>Home
       </Button>
-      <Button onClick={() => {}}>
-        <HistoryIcon></HistoryIcon>Get All Orders
+      <Button onClick={() => navigate("/chef/orders")}>
+        <HistoryIcon></HistoryIcon>Active Orders
       </Button>
-      <Button onClick={() => {}}>
+
+      <Button onClick={() => navigate("/chef/accorders")}>
+        <DoneOutlinedIcon></DoneOutlinedIcon> Accepted Orders
+      </Button>
+      <Button onClick={() => navigate("/chef/allorders")}>
         <MoreHorizOutlinedIcon></MoreHorizOutlinedIcon>
-        Get Pending Orders
-      </Button>
-      <Button onClick={() => {}}>
-        <DoneOutlinedIcon></DoneOutlinedIcon>Get Accepted Orders
+        Orders History
       </Button>
       <Button>
         <SettingsOutlinedIcon></SettingsOutlinedIcon>Settings
@@ -84,6 +86,7 @@ const Sidebar = () => {
         close={() => setDialog(false)}
         Confirm={handleConfirm}
         Cancel={handleCancel}
+        text="Logout"
       />
     </Container>
   );

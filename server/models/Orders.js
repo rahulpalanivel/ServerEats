@@ -15,6 +15,10 @@ const OrderSchema = new mongoose.Schema(
       default: "Order-Pending",
       // [Order pending, preparing, delivered]
     },
+    assigned: {
+      type: mongoose.Types.ObjectId,
+      ref: "User",
+    },
     user: {
       type: mongoose.Types.ObjectId,
       ref: "User",

@@ -46,6 +46,11 @@ export const getOrdersByCustomer = async (token) =>
     headers: { Authorization: `Bearer ${token}` },
   });
 
+export const getOrdersByChef = async (token) =>
+  await API.get(`/user/orders/chef`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
 export const getOrders = async (token) =>
   await API.get(`/user/orders/`, {
     headers: { Authorization: `Bearer ${token}` },

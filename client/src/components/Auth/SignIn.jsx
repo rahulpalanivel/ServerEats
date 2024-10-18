@@ -63,7 +63,7 @@ const SignIn = ({ setOpenAuth }) => {
       await UserSignIn({ email, password })
         .then((res) => {
           if (res.data.user.role === "chef") {
-            navigate("/chef", { state: res.data.user });
+            navigate("/chef/", { state: res.data.user });
           } else if (res.data.user.role === "admin") {
             navigate("/admin", { state: res.data.user });
           } else {

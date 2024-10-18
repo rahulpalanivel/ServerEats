@@ -1,6 +1,6 @@
+import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Sidebar from "../../components/Sidebar";
-import ChefHome from "./ChefHomePage";
 
 const Chef = () => {
   const Container = styled.div`
@@ -29,7 +29,7 @@ const Chef = () => {
         <Sidebar />
       </Left>
       <Right>
-        <ChefHome />
+        <Outlet />
       </Right>
     </Container>
   );

@@ -1,13 +1,13 @@
 import { CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useLocation, useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getOrders, updateOrder } from "../../api";
-import Button from "../../components/Button";
+import { getOrdersByChef, updateOrder } from "../../api";
 
-const ChefHome = () => {
-  const location = useLocation();
-  const name = location.state.name;
+const ChefAllOrders = () => {
+  const { currentUser } = useSelector((state) => state.user);
+  const user = currentUser;
 
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -16,18 +16,20 @@ const ChefHome = () => {
   const getAllOrders = async () => {
     setLoading(true);
     const token = localStorage.getItem("ServerEats");
-    await getOrders(token).then((res) => {
+    await getOrdersByChef(token).then((res) => {
       setOrders(
-        res.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+        res.data
+          .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+          .filter((a) => a.status === "Delivered")
       );
       setLoading(false);
     });
   };
 
-  const updateOrders = async (id, status) => {
+  const updateOrders = async (id, status, assign) => {
     setLoading(true);
     const token = localStorage.getItem("ServerEats");
-    const data = { id: id, status: status };
+    const data = { id: id, status: status, assign: assign };
     await updateOrder(token, data).then((res) => {
       setLoading(false);
       setReload(!reload);
@@ -47,6 +49,7 @@ const ChefHome = () => {
     // padding-bottom: 100px;
     // min-height: 680px;
     // max-width: 100%;
+    height: 100%;
     overflow-y: scroll;
     display: flex;
     align-items: center;
@@ -69,13 +72,11 @@ const ChefHome = () => {
     width: 95%;
   `;
   const Left = styled.div`
+    padding: 10px;
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 30px;
-    @media (max-width: 750px) {
-      flex: 1.2;
-    }
   `;
   const Table = styled.div`
     padding: 10px;
@@ -125,7 +126,7 @@ font-size: 20px;`}
         <CircularProgress />
       ) : (
         <>
-          <Title>All orders</Title>
+          <Title>Orders History</Title>
           <Wrapper>
             <Left>
               <Table>
@@ -149,29 +150,6 @@ font-size: 20px;`}
                     <TableItem>{item.createdAt.split("T")[0]}</TableItem>
                     <TableItem>${item.total_amount}</TableItem>
                     <TableItem>{item.status}</TableItem>
-                    {item.status === "Order-Pending" ? (
-                      <TableItem>
-                        <Button
-                          text="Accept Order"
-                          small
-                          onClick={() => {
-                            updateOrders(item._id, "preparing");
-                          }}
-                        />
-                      </TableItem>
-                    ) : item.status === "preparing" ? (
-                      <TableItem>
-                        <Button
-                          text="Deliver"
-                          small
-                          onClick={() => {
-                            updateOrders(item._id, "Delivered");
-                          }}
-                        />
-                      </TableItem>
-                    ) : (
-                      <></>
-                    )}
                   </Table>
                 </Tile>
               ))}
@@ -183,4 +161,4 @@ font-size: 20px;`}
   );
 };
 
-export default ChefHome;
+export default ChefAllOrders;

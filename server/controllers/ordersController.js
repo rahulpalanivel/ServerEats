@@ -49,15 +49,26 @@ const getOrdersByCustomer = async (req, res, next) => {
   }
 };
 
+const getOrdersByChef = async (req, res, next) => {
+  try {
+    const userJWT = req.user;
+    const orders = await Orders.find({ assigned: userJWT.id });
+    return res.status(200).json(orders);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const updateOrder = async (req, res, next) => {
   try {
-    const { id, status } = req.body;
+    const { id, status, assign } = req.body;
     const order = await Orders.findById(id);
 
     if (!order) {
       return next(404, "Food not found");
     }
     order.status = status;
+    order.assigned = assign;
     await order.save();
     return res.status(200).json(order);
   } catch (err) {
@@ -65,4 +76,10 @@ const updateOrder = async (req, res, next) => {
   }
 };
 
-module.exports = { placeOrder, getOrders, getOrdersByCustomer, updateOrder };
+module.exports = {
+  placeOrder,
+  getOrders,
+  getOrdersByCustomer,
+  getOrdersByChef,
+  updateOrder,
+};
