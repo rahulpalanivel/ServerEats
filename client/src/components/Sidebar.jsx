@@ -4,19 +4,33 @@ import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
+import { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
 import { logout } from "../redux/reducers/UserSlice";
 
 import styled from "styled-components";
+import DialogBox from "./DialogBox";
 
 const Sidebar = () => {
+  const [dialog, setDialog] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const Cheflogout = () => {
+  const handleOpenDialog = () => {
+    setDialog(true);
+  };
+
+  const handleConfirm = () => {
+    setDialog(false);
     navigate("/");
+
     dispatch(logout());
+  };
+
+  const handleCancel = () => {
+    setDialog(false);
   };
 
   const Container = styled.div`
@@ -62,9 +76,15 @@ const Sidebar = () => {
       <Button>
         <SettingsOutlinedIcon></SettingsOutlinedIcon>Settings
       </Button>
-      <Button onClick={() => Cheflogout()}>
+      <Button onClick={handleOpenDialog}>
         <LogoutIcon></LogoutIcon>Logout
       </Button>
+      <DialogBox
+        isOpen={dialog}
+        close={() => setDialog(false)}
+        Confirm={handleConfirm}
+        Cancel={handleCancel}
+      />
     </Container>
   );
 };

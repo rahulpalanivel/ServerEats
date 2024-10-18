@@ -2,6 +2,8 @@ import { DeleteOutline } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 import {
   addToCart,
@@ -175,10 +177,6 @@ const Cart = () => {
     );
   };
 
-  const getLocation = () => {
-    return document.getElementById("inp").value;
-  };
-
   const PlaceOrder = async () => {
     setButtonLoad(true);
     try {
@@ -190,7 +188,14 @@ const Cart = () => {
         totalAmount: totalAmount,
       };
 
+      if (location.trim().length === 0) {
+        const err = new Error();
+        err.message = "Enter Table Number";
+        throw err;
+      }
+
       await placeOrder(token, orderDetails);
+      toast.success("Order placed successfully");
       dispatch(
         openSnackbar({
           message: "Order placed successfully",
@@ -202,6 +207,7 @@ const Cart = () => {
       await deleteCart();
       setReload(!reload);
     } catch (err) {
+      toast.error(err.message);
       dispatch(
         openSnackbar({
           message: "Failed to place order. Please try again.",
@@ -273,6 +279,7 @@ const Cart = () => {
   };
   return (
     <Container>
+      <ToastContainer />
       <Section>
         <Title>Your Items in Cart</Title>
         {loading ? (

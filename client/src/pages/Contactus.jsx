@@ -84,7 +84,7 @@ const Contactus = () => {
             handelChange={(e) => {}}
           />
           <Btn>
-            <Button text="Submit" small />
+            <Button text="Submit" small onClick={() => {}} />
           </Btn>
         </Left>
         <Right>

@@ -1,6 +1,7 @@
 import { Close } from "@mui/icons-material";
 import { Modal } from "@mui/material";
 import React, { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import SignIn from "../components/Auth/SignIn";
 import SignUp from "../components/Auth/SignUp";
@@ -88,6 +89,11 @@ const TextButton = styled.div`
 
 const Authentication = ({ openAuth, setOpenAuth }) => {
   const [login, setLogin] = useState(true);
+  const navigate = useNavigate();
+  const close = () => {
+    setOpenAuth(false);
+    navigate("/");
+  };
   return (
     <Modal open={openAuth} onClose={() => setOpenAuth(false)}>
       <Container>
@@ -97,7 +103,7 @@ const Authentication = ({ openAuth, setOpenAuth }) => {
         </Left>
         <Right>
           <CloseButton>
-            <Close onClick={() => setOpenAuth(false)} />
+            <Close onClick={() => close()} />
           </CloseButton>
           {login ? (
             <>

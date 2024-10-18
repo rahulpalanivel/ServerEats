@@ -3,7 +3,6 @@ import { useSelector } from "react-redux";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import styled, { ThemeProvider } from "styled-components";
 import Navbar from "./components/Navbar";
-import Footer from "./components/footer";
 import ProtectedRoute from "./config/routeProtector";
 import Aboutus from "./pages/Aboutus";
 import Authentication from "./pages/Authentication";
@@ -42,13 +41,13 @@ function App() {
             <></>
           )}
           <Routes>
-            <Route path="/" exact element={<Home />} />
+            <Route path="/" element={<Home />} />
 
-            <Route path="/dishes/:id" exact element={<FoodDetails />} />
-            <Route path="/dishes" exact element={<FoodListing />} />
-            <Route path="/aboutus" exact element={<Aboutus />} />
-            <Route path="/contactus" exact element={<Contactus />} />
-            <Route path="*" exact element={<Error />} />
+            <Route path="/dishes/:id" element={<FoodDetails />} />
+            <Route path="/dishes" element={<FoodListing />} />
+            <Route path="/aboutus" element={<Aboutus />} />
+            <Route path="/contactus" element={<Contactus />} />
+            <Route path="*" element={<Error />} />
 
             <Route
               path="/auth"
@@ -71,11 +70,11 @@ function App() {
             <Authentication setOpenAuth={setOpenAuth} openAuth={openAuth} />
           )}
 
-          {currentUser === null || currentUser.role === "customer" ? (
+          {/* {currentUser === null || currentUser.role === "customer" ? (
             <Footer />
           ) : (
             <></>
-          )}
+          )} */}
         </Container>
       </BrowserRouter>
     </ThemeProvider>

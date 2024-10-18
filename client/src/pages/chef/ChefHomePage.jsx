@@ -17,7 +17,9 @@ const ChefHome = () => {
     setLoading(true);
     const token = localStorage.getItem("ServerEats");
     await getOrders(token).then((res) => {
-      setOrders(res.data);
+      setOrders(
+        res.data.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
+      );
       setLoading(false);
     });
   };

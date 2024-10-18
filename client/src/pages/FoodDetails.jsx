@@ -1,7 +1,9 @@
 import { CircularProgress, Rating } from "@mui/material";
 import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import { useNavigate, useParams } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { useParams } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 import { addToCart, getProductDetails } from "../api";
 import Button from "../components/Button";
@@ -74,19 +76,6 @@ const Price = styled.div`
   font-weight: 500;
   color: ${({ theme }) => theme.text_primary};
 `;
-// const Span = styled.div`
-//   font-size: 16px;
-//   font-weight: 500;
-//   color: ${({ theme }) => theme.text_secondary + 60};
-//   text-decoration: line-through;
-//   text-decoration-color: ${({ theme }) => theme.text_secondary + 50};
-// `;
-
-// const Percent = styled.div`
-//   font-size: 16px;
-//   font-weight: 500;
-//   color: green;
-// `;
 
 const Ingridents = styled.div`
   font-size: 16px;
@@ -124,10 +113,13 @@ const ButtonWrapper = styled.div`
 const FoodDetails = () => {
   const { id } = useParams();
   const dispatch = useDispatch();
-  const navigate = useNavigate();
   const [cartLoading, setCartLoading] = useState(false);
   const [loading, setLoading] = useState(false);
   const [product, setProduct] = useState();
+  const notify = () => toast.success("Item added to cart Successfully");
+  const notifyy = () => toast.error("Please SignIn/SignUp to proceed");
+  const { currentUser } = useSelector((state) => state.user);
+  const user = currentUser;
 
   const getProduct = async () => {
     setLoading(true);
@@ -135,6 +127,15 @@ const FoodDetails = () => {
       setProduct(res.data);
       setLoading(false);
     });
+  };
+
+  const cartAdd = () => {
+    addCart();
+    notify();
+  };
+
+  const add = () => {
+    user === null ? notifyy() : cartAdd();
   };
 
   useEffect(() => {
@@ -194,7 +195,20 @@ const FoodDetails = () => {
                 full
                 outlined
                 isLoading={cartLoading}
-                onClick={() => addCart()}
+                onClick={() => add()}
+              />
+              <ToastContainer
+                position="top-right"
+                autoClose={5000}
+                hideProgressBar={false}
+                progressStyle={{ Color: "green" }}
+                newestOnTop={false}
+                closeOnClick
+                rtl={false}
+                pauseOnFocusLoss
+                draggable
+                pauseOnHover
+                theme="light"
               />
               <Button text="Order Now" full onClick={() => {}} />
             </ButtonWrapper>

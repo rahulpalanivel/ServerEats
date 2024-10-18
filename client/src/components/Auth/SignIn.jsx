@@ -1,6 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { ToastContainer, toast } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 import { UserSignIn } from "../../api";
 import { openSnackbar } from "../../redux/reducers/SnackbarSlice";
@@ -64,19 +66,18 @@ const SignIn = ({ setOpenAuth }) => {
             navigate("/chef", { state: res.data.user });
           } else if (res.data.user.role === "admin") {
             navigate("/admin", { state: res.data.user });
+          } else {
+            navigate("/");
           }
           dispatch(loginSuccess(res.data));
-          dispatch(
-            openSnackbar({
-              message: "Login Successful",
-              severity: "success",
-            })
-          );
+
           setLoading(false);
           setButtonDisabled(false);
           setOpenAuth(false);
         })
         .catch((err) => {
+          console.log(err);
+          toast.error(err.response.data.message);
           setLoading(false);
           setButtonDisabled(false);
           dispatch(
@@ -91,6 +92,7 @@ const SignIn = ({ setOpenAuth }) => {
 
   return (
     <Container>
+      <ToastContainer />
       <div>
         <Title>Welcome to ServerEats 👋</Title>
         <Span>Please login with your details here</Span>

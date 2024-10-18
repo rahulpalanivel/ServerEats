@@ -1,11 +1,13 @@
 import { CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 import { getAllProducts } from "../api";
 import Button from "../components/Button";
 import ProductCategoryCard from "../components/cards/ProductCategoryCard";
 import ProductsCard from "../components/cards/ProductsCard";
+import Footer from "../components/footer";
 import AutoImageSlider from "../components/imageSlider";
 import { category } from "../utils/data";
 import Cover from "../utils/Images/cover.jpg";
@@ -253,6 +255,7 @@ const Home = () => {
           )}
         </Section>
       </Container>
+      <Footer />
     </>
   );
 };
