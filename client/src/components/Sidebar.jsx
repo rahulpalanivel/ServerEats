@@ -5,7 +5,7 @@ import LogoutIcon from "@mui/icons-material/Logout";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import { logout } from "../redux/reducers/UserSlice";
@@ -17,6 +17,9 @@ const Sidebar = () => {
   const [dialog, setDialog] = useState(false);
   const dispatch = useDispatch();
   const navigate = useNavigate();
+
+  const { currentUser } = useSelector((state) => state.user);
+  const user = currentUser;
 
   const handleOpenDialog = () => {
     setDialog(true);
@@ -61,26 +64,54 @@ const Sidebar = () => {
   `;
   return (
     <Container>
-      <Button onClick={() => navigate("/chef/")}>
-        <HomeOutlinedIcon></HomeOutlinedIcon>Home
-      </Button>
-      <Button onClick={() => navigate("/chef/orders")}>
-        <HistoryIcon></HistoryIcon>Active Orders
-      </Button>
+      {user.role === "chef" ? (
+        <>
+          <Button onClick={() => navigate("/chef/")}>
+            <HomeOutlinedIcon></HomeOutlinedIcon>Home
+          </Button>
 
-      <Button onClick={() => navigate("/chef/accorders")}>
-        <DoneOutlinedIcon></DoneOutlinedIcon> Accepted Orders
-      </Button>
-      <Button onClick={() => navigate("/chef/allorders")}>
-        <MoreHorizOutlinedIcon></MoreHorizOutlinedIcon>
-        Orders History
-      </Button>
-      <Button>
-        <SettingsOutlinedIcon></SettingsOutlinedIcon>Settings
-      </Button>
+          <Button onClick={() => navigate("/chef/orders")}>
+            <HistoryIcon></HistoryIcon>Active Orders
+          </Button>
+
+          <Button onClick={() => navigate("/chef/accorders")}>
+            <DoneOutlinedIcon></DoneOutlinedIcon> Accepted Orders
+          </Button>
+
+          <Button onClick={() => navigate("/chef/allorders")}>
+            <MoreHorizOutlinedIcon></MoreHorizOutlinedIcon>
+            Orders History
+          </Button>
+
+          <Button>
+            <SettingsOutlinedIcon></SettingsOutlinedIcon>Settings
+          </Button>
+        </>
+      ) : (
+        <>
+          <Button onClick={() => navigate("/admin/")}>
+            <HomeOutlinedIcon></HomeOutlinedIcon>Home
+          </Button>
+
+          <Button onClick={() => navigate("/admin/")}>
+            <HistoryIcon></HistoryIcon>Active Orders
+          </Button>
+
+          <Button onClick={() => navigate("/admin/")}>
+            <DoneOutlinedIcon></DoneOutlinedIcon> Completed Orders
+          </Button>
+
+          <Button onClick={() => navigate("/admin/")}>
+            <MoreHorizOutlinedIcon></MoreHorizOutlinedIcon>
+            Orders History
+          </Button>
+        </>
+      )}
+
       <Button onClick={handleOpenDialog}>
         <LogoutIcon></LogoutIcon>Logout
       </Button>
+
       <DialogBox
         isOpen={dialog}
         close={() => setDialog(false)}

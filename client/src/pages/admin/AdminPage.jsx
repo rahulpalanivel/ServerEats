@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Sidebar from "../../components/Sidebar";
-import AdminDashboard from "./AdminDashboard";
+import AdminHome from "./AdminHome";
 
 const Admin = () => {
   const Container = styled.div`
@@ -29,7 +29,7 @@ const Admin = () => {
         <Sidebar />
       </Left>
       <Right>
-        <AdminDashboard />
+        <AdminHome />
       </Right>
     </Container>
   );
