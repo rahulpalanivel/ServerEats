@@ -87,12 +87,6 @@ function App() {
           {openAuth && (
             <Authentication setOpenAuth={setOpenAuth} openAuth={openAuth} />
           )}
-
-          {/* {currentUser === null || currentUser.role === "customer" ? (
-            <Footer />
-          ) : (
-            <></>
-          )} */}
         </Container>
       </BrowserRouter>
     </ThemeProvider>
