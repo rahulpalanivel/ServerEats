@@ -10,28 +10,21 @@ import Button from "../components/Button";
 import { openSnackbar } from "../redux/reducers/SnackbarSlice";
 
 const Container = styled.div`
-  padding: 80px 0px 0px 0px;
-  padding-bottom: 100px;
-  min-height: 680px;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   align-items: center;
-  flex-direction: column;
-  gap: 30px;
+  flex-direction: row;
   background: ${({ theme }) => theme.bg};
 `;
 
 const Wrapper = styled.div`
-  padding-top: 100px;
+  padding: 20px;
   width: 100%;
   flex: 1;
-  max-width: 1400px;
   display: flex;
   gap: 40px;
   justify-content: center;
-  @media only screen and (max-width: 700px) {
-    flex-direction: column;
-    gap: 32px;
-  }
 `;
 
 const ImagesWrapper = styled.div`
@@ -39,16 +32,13 @@ const ImagesWrapper = styled.div`
   display: flex;
   justify-content: center;
 `;
+
 const Image = styled.img`
   max-width: 500px;
   width: 100%;
   max-height: 500px;
   border-radius: 12px;
   object-fit: cover;
-  @media (max-width: 768px) {
-    max-width: 400px;
-    height: 400px;
-  }
 `;
 
 const Details = styled.div`
@@ -58,16 +48,19 @@ const Details = styled.div`
   flex-direction: column;
   padding: 4px 10px;
 `;
+
 const Title = styled.div`
   font-size: 28px;
   font-weight: 600;
   color: ${({ theme }) => theme.text_primary};
 `;
+
 const Desc = styled.div`
   font-size: 16px;
   font-weight: 400;
   color: ${({ theme }) => theme.text_primary};
 `;
+
 const Price = styled.div`
   display: flex;
   align-items: center;
@@ -80,15 +73,18 @@ const Price = styled.div`
 const Ingridents = styled.div`
   font-size: 16px;
   font-weight: 500;
-  diaplay: flex;
+  display: flex;
   flex-direction: column;
   gap: 24px;
+  color: ${({ theme }) => theme.primary};
 `;
+
 const Items = styled.div`
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
 `;
+
 const Item = styled.div`
   background: ${({ theme }) => theme.primary + 20};
   color: ${({ theme }) => theme.primary};
@@ -104,10 +100,6 @@ const ButtonWrapper = styled.div`
   display: flex;
   gap: 16px;
   padding: 32px 0px;
-  @media only screen and (max-width: 700px) {
-    gap: 12px;
-    padding: 12px 0px;
-  }
 `;
 
 const FoodDetails = () => {
@@ -180,8 +172,6 @@ const FoodDetails = () => {
 
             <Ingridents>
               Ingredients
-              <br />
-              <br />
               <Items>
                 {product?.ingredients.map((ingredient) => (
                   <Item>{ingredient}</Item>

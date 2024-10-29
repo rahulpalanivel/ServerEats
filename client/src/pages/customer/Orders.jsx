@@ -32,16 +32,12 @@ const Orders = () => {
   const Container = styled.div`
     padding: 80px 0px 0px 0px;
     padding-bottom: 100px;
-    min-height: 680px;
-    max-width: 100%;
+    width: 100vw;
     overflow-y: scroll;
     display: flex;
     align-items: center;
     flex-direction: column;
     gap: 30px;
-    @media (max-width: 768px) {
-      padding: 20px 12px;
-    }
     background: ${({ theme }) => theme.bg};
   `;
 
@@ -57,16 +53,13 @@ const Orders = () => {
 
   const Wrapper = styled.div`
     display: flex;
-    width: 95%;
+    width: 85%;
   `;
   const Left = styled.div`
     flex: 1;
     display: flex;
     flex-direction: column;
     gap: 30px;
-    @media (max-width: 750px) {
-      flex: 1.2;
-    }
   `;
   const Table = styled.div`
     padding: 10px;
@@ -77,12 +70,13 @@ const Orders = () => {
     ${({ head }) => head && `margin-bottom: 22px`}
   `;
   const TableItem = styled.div`
-    ${({ padding }) => padding && `padding: 0px 60px;`}
+    padding: 12px;
     ${({ flex }) => flex && `flex: 1; `}
-  ${({ bold }) =>
+    ${({ bold }) =>
       bold &&
       `font-weight: 600;
   font-size: 20px;`}
+  color: black;
   `;
 
   const Product = styled.div`
@@ -92,9 +86,6 @@ const Orders = () => {
 
   const Details = styled.div`
     max-width: 130px;
-    @media (max-width: 700px) {
-      max-width: 60px;
-    }
   `;
   const Protitle = styled.div`
     color: black;
@@ -124,6 +115,7 @@ const Orders = () => {
                   Location
                 </TableItem>
                 <TableItem bold>Date</TableItem>
+                <TableItem bold>Time</TableItem>
                 <TableItem bold>Subtotal</TableItem>
                 <TableItem bold>Status</TableItem>
               </Table>
@@ -138,6 +130,9 @@ const Orders = () => {
                       </Product>
                     </TableItem>
                     <TableItem>{item.createdAt.split("T")[0]}</TableItem>
+                    <TableItem>
+                      {item.createdAt.split("T")[1].split(".")[0]}
+                    </TableItem>
                     <TableItem>${item.total_amount}</TableItem>
                     <TableItem>{item.status}</TableItem>
                   </Table>

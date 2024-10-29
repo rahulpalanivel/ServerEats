@@ -1,15 +1,15 @@
 import { CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getProductDetails } from "../../api";
-import Button from "../../components/Button";
+import { getProductDetails } from "../api";
+import Button from "../components/Button";
 
 const Container = styled.div`
   padding: 80px 0px 0px 0px;
   padding-bottom: 100px;
-  min-height: 680px;
-  max-width: 100%;
+  width: 100vw;
   overflow-y: scroll;
   display: flex;
   align-items: center;
@@ -19,7 +19,6 @@ const Container = styled.div`
 `;
 const Section = styled.div`
   width: 100%;
-  max-width: 1400px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -55,9 +54,6 @@ const Left = styled.div`
   display: flex;
   flex-direction: column;
   gap: 30px;
-  @media (max-width: 750px) {
-    flex: 1.2;
-  }
 `;
 const Table = styled.div`
   padding: 10px;
@@ -74,6 +70,7 @@ const TableItem = styled.div`
     bold &&
     `font-weight: 600;
   font-size: 20px;`}
+  color: black;
 `;
 const Counter = styled.div`
   display: flex;
@@ -95,9 +92,6 @@ const Img = styled.img`
 `;
 const Details = styled.div`
   max-width: 300px;
-  @media (max-width: 700px) {
-    max-width: 60px;
-  }
 `;
 const Protitle = styled.div`
   padding: 50px;
@@ -134,12 +128,19 @@ const Buton = styled.div`
 `;
 
 const Detail = () => {
+  const { currentUser } = useSelector((state) => state.user);
+  const user = currentUser;
+
   const location = useLocation();
   const order = location.state;
 
   const [loading, setLoading] = useState(false);
   const [productData, setProductData] = useState([]);
   const navigate = useNavigate();
+
+  const showDish = (id) => {
+    navigate(`/dishes/${id}`);
+  };
 
   const calculateSubtotal = () => {
     return order.products.reduce((total, item, index) => {
@@ -168,8 +169,18 @@ const Detail = () => {
   return (
     <Container>
       <Section>
-        <Title>Thank you for ordering with ServerEats</Title>
-        <SubTitle>Order ID : {order._id}</SubTitle>
+        {user.role === "customer" ? (
+          <>
+            <Title> Thank you for ordering with ServerEats</Title>
+            <SubTitle>Order ID : {order._id}</SubTitle>
+          </>
+        ) : (
+          <>
+            <Title> Order ID : {order._id}</Title>
+            <SubTitle>Customer ID : {order.user}</SubTitle>
+          </>
+        )}
+
         {loading ? (
           <CircularProgress />
         ) : (
@@ -189,9 +200,11 @@ const Detail = () => {
                   </Table>
                   {productData.map((product, index) => (
                     <Tile
-                      onClick={() => {
-                        navigate(`/dishes/${product._id}`);
-                      }}
+                      onClick={
+                        user.role === "customer"
+                          ? () => showDish(product._id)
+                          : {}
+                      }
                     >
                       <Table>
                         <TableItem flex>
@@ -220,11 +233,20 @@ const Detail = () => {
                       <Subtotal>
                         Subtotal : ₹{calculateSubtotal().toFixed(2)}
                       </Subtotal>
+                      <Subtotal>Table: {order.location}</Subtotal>
                       <Subtotal>Date: {order.createdAt.split("T")[0]}</Subtotal>
                       <Subtotal>
                         Time: {order.createdAt.split("T")[1].split(".")[0]}
                       </Subtotal>
-                      <Subtotal>Table: {order.location}</Subtotal>
+                      {order.status === "Delivered" ? (
+                        <Subtotal>
+                          Completed:{" "}
+                          {order.updatedAt.split("T")[1].split(".")[0]}
+                        </Subtotal>
+                      ) : (
+                        <></>
+                      )}
+
                       <Subtotal>Status: {order.status}</Subtotal>
                     </Line>
                   </Tile>

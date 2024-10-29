@@ -89,7 +89,7 @@ const Rate = styled.div`
 `;
 const Details = styled.div`
   display: flex;
-  height: 80px;
+  height: 100px;
   gap: 6px;
   flex-direction: column;
   padding: 4px 10px;
@@ -104,10 +104,7 @@ const Desc = styled.div`
   font-weight: 400;
   color: ${({ theme }) => theme.text_primary};
   overflow: hidden;
-  display: -webkit-box;
-  -webkit-box-orient: vertical;
-  -webkit-line-clamp: 2;
-  text-overflow: ellipsis;
+  height: fit-content;
   white-space: normal;
 `;
 const Price = styled.div`

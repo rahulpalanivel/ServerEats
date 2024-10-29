@@ -7,6 +7,7 @@ const Chef = () => {
     display: flex;
     flex-direction: row;
     padding: 80px 0px 0px 0px;
+    width: 100vw;
     background-color: ${({ theme }) => theme.bg};
   `;
   const Left = styled.div`
@@ -15,7 +16,7 @@ const Chef = () => {
     padding: 10px;
     background-color: ${({ theme }) => theme.bg};
     width: 18%;
-    max-height: 780px;
+    max-height: 90vh;
   `;
   const Right = styled.div`
     overflow-y: scroll;

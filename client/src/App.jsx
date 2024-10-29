@@ -11,6 +11,7 @@ import Error from "./pages/Error";
 import FoodDetails from "./pages/FoodDetails";
 import FoodListing from "./pages/FoodListing";
 import Home from "./pages/Home";
+import Detail from "./pages/OrderDetails.jsx";
 import Admin from "./pages/admin/AdminPage";
 import ChefAccOrders from "./pages/chef/ChefAccOrders.jsx";
 import ChefAllOrders from "./pages/chef/ChefAllOrders.jsx";
@@ -18,7 +19,6 @@ import ChefHome from "./pages/chef/ChefHome.jsx";
 import ChefOrders from "./pages/chef/ChefOrders";
 import Chef from "./pages/chef/ChefPage";
 import Cart from "./pages/customer/Cart";
-import Detail from "./pages/customer/OrderDetails";
 import Orders from "./pages/customer/Orders";
 import { lightTheme } from "./utils/Themes";
 

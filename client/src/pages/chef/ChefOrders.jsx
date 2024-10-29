@@ -99,12 +99,13 @@ const ChefOrders = () => {
   `;
 
   const TableItem = styled.div`
-    ${({ padding }) => padding && `padding: 0px 60px;`}
+    ${({ padding }) => padding && `padding: 0px 15px;`}
     ${({ flex }) => flex && `flex: 1; `}
-${({ bold }) =>
+    ${({ bold }) =>
       bold &&
       `font-weight: 600;
 font-size: 20px;`}
+color:black;
   `;
 
   const Product = styled.div`
@@ -147,9 +148,21 @@ font-size: 20px;`}
                 <TableItem bold flex padding>
                   Location
                 </TableItem>
-                <TableItem bold>Date</TableItem>
-                <TableItem bold>Subtotal</TableItem>
-                <TableItem bold>Status</TableItem>
+                <TableItem bold padding>
+                  Date
+                </TableItem>
+                <TableItem bold padding>
+                  Time
+                </TableItem>
+                <TableItem bold padding>
+                  Subtotal
+                </TableItem>
+                <TableItem bold padding>
+                  Status
+                </TableItem>
+                <TableItem bold padding>
+                  Action
+                </TableItem>
               </Table>
               {orders.map((item) => (
                 <Tile>
@@ -162,6 +175,9 @@ font-size: 20px;`}
                       </Product>
                     </TableItem>
                     <TableItem>{item.createdAt.split("T")[0]}</TableItem>
+                    <TableItem>
+                      {item.createdAt.split("T")[1].split(".")[0]}
+                    </TableItem>
                     <TableItem>${item.total_amount}</TableItem>
                     <TableItem>{item.status}</TableItem>
                   </Table>

@@ -20,18 +20,15 @@ import { openSnackbar } from "../../redux/reducers/SnackbarSlice";
 const Container = styled.div`
   padding: 80px 0px 0px 0px;
   padding-bottom: 100px;
-  min-height: 680px;
-  max-width: 100%;
   overflow-y: scroll;
   display: flex;
   align-items: center;
   flex-direction: column;
-  gap: 30px;
   background: ${({ theme }) => theme.bg};
+  width: 100vw;
 `;
 const Section = styled.div`
   width: 100%;
-  max-width: 1400px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -51,20 +48,12 @@ const Title = styled.div`
 const Wrapper = styled.div`
   display: flex;
   width: 95%;
-  // gap: 32px;
-  // padding: 12px;
-  // @media (max-width: 750px) {
-  //   flex-direction: column;
-  // }
 `;
 const Left = styled.div`
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 30px;
-  @media (max-width: 750px) {
-    flex: 1.2;
-  }
 `;
 const Table = styled.div`
   padding: 10px;
@@ -81,6 +70,7 @@ const TableItem = styled.div`
     bold &&
     `font-weight: 600;
   font-size: 20px;`}
+  color: black;
 `;
 const Counter = styled.div`
   display: flex;
@@ -102,9 +92,6 @@ const Img = styled.img`
 `;
 const Details = styled.div`
   max-width: 300px;
-  @media (max-width: 700px) {
-    max-width: 60px;
-  }
 `;
 const Protitle = styled.div`
   padding: 50px;
@@ -140,6 +127,9 @@ const Buttonx = styled.div`
 const Buttony = styled.div`
   max-width: 300px;
   padding: 20px;
+`;
+const Action = styled.div`
+  cursor: pointer;
 `;
 
 const Cart = () => {
@@ -317,11 +307,7 @@ const Cart = () => {
                         <TableItem>₹{item?.product?.price}</TableItem>
                         <TableItem>
                           <Counter>
-                            <div
-                              style={{
-                                cursor: "pointer",
-                                flex: 1,
-                              }}
+                            <Action
                               onClick={() =>
                                 removeCart(
                                   item?.product?._id,
@@ -330,17 +316,11 @@ const Cart = () => {
                               }
                             >
                               -
-                            </div>
-                            {item?.quantity}{" "}
-                            <div
-                              style={{
-                                cursor: "pointer",
-                                flex: 1,
-                              }}
-                              onClick={() => addCart(item?.product?._id)}
-                            >
+                            </Action>
+                            {item?.quantity}
+                            <Action onClick={() => addCart(item?.product?._id)}>
                               +
-                            </div>
+                            </Action>
                           </Counter>
                         </TableItem>
                         <TableItem>
