@@ -1,12 +1,13 @@
+import { Outlet } from "react-router-dom";
 import styled from "styled-components";
 import Sidebar from "../../components/Sidebar";
-import AdminHome from "./AdminHome";
 
 const Admin = () => {
   const Container = styled.div`
     display: flex;
     flex-direction: row;
     padding: 80px 0px 0px 0px;
+    width: 100vw;
     background-color: ${({ theme }) => theme.bg};
   `;
   const Left = styled.div`
@@ -29,7 +30,7 @@ const Admin = () => {
         <Sidebar />
       </Left>
       <Right>
-        <AdminHome />
+        <Outlet />
       </Right>
     </Container>
   );

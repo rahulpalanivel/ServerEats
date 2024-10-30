@@ -12,6 +12,8 @@ import FoodDetails from "./pages/FoodDetails";
 import FoodListing from "./pages/FoodListing";
 import Home from "./pages/Home";
 import Detail from "./pages/OrderDetails.jsx";
+import AdminFood from "./pages/admin/AdminFood.jsx";
+import AdminHome from "./pages/admin/AdminHome.jsx";
 import Admin from "./pages/admin/AdminPage";
 import ChefAccOrders from "./pages/chef/ChefAccOrders.jsx";
 import ChefAllOrders from "./pages/chef/ChefAllOrders.jsx";
@@ -80,7 +82,10 @@ function App() {
                 />
               </Route>
 
-              <Route path="/admin" exact element={<Admin />} />
+              <Route element={<Admin />}>
+                <Route path="/admin" exact element={<AdminHome />} />
+                <Route path="/admin/food" exact element={<AdminFood />} />
+              </Route>
             </Route>
           </Routes>
 

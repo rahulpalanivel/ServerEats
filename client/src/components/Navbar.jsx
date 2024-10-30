@@ -11,6 +11,7 @@ import styled from "styled-components";
 import { logout } from "../redux/reducers/UserSlice";
 import LogoImg from "../utils/Images/Logo4.png";
 import Button from "./Button";
+import DialogBox from "./DialogBox";
 
 const Nav = styled.div`
   background-color: ${(props) => (props.scrolled ? "#ffffff" : "transparent")};
@@ -140,7 +141,22 @@ const TextButton = styled.span`
 const Navbar = ({ setOpenAuth, openAuth, currentUser }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [scrolled, setScrolled] = useState(false);
+  const [dialog, setDialog] = useState(false);
   const dispatch = useDispatch();
+
+  const handleOpenDialog = () => {
+    setDialog(true);
+  };
+
+  const handleConfirm = () => {
+    setDialog(false);
+    dispatch(logout());
+    navigate("/");
+  };
+
+  const handleCancel = () => {
+    setDialog(false);
+  };
 
   useEffect(() => {
     const handleScroll = () => {
@@ -241,15 +257,22 @@ const Navbar = ({ setOpenAuth, openAuth, currentUser }) => {
                 />
               </Navlink>
               <Avatar src={currentUser?.img}>{currentUser?.name[0]}</Avatar>
-              <Button text="Logout" small onClick={() => dispatch(logout())} />
+              <Button text="Logout" small onClick={() => handleOpenDialog()} />
             </>
           ) : (
-            <Button text="Logout" small onClick={() => dispatch(logout())} />
+            <Button text="Logout" small onClick={() => handleOpenDialog()} />
           )
         ) : (
           <Button text="Sign In" small onClick={() => setOpenAuth(true)} />
         )}
       </ButtonContainer>
+      <DialogBox
+        isOpen={dialog}
+        close={() => setDialog(false)}
+        Confirm={handleConfirm}
+        Cancel={handleCancel}
+        text="Logout"
+      />
     </Nav>
   );
 };

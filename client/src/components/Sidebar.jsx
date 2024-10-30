@@ -3,6 +3,8 @@ import HistoryIcon from "@mui/icons-material/History";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
+import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
+import RestaurantIcon from "@mui/icons-material/Restaurant";
 import SettingsOutlinedIcon from "@mui/icons-material/SettingsOutlined";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
@@ -67,49 +69,63 @@ const Sidebar = () => {
       {user.role === "chef" ? (
         <>
           <Button onClick={() => navigate("/chef/")}>
-            <HomeOutlinedIcon></HomeOutlinedIcon>Home
+            <HomeOutlinedIcon />
+            Home
           </Button>
 
           <Button onClick={() => navigate("/chef/orders")}>
-            <HistoryIcon></HistoryIcon>Active Orders
+            <HistoryIcon />
+            Active Orders
           </Button>
 
           <Button onClick={() => navigate("/chef/accorders")}>
-            <DoneOutlinedIcon></DoneOutlinedIcon> Accepted Orders
+            <DoneOutlinedIcon /> Accepted Orders
           </Button>
 
           <Button onClick={() => navigate("/chef/allorders")}>
-            <MoreHorizOutlinedIcon></MoreHorizOutlinedIcon>
+            <MoreHorizOutlinedIcon />
             Orders History
           </Button>
 
           <Button>
-            <SettingsOutlinedIcon></SettingsOutlinedIcon>Settings
+            <SettingsOutlinedIcon />
+            Settings
           </Button>
         </>
       ) : (
         <>
           <Button onClick={() => navigate("/admin/")}>
-            <HomeOutlinedIcon></HomeOutlinedIcon>Home
+            <HomeOutlinedIcon />
+            Home
           </Button>
 
           <Button onClick={() => navigate("/admin/")}>
-            <HistoryIcon></HistoryIcon>Active Orders
+            <HistoryIcon />
+            Active Orders
           </Button>
 
-          <Button onClick={() => navigate("/admin/")}>
+          {/* <Button onClick={() => navigate("/admin/")}>
             <DoneOutlinedIcon></DoneOutlinedIcon> Completed Orders
-          </Button>
+          </Button> */}
 
           <Button onClick={() => navigate("/admin/")}>
-            <MoreHorizOutlinedIcon></MoreHorizOutlinedIcon>
+            <MoreHorizOutlinedIcon />
             Orders History
+          </Button>
+
+          <Button onClick={() => navigate("/admin/food")}>
+            <RestaurantIcon /> Food
+          </Button>
+
+          <Button>
+            <PersonOutlineIcon /> chefs
           </Button>
         </>
       )}
 
       <Button onClick={handleOpenDialog}>
-        <LogoutIcon></LogoutIcon>Logout
+        <LogoutIcon />
+        Logout
       </Button>
 
       <DialogBox
