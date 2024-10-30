@@ -12,9 +12,13 @@ import FoodDetails from "./pages/FoodDetails";
 import FoodListing from "./pages/FoodListing";
 import Home from "./pages/Home";
 import Detail from "./pages/OrderDetails.jsx";
+import AdminAccOrders from "./pages/admin/AdminAccOrders.jsx";
+import AdminAllOrders from "./pages/admin/AdminAllOrders.jsx";
+import AdminChef from "./pages/admin/AdminChef.jsx";
 import AdminFood from "./pages/admin/AdminFood.jsx";
 import AdminHome from "./pages/admin/AdminHome.jsx";
 import Admin from "./pages/admin/AdminPage";
+import AdminUsers from "./pages/admin/AdminUsers.jsx";
 import ChefAccOrders from "./pages/chef/ChefAccOrders.jsx";
 import ChefAllOrders from "./pages/chef/ChefAllOrders.jsx";
 import ChefHome from "./pages/chef/ChefHome.jsx";
@@ -84,7 +88,19 @@ function App() {
 
               <Route element={<Admin />}>
                 <Route path="/admin" exact element={<AdminHome />} />
-                <Route path="/admin/food" exact element={<AdminFood />} />
+                <Route
+                  path="/admin/activeorders"
+                  exact
+                  element={<AdminAccOrders />}
+                />
+                <Route
+                  path="/admin/allorders"
+                  exact
+                  element={<AdminAllOrders />}
+                />
+                <Route path="/admin/foods" exact element={<AdminFood />} />
+                <Route path="/admin/chefs" exact element={<AdminChef />} />
+                <Route path="/admin/users" exact element={<AdminUsers />} />
               </Route>
             </Route>
           </Routes>

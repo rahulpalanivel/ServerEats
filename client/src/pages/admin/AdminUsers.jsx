@@ -76,7 +76,7 @@ const Tile = styled.div`
   box-shadow: 1px 1px 10px 1px ${({ theme }) => theme.primary + 60};
 `;
 
-const AdminChef = () => {
+const AdminUsers = () => {
   const [chefData, setChefData] = useState([]);
 
   const LoadChef = async () => {
@@ -104,7 +104,7 @@ const AdminChef = () => {
             </TableItem>
           </Table>
           {chefData.map((chef) =>
-            chef.role === "chef" ? (
+            chef.role === "customer" ? (
               <Tile>
                 <Table>
                   <TableItem flex>
@@ -127,4 +127,4 @@ const AdminChef = () => {
     </Container>
   );
 };
-export default AdminChef;
+export default AdminUsers;

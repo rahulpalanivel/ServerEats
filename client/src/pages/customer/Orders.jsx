@@ -8,6 +8,7 @@ const Container = styled.div`
   padding: 80px 0px 0px 0px;
   padding-bottom: 100px;
   width: 100vw;
+  min-height: 80vh;
   overflow-y: scroll;
   display: flex;
   align-items: center;

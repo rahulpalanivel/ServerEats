@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getOrdersByChef, updateOrder } from "../../api";
+import { getOrders } from "../../api";
 
 const Container = styled.div`
   height: 100%;
@@ -78,7 +78,7 @@ const Tile = styled.div`
   box-shadow: 1px 1px 10px 1px ${({ theme }) => theme.primary + 60};
 `;
 
-const ChefAllOrders = () => {
+const AdminAllOrders = () => {
   const { currentUser } = useSelector((state) => state.user);
   const user = currentUser;
 
@@ -89,23 +89,13 @@ const ChefAllOrders = () => {
   const getAllOrders = async () => {
     setLoading(true);
     const token = localStorage.getItem("ServerEats");
-    await getOrdersByChef(token).then((res) => {
+    await getOrders(token).then((res) => {
       setOrders(
         res.data
           .sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt))
           .filter((a) => a.status === "Delivered")
       );
       setLoading(false);
-    });
-  };
-
-  const updateOrders = async (id, status, assign) => {
-    setLoading(true);
-    const token = localStorage.getItem("ServerEats");
-    const data = { id: id, status: status, assign: assign };
-    await updateOrder(token, data).then((res) => {
-      setLoading(false);
-      setReload(!reload);
     });
   };
 
@@ -165,5 +155,4 @@ const ChefAllOrders = () => {
     </Container>
   );
 };
-
-export default ChefAllOrders;
+export default AdminAllOrders;

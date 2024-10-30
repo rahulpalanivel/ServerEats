@@ -1,12 +1,14 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:8080/api/",
+  baseURL: "http://localhost:8080/api",
 });
 
 //auth
 export const UserSignUp = async (data) => await API.post("/user/signup", data);
 export const UserSignIn = async (data) => await API.post("/user/signin", data);
+export const getUser = async (token) =>
+  await API.get(`/user/`, { headers: { Authorization: `Bearer ${token}` } });
 
 //products
 export const getAllProducts = async (filter) =>

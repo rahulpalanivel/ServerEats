@@ -26,6 +26,7 @@ const Container = styled.div`
   flex-direction: column;
   background: ${({ theme }) => theme.bg};
   width: 100vw;
+  min-height: 80vh;
 `;
 const Section = styled.div`
   width: 100%;

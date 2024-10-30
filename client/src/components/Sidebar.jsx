@@ -2,6 +2,7 @@ import DoneOutlinedIcon from "@mui/icons-material/DoneOutlined";
 import HistoryIcon from "@mui/icons-material/History";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import LogoutIcon from "@mui/icons-material/Logout";
+import ManageAccountsIcon from "@mui/icons-material/ManageAccounts";
 import MoreHorizOutlinedIcon from "@mui/icons-material/MoreHorizOutlined";
 import PersonOutlineIcon from "@mui/icons-material/PersonOutline";
 import RestaurantIcon from "@mui/icons-material/Restaurant";
@@ -100,26 +101,25 @@ const Sidebar = () => {
             Home
           </Button>
 
-          <Button onClick={() => navigate("/admin/")}>
+          <Button onClick={() => navigate("/admin/activeorders")}>
             <HistoryIcon />
             Active Orders
           </Button>
 
-          {/* <Button onClick={() => navigate("/admin/")}>
-            <DoneOutlinedIcon></DoneOutlinedIcon> Completed Orders
-          </Button> */}
-
-          <Button onClick={() => navigate("/admin/")}>
+          <Button onClick={() => navigate("/admin/allorders")}>
             <MoreHorizOutlinedIcon />
             Orders History
           </Button>
 
-          <Button onClick={() => navigate("/admin/food")}>
+          <Button onClick={() => navigate("/admin/foods")}>
             <RestaurantIcon /> Food
           </Button>
 
-          <Button>
-            <PersonOutlineIcon /> chefs
+          <Button onClick={() => navigate("/admin/chefs")}>
+            <ManageAccountsIcon /> chefs
+          </Button>
+          <Button onClick={() => navigate("/admin/users")}>
+            <PersonOutlineIcon /> User
           </Button>
         </>
       )}
