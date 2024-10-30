@@ -94,7 +94,8 @@ const Input = styled.input`
     popup &&
     `
   color: ${theme.popup_text_secondary};
-  `} ${({ theme }) => theme.popup_text_secondary};
+  `}
+  ${({ theme }) => theme.popup_text_secondary}
 `;
 
 const Error = styled.p`

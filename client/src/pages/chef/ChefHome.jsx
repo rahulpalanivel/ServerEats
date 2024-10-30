@@ -3,6 +3,43 @@ import { useSelector } from "react-redux";
 import styled from "styled-components";
 import { getOrdersByChef } from "../../api";
 
+const Container = styled.div`
+  padding: 50px;
+  overflow-y: scroll;
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  background: ${({ theme }) => theme.bg};
+`;
+const Title = styled.div`
+  padding: 10px;
+  font-size: 50px;
+  font-weight: 500;
+  display: flex;
+  color: ${({ theme }) => theme.primary};
+  justify-content: center;
+  align-items: center;
+`;
+const SubTitle = styled.div`
+  padding: 10px;
+  font-size: 60px;
+  font-weight: 500;
+  display: flex;
+  color: ${({ theme }) => theme.primary};
+  justify-content: center;
+  align-items: center;
+`;
+const Stats = styled.div`
+  padding: 20px;
+`;
+const Heading = styled.div``;
+const Data = styled.div`
+  padding: 20px;
+  font-size: 30px;
+  font-weight: 500;
+  color: ${({ theme }) => theme.primary};
+`;
+
 const ChefHome = () => {
   const { currentUser } = useSelector((state) => state.user);
   const user = currentUser;
@@ -22,43 +59,6 @@ const ChefHome = () => {
   useEffect(() => {
     getAllOrders();
   }, []);
-
-  const Container = styled.div`
-    padding: 50px;
-    overflow-y: scroll;
-    display: flex;
-    align-items: center;
-    flex-direction: column;
-    background: ${({ theme }) => theme.bg};
-  `;
-  const Title = styled.div`
-    padding: 10px;
-    font-size: 50px;
-    font-weight: 500;
-    display: flex;
-    color: ${({ theme }) => theme.primary};
-    justify-content: center;
-    align-items: center;
-  `;
-  const SubTitle = styled.div`
-    padding: 10px;
-    font-size: 60px;
-    font-weight: 500;
-    display: flex;
-    color: ${({ theme }) => theme.primary};
-    justify-content: center;
-    align-items: center;
-  `;
-  const Stats = styled.div`
-    padding: 20px;
-  `;
-  const Heading = styled.div``;
-  const Data = styled.div`
-    padding: 20px;
-    font-size: 30px;
-    font-weight: 500;
-    color: ${({ theme }) => theme.primary};
-  `;
 
   return (
     <Container>

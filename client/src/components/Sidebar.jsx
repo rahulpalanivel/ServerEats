@@ -15,6 +15,33 @@ import { logout } from "../redux/reducers/UserSlice";
 import styled from "styled-components";
 import DialogBox from "./DialogBox";
 
+const Container = styled.div`
+  display: flex;
+  flex-direction: column;
+  padding: 20px 0px 0px 10px;
+  height: 95%;
+  background-color: white;
+  border-radius: 15px;
+  gap: 30px;
+  border: 1px solid ${({ theme }) => theme.bg};
+  box-shadow: 0px 0px 2px 0px grey;
+  min-height: 740px;
+`;
+const Button = styled.div`
+  color: grey;
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+  height: 7%;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 10px;
+  border-radius: 15px;
+  // border: 1px solid ${({ theme }) => theme.bg + 90};
+  // box-shadow: 0px 0px 2px 0px grey;
+  background-color: white;
+`;
+
 const Sidebar = () => {
   const [dialog, setDialog] = useState(false);
   const dispatch = useDispatch();
@@ -38,32 +65,6 @@ const Sidebar = () => {
     setDialog(false);
   };
 
-  const Container = styled.div`
-    display: flex;
-    flex-direction: column;
-    padding: 20px 0px 0px 10px;
-    height: 95%;
-    background-color: white;
-    border-radius: 15px;
-    gap: 30px;
-    border: 1px solid ${({ theme }) => theme.bg};
-    box-shadow: 0px 0px 2px 0px grey;
-    min-height: 740px;
-  `;
-  const Button = styled.div`
-    color: grey;
-    display: flex;
-    flex-direction: row;
-    gap: 10px;
-    height: 7%;
-    font-size: 16px;
-    font-weight: 600;
-    padding: 10px;
-    border-radius: 15px;
-    // border: 1px solid ${({ theme }) => theme.bg + 90};
-    // box-shadow: 0px 0px 2px 0px grey;
-    background-color: white;
-  `;
   return (
     <Container>
       {user.role === "chef" ? (

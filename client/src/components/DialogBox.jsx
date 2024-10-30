@@ -9,9 +9,9 @@ import {
 import styled from "styled-components";
 import Button from "../components/Button";
 
-const DialogBox = ({ isOpen, close, Confirm, Cancel, text }) => {
-  const Container = styled.div``;
+const Container = styled.div``;
 
+const DialogBox = ({ isOpen, close, Confirm, Cancel, text }) => {
   return (
     <Container>
       <Dialog open={isOpen} onClose={close}>
