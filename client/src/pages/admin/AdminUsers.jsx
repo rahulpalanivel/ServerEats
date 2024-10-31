@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getUser } from "../../api";
 
@@ -78,6 +79,7 @@ const Tile = styled.div`
 
 const AdminUsers = () => {
   const [chefData, setChefData] = useState([]);
+  const navigate = useNavigate();
 
   const LoadChef = async () => {
     const token = localStorage.getItem("ServerEats");
@@ -86,13 +88,17 @@ const AdminUsers = () => {
     });
   };
 
+  const showDetails = (user) => {
+    navigate("/admin/details", { state: user });
+  };
+
   useEffect(() => {
     LoadChef();
   }, []);
 
   return (
     <Container>
-      <Title>Chefs</Title>
+      <Title>Users</Title>
       <Wrapper>
         <Left>
           <Table>
@@ -105,7 +111,7 @@ const AdminUsers = () => {
           </Table>
           {chefData.map((chef) =>
             chef.role === "customer" ? (
-              <Tile>
+              <Tile onClick={() => showDetails(chef)}>
                 <Table>
                   <TableItem flex>
                     <Product>

@@ -1,8 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "http://localhost:8080/api",
-  // "https://servereats.onrender.com/api",
+  baseURL: "https://servereats.onrender.com/api",
 });
 
 //auth

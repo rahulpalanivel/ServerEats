@@ -133,6 +133,7 @@ const Detail = () => {
 
   const location = useLocation();
   const order = location.state;
+  console.log(order);
 
   const [loading, setLoading] = useState(false);
   const [productData, setProductData] = useState([]);

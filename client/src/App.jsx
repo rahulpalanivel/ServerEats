@@ -18,6 +18,7 @@ import AdminChef from "./pages/admin/AdminChef.jsx";
 import AdminFood from "./pages/admin/AdminFood.jsx";
 import AdminHome from "./pages/admin/AdminHome.jsx";
 import Admin from "./pages/admin/AdminPage";
+import AdminUserDetails from "./pages/admin/AdminUserDetails.jsx";
 import AdminUsers from "./pages/admin/AdminUsers.jsx";
 import ChefAccOrders from "./pages/chef/ChefAccOrders.jsx";
 import ChefAllOrders from "./pages/chef/ChefAllOrders.jsx";
@@ -101,6 +102,11 @@ function App() {
                 <Route path="/admin/foods" exact element={<AdminFood />} />
                 <Route path="/admin/chefs" exact element={<AdminChef />} />
                 <Route path="/admin/users" exact element={<AdminUsers />} />
+                <Route
+                  path="/admin/details"
+                  exact
+                  element={<AdminUserDetails />}
+                />
               </Route>
             </Route>
           </Routes>
