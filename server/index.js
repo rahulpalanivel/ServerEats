@@ -8,7 +8,7 @@ const OrdersRoutes = require("./routes/ordersRoute.js");
 
 const cors = require("./middleware/cors");
 const errorHandler = require("./middleware/errorHandler.js");
-const port = process.env.port || 8000;
+const port = process.env.PORT || 8000;
 
 const app = express();
 
