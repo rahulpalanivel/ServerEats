@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import aboutus from "../utils/Images/aboutus.jpg";
+import aboutus from "../assets/Images/aboutus.jpg";
 
 const Container = styled.div`
   display: flex;

@@ -3,10 +3,10 @@ import { Modal } from "@mui/material";
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
+import LogoImage from "../assets/Icons/Logo4.png";
+import AuthImage from "../assets/Images/FOOD.png";
 import SignIn from "../components/Auth/SignIn";
 import SignUp from "../components/Auth/SignUp";
-import AuthImage from "../utils/Images/FOOD.png";
-import LogoImage from "../utils/Images/Logo4.png";
 
 const Container = styled.div`
   flex: 1;

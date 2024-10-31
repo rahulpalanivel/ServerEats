@@ -2,12 +2,12 @@ import { Slider } from "@mui/material";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { getAllProducts } from "../api";
+import head1 from "../assets/Images/Head1.jpg";
+import head2 from "../assets/Images/Head2.jpg";
+import head3 from "../assets/Images/Head3.jpg";
 import ProductCard from "../components/cards/ProductsCard";
 import AutoImageSlider from "../components/imageSlider";
 import { filter } from "../utils/data";
-import head1 from "../utils/Images/Head1.jpg";
-import head2 from "../utils/Images/Head2.jpg";
-import head3 from "../utils/Images/Head3.jpg";
 
 const Container = styled.div``;
 

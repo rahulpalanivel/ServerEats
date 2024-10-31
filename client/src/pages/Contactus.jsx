@@ -1,7 +1,7 @@
 import styled from "styled-components";
+import img from "../assets/Images/rec.jpg";
 import Button from "../components/Button";
 import TextInput from "../components/TextInput";
-import img from "../utils/Images/rec.jpg";
 
 const Container = styled.div`
   display: flex;

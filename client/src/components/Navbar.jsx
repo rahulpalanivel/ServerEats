@@ -8,8 +8,8 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import { Link as LinkR, NavLink } from "react-router-dom";
 import styled from "styled-components";
+import LogoImg from "../assets/Icons/Logo4.png";
 import { logout } from "../redux/reducers/UserSlice";
-import LogoImg from "../utils/Images/Logo4.png";
 import Button from "./Button";
 import DialogBox from "./DialogBox";
 
