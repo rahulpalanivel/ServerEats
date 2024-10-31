@@ -25,6 +25,16 @@ const placeOrder = async (req, res, next) => {
   }
 };
 
+const getOrder = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const order = await Orders.findById(id);
+    return res.status(200).json(order);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const getOrders = async (req, res, next) => {
   try {
     const orders = await Orders.find();
@@ -78,6 +88,7 @@ const updateOrder = async (req, res, next) => {
 
 module.exports = {
   placeOrder,
+  getOrder,
   getOrders,
   getOrdersByCustomer,
   getOrdersByChef,

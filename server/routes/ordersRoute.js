@@ -2,6 +2,7 @@ const express = require("express");
 const {
   placeOrder,
   getOrdersByCustomer,
+  getOrder,
   getOrders,
   getOrdersByChef,
   updateOrder,
@@ -14,6 +15,7 @@ const router = express.Router();
 
 router.post("/", verifyToken, verifyRole("customer"), placeOrder);
 router.get("/", verifyToken, verifyRole("chef", "admin"), getOrders);
+router.get("/:id", verifyToken, verifyRole("admin"), getOrder);
 router.get(
   "/customer",
   verifyToken,
