@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { getAllProducts } from "../../api";
 import Button from "../../components/Button";
@@ -79,6 +80,7 @@ const Tile = styled.div`
 
 const AdminFood = () => {
   const [productData, setProductData] = useState([]);
+  const navigate = useNavigate();
 
   const LoadProduct = async () => {
     await getAllProducts().then((res) => {
@@ -118,7 +120,10 @@ const AdminFood = () => {
               </Table>
             </Tile>
           ))}
-          <Button text="Add new Product" />
+          <Button
+            text="Add new Product"
+            onClick={() => navigate("/admin/foods/add")}
+          />
         </Left>
       </Wrapper>
     </Container>
