@@ -2,31 +2,51 @@ const mongoose = require("mongoose");
 const Food = require("../models/Food.js");
 const displayError = require("../middleware/displayError.js");
 
+// const addProducts = async (req, res, next) => {
+//   try {
+//     const foodData = req.body;
+//     if (!Array.isArray(foodData)) {
+//       return next(
+//         displayError(400, "Invalid request. Expected an array of foods.")
+//       );
+//     }
+//     let createdfoods = [];
+//     for (const foodInfo of foodData) {
+//       const { name, desc, img, price, ingredients, category } = foodInfo;
+//       const product = new Food({
+//         name,
+//         desc,
+//         img,
+//         price,
+//         ingredients,
+//         category,
+//       });
+//       const createdFoods = await product.save();
+//       createdfoods.push(createdFoods);
+//     }
+//     return res
+//       .status(201)
+//       .json({ message: "Products added successfully", createdfoods });
+//   } catch (err) {
+//     next(err);
+//   }
+// };
+
 const addProducts = async (req, res, next) => {
   try {
-    const foodData = req.body;
-    if (!Array.isArray(foodData)) {
-      return next(
-        displayError(400, "Invalid request. Expected an array of foods.")
-      );
-    }
-    let createdfoods = [];
-    for (const foodInfo of foodData) {
-      const { name, desc, img, price, ingredients, category } = foodInfo;
-      const product = new Food({
-        name,
-        desc,
-        img,
-        price,
-        ingredients,
-        category,
-      });
-      const createdFoods = await product.save();
-      createdfoods.push(createdFoods);
-    }
+    const { name, desc, img, price, ingredients, category } = req.body;
+    const product = new Food({
+      name,
+      desc,
+      img,
+      price,
+      ingredients,
+      category,
+    });
+    const createdFoods = await product.save();
     return res
       .status(201)
-      .json({ message: "Products added successfully", createdfoods });
+      .json({ message: "Products added successfully", createdFoods });
   } catch (err) {
     next(err);
   }
