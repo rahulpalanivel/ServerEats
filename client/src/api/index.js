@@ -7,8 +7,15 @@ const API = axios.create({
 //auth
 export const UserSignUp = async (data) => await API.post("/user/signup", data);
 export const UserSignIn = async (data) => await API.post("/user/signin", data);
+
+//user
 export const getUser = async (token) =>
   await API.get(`/user/`, { headers: { Authorization: `Bearer ${token}` } });
+
+export const updateUser = async (token, data) =>
+  await API.put(`/user/`, data, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
 
 //products
 export const getAllProducts = async (filter) =>
