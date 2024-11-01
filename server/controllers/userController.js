@@ -68,8 +68,23 @@ const getUser = async (req, res, next) => {
   }
 };
 
+const updateUser = async (req, res, next) => {
+  try {
+    const { id, role } = req.body;
+    const user = await User.findById(id);
+    user.role = role;
+    user.cart = [];
+    user.orders = [];
+    await user.save();
+    return res.status(200).json(user);
+  } catch (err) {
+    next(err);
+  }
+};
+
 module.exports = {
   UserLogin,
   UserRegister,
   getUser,
+  updateUser,
 };
