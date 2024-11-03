@@ -11,8 +11,8 @@ on:
       - master
 
 jobs:
-  build:
-    name: Build & Deploy
+  deploy_server:
+    name: Deploy Server
     runs-on: ubuntu-latest
 
     steps:
@@ -22,8 +22,8 @@ jobs:
           service-id: ${{ secrets.RENDER_SERVICE_ID }}
           api-key: ${{ secrets.RENDER_API_KEY }}
 
-  deploy:
-    name: Deploy
+  deploy_client:
+    name: Deploy Client
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
