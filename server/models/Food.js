@@ -26,6 +26,14 @@ const FoodSchema = new mongoose.Schema(
       type: [String],
       required: true,
     },
+    time: {
+      type: Number,
+      default: 0,
+    },
+    availability: {
+      type: String,
+      default: "Yes",
+    },
   },
   { timestamps: true }
 );
