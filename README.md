@@ -1,4 +1,5 @@
 # ServerEats
+
 Developed a user friendly website to ordering food online, designed to use in restaurants where customers can easily browse through different food items and place orders easily with just a few clicks.
 
 ## About
@@ -7,6 +8,7 @@ ServerEats is a web application that is designed to use in restaurants where the
 
 ## Screenshots
 
+<img src="client\src\assets\screenshots\Home.png>
 
 ## Features
 
@@ -17,8 +19,6 @@ ServerEats is a web application that is designed to use in restaurants where the
 - Panel: seperate panels for both admin and chef to track orders or user details
 
 ## Demo
-
-
 
 ## Tech Stack
 
@@ -46,18 +46,21 @@ Ensure you have the following installed:
    ```bash
    https://github.com/rahulpalanivel/servereats.git
    ```
+
 2. **Navigate to the project directory:**
 
    ```bash
    cd client
    ```
+
 3. **Install dependencies:**
 
    ```bash
    npm install
    ```
-   
+
 4. **Set up Backend:**
+
    - Create a MongoDB database.
    - Add a MongoDB connection string in an env file in server
    - Create a secret jwt key and add it to the env file.
@@ -70,7 +73,7 @@ Ensure you have the following installed:
    npm start
    ```
 
-5. **Start the application:**
+6. **Start the application:**
 
    ```bash
    cd client
