@@ -15,7 +15,7 @@ const router = express.Router();
 
 router.post("/", verifyToken, verifyRole("customer"), placeOrder);
 router.get("/", verifyToken, verifyRole("chef", "admin"), getOrders);
-router.get("/:id", verifyToken, verifyRole("admin"), getOrder);
+router.get("/id/:id", verifyToken, verifyRole("chef", "admin"), getOrder);
 router.get(
   "/customer",
   verifyToken,

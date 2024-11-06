@@ -66,7 +66,7 @@ export const getOrdersByChef = async (token) =>
   });
 
 export const getOrder = async (token, id) =>
-  await API.get(`/user/orders/${id}`, {
+  await API.get(`/user/orders/id/${id}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
