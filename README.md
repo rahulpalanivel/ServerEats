@@ -8,7 +8,14 @@ ServerEats is a web application that is designed to use in restaurants where the
 
 ## Screenshots
 
-<img src="client\src\assets\screenshots\Home.png>
+<img src="client\src\assets\screenshots\Home.png">
+<img src="client\src\assets\screenshots\Menu.png">
+<img src="client\src\assets\screenshots\Food.png">
+<img src="client\src\assets\screenshots\Cart.png">
+<img src="client\src\assets\screenshots\Auth.png">
+<img src="client\src\assets\screenshots\Orders.png">
+<img src="client\src\assets\screenshots\AllFood.png">
+<img src="client\src\assets\screenshots\NewFood.png">
 
 ## Features
 
