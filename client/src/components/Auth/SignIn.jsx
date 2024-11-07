@@ -5,7 +5,6 @@ import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 import { UserSignIn } from "../../api";
-import { openSnackbar } from "../../redux/reducers/SnackbarSlice";
 import { loginSuccess } from "../../redux/reducers/UserSlice";
 import Button from "../Button";
 import TextInput from "../TextInput";
@@ -80,12 +79,6 @@ const SignIn = ({ setOpenAuth }) => {
           toast.error(err.response.data.message);
           setLoading(false);
           setButtonDisabled(false);
-          dispatch(
-            openSnackbar({
-              message: err.message,
-              severity: "error",
-            })
-          );
         });
     }
   };

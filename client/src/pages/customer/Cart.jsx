@@ -15,7 +15,6 @@ import {
 import Button from "../../components/Button";
 import DialogBox from "../../components/DialogBox";
 import TextInput from "../../components/TextInput";
-import { openSnackbar } from "../../redux/reducers/SnackbarSlice";
 
 const Container = styled.div`
   padding: 80px 0px 0px 0px;
@@ -177,24 +176,13 @@ const Cart = () => {
 
       await placeOrder(token, orderDetails);
       toast.success("Order placed successfully");
-      dispatch(
-        openSnackbar({
-          message: "Order placed successfully",
-          severity: "success",
-        })
-      );
 
       setButtonLoad(false);
       await deleteCart();
       setReload(!reload);
     } catch (err) {
       toast.error(err.message);
-      dispatch(
-        openSnackbar({
-          message: "Failed to place order. Please try again.",
-          severity: "error",
-        })
-      );
+
       setButtonLoad(false);
     }
   };
@@ -224,12 +212,6 @@ const Cart = () => {
       })
       .catch((err) => {
         setReload(!reload);
-        dispatch(
-          openSnackbar({
-            message: err.message,
-            severity: "error",
-          })
-        );
       });
   };
 
@@ -246,12 +228,6 @@ const Cart = () => {
       })
       .catch((err) => {
         setReload(!reload);
-        dispatch(
-          openSnackbar({
-            message: err.message,
-            severity: "error",
-          })
-        );
       });
   };
 
@@ -263,12 +239,6 @@ const Cart = () => {
       })
       .catch((err) => {
         setReload(!reload);
-        dispatch(
-          openSnackbar({
-            message: err.message,
-            severity: "error",
-          })
-        );
       });
   };
   return (

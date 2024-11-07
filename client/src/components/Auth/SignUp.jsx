@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import styled from "styled-components";
 import { UserSignUp } from "../../api";
-import { openSnackbar } from "../../redux/reducers/SnackbarSlice";
 import { loginSuccess } from "../../redux/reducers/UserSlice";
 import Button from "../Button";
 import TextInput from "../TextInput";
@@ -49,12 +48,7 @@ const SignUp = ({ setOpenAuth }) => {
       await UserSignUp({ name, email, password })
         .then((res) => {
           dispatch(loginSuccess(res.data));
-          dispatch(
-            openSnackbar({
-              message: "Sign Up Successful",
-              severity: "success",
-            })
-          );
+
           setLoading(false);
           setButtonDisabled(false);
           setOpenAuth(false);
@@ -65,21 +59,9 @@ const SignUp = ({ setOpenAuth }) => {
             setLoading(false);
             setButtonDisabled(false);
             alert(err.response.data.message);
-            dispatch(
-              openSnackbar({
-                message: err.response.data.message,
-                severity: "error",
-              })
-            );
           } else {
             setLoading(false);
             setButtonDisabled(false);
-            dispatch(
-              openSnackbar({
-                message: err.message,
-                severity: "error",
-              })
-            );
           }
         });
     }

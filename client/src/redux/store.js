@@ -1,17 +1,16 @@
-import { configureStore, combineReducers } from "@reduxjs/toolkit";
+import { combineReducers, configureStore } from "@reduxjs/toolkit";
 import {
-  persistStore,
-  persistReducer,
   FLUSH,
-  REHYDRATE,
   PAUSE,
   PERSIST,
+  persistReducer,
+  persistStore,
   PURGE,
   REGISTER,
+  REHYDRATE,
 } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 import userReducer from "./reducers/UserSlice";
-import snackbarReducer from "./reducers/SnackbarSlice";
 
 const persistConfig = {
   key: "root",
@@ -21,7 +20,6 @@ const persistConfig = {
 
 const rootReducer = combineReducers({
   user: userReducer,
-  snackbar: snackbarReducer,
 });
 
 const persistedReducer = persistReducer(persistConfig, rootReducer);

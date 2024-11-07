@@ -7,7 +7,6 @@ import "react-toastify/dist/ReactToastify.css";
 import styled from "styled-components";
 import { addToCart, getProductDetails } from "../api";
 import Button from "../components/Button";
-import { openSnackbar } from "../redux/reducers/SnackbarSlice";
 
 const Container = styled.div`
   width: 100vw;
@@ -71,12 +70,18 @@ const Price = styled.div`
 `;
 
 const Ingridents = styled.div`
+  padding: 10px;
   font-size: 16px;
   font-weight: 500;
   display: flex;
+  flex: 1;
   flex-direction: column;
   gap: 24px;
   color: ${({ theme }) => theme.primary};
+`;
+
+const Box = styled.div`
+  display: flex;
 `;
 
 const Items = styled.div`
@@ -143,12 +148,6 @@ const FoodDetails = () => {
       })
       .catch((err) => {
         setCartLoading(false);
-        dispatch(
-          openSnackbar({
-            message: err.message,
-            severity: "error",
-          })
-        );
       });
   };
 
@@ -170,14 +169,22 @@ const FoodDetails = () => {
 
             <Desc>{product?.desc}</Desc>
 
-            <Ingridents>
-              Ingredients
-              <Items>
-                {product?.ingredients.map((ingredient) => (
-                  <Item>{ingredient}</Item>
-                ))}
-              </Items>
-            </Ingridents>
+            <Box>
+              <Ingridents>
+                Ingredients
+                <Items>
+                  {product?.ingredients.map((ingredient) => (
+                    <Item>{ingredient}</Item>
+                  ))}
+                </Items>
+              </Ingridents>
+              <Ingridents>
+                Approx Time: {product?.time} mins
+                <br />
+                <br />
+                Availability: {product?.availability}
+              </Ingridents>
+            </Box>
 
             <ButtonWrapper>
               <Button

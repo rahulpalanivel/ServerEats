@@ -5,7 +5,6 @@ import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import { addToCart } from "../../api";
-import { openSnackbar } from "../../redux/reducers/SnackbarSlice";
 
 const Card = styled.div`
   width: 300px;
@@ -126,14 +125,7 @@ const ProductsCard = ({ product }) => {
       .then((res) => {
         navigate("/cart");
       })
-      .catch((err) => {
-        dispatch(
-          openSnackbar({
-            message: err.response.data.message,
-            severity: "error",
-          })
-        );
-      });
+      .catch((err) => {});
   };
 
   return (
