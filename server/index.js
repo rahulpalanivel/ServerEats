@@ -1,5 +1,7 @@
 const express = require("express");
 const connectDb = require("./config/dbConnection");
+const { Server } = require("socket.io");
+const { createServer } = require("http");
 
 const UserRoutes = require("./routes/userRoute.js");
 const FoodRoutes = require("./routes/foodRoute.js");
@@ -25,8 +27,22 @@ app.use("/api/food/", FoodRoutes);
 app.use(errorHandler);
 
 connectDb();
+
+const server = createServer(app);
+const io = new Server(server, {
+  cors: {
+    origin: "http://localhost:3000",
+    methods: ["GET", "POST"],
+    credentials: true,
+  },
+});
+
+io.on("connection", (socket) => {
+  console.log("User connected", socket.id);
+});
+
 try {
-  app.listen(port, () => console.log(`Server Running on port ${port}`));
+  server.listen(port, () => console.log(`Server Running on port ${port}`));
 } catch (error) {
   console.log(error);
 }

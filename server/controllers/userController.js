@@ -68,6 +68,17 @@ const getUser = async (req, res, next) => {
   }
 };
 
+const getUserById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    console.log(id);
+    const users = await User.findById(id);
+    return res.status(200).json(users);
+  } catch (err) {
+    next(err);
+  }
+};
+
 const updateUser = async (req, res, next) => {
   try {
     const { id, role } = req.body;
@@ -86,5 +97,6 @@ module.exports = {
   UserLogin,
   UserRegister,
   getUser,
+  getUserById,
   updateUser,
 };

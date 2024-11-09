@@ -133,7 +133,6 @@ const Detail = () => {
 
   const location = useLocation();
   const order = location.state;
-  console.log(order);
 
   const [loading, setLoading] = useState(false);
   const [productData, setProductData] = useState([]);
@@ -161,6 +160,10 @@ const Detail = () => {
     const data = await Promise.all(promises);
     setProductData(data);
     setLoading(false);
+  };
+
+  const Chat = (data) => {
+    navigate("/chat", { state: data });
   };
 
   useEffect(() => {
@@ -251,9 +254,13 @@ const Detail = () => {
                       <Subtotal>Status: {order.status}</Subtotal>
                     </Line>
                   </Tile>
-                  {order.status !== "Payment Done" ? (
+                  {order.status !== "Order-Pending" ? (
                     <Buton>
-                      <Button text="Chat" small />
+                      <Button
+                        text="Chat"
+                        small
+                        onClick={() => Chat(order.assigned)}
+                      />
                     </Buton>
                   ) : (
                     <></>
