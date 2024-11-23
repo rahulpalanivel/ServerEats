@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 
+import { useSelector } from "react-redux";
 import { useLocation } from "react-router-dom";
 import { io } from "socket.io-client";
 
@@ -25,20 +26,25 @@ const Title = styled.div`
 
 const ChatPage = () => {
   const socket = io("http://localhost:8080");
+  const { currentUser } = useSelector((state) => state.user);
+  const user = currentUser;
 
   const location = useLocation();
-  const order = location.state;
-  console.log(order);
+  const chef = location.state;
+
+  const [socketConnected, setSocketConnected] = useState(false);
 
   useEffect(() => {
-    socket.on("connect", () => {
-      console.log("connected", socket.id);
+    socket.emit("setup", user);
+    socket.on("connection", () => {
+      setSocketConnected(true);
     });
+    socket.emit("join chat", chef);
   }, []);
 
   return (
     <Container>
-      <Title>Chat:{order}</Title>
+      <Title>Chat:{chef}</Title>
     </Container>
   );
 };
