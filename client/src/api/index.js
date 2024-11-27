@@ -1,7 +1,7 @@
 import axios from "axios";
 
 const API = axios.create({
-  baseURL: "https://servereats.onrender.com/api",
+  baseURL: "http://localhost:8080/api",
 });
 
 //auth
@@ -77,5 +77,25 @@ export const getOrders = async (token) =>
 
 export const updateOrder = async (token, data) =>
   await API.put(`/user/orders/`, data, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+//chat
+export const getChat = async (token, data) =>
+  await API.post(`/chat/`, data, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+export const getChatChef = async (token) =>
+  await API.get(`/chat/`, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+
+//message
+export const newMessage = async (token, data) =>
+  await API.post(`/chat/message/`, data, {
+    headers: { Authorization: `Bearer ${token}` },
+  });
+export const getMessage = async (token, data) =>
+  await API.post(`/chat/message/all`, data, {
     headers: { Authorization: `Bearer ${token}` },
   });

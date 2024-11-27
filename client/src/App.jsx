@@ -21,6 +21,7 @@ import AdminNewFood from "./pages/admin/AdminNewProduct.jsx";
 import Admin from "./pages/admin/AdminPage";
 import AdminUserDetails from "./pages/admin/AdminUserDetails.jsx";
 import AdminUsers from "./pages/admin/AdminUsers.jsx";
+import ChatPage from "./pages/chatPage.jsx";
 import ChefAccOrders from "./pages/chef/ChefAccOrders.jsx";
 import ChefAllOrders from "./pages/chef/ChefAllOrders.jsx";
 import ChefHome from "./pages/chef/ChefHome.jsx";
@@ -115,6 +116,8 @@ function App() {
                 />
               </Route>
             </Route>
+
+            <Route path="/chat" exact element={<ChatPage />} />
           </Routes>
 
           {openAuth && (

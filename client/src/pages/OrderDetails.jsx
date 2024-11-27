@@ -1,9 +1,10 @@
+/* eslint-disable react/jsx-key */
 import { CircularProgress } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getProductDetails } from "../api";
+import { getChat, getProductDetails } from "../api";
 import Button from "../components/Button";
 
 const Container = styled.div`
@@ -133,7 +134,6 @@ const Detail = () => {
 
   const location = useLocation();
   const order = location.state;
-  console.log(order);
 
   const [loading, setLoading] = useState(false);
   const [productData, setProductData] = useState([]);
@@ -161,6 +161,14 @@ const Detail = () => {
     const data = await Promise.all(promises);
     setProductData(data);
     setLoading(false);
+  };
+
+  const Chat = async (data1, data2) => {
+    const data = { sender: data1, receiver: data2 };
+    const token = localStorage.getItem("ServerEats");
+    await getChat(token, data).then((res) =>
+      navigate("/chat", { state: res.data })
+    );
   };
 
   useEffect(() => {
@@ -251,9 +259,17 @@ const Detail = () => {
                       <Subtotal>Status: {order.status}</Subtotal>
                     </Line>
                   </Tile>
-                  {order.status !== "Payment Done" ? (
+                  {order.status !== "Order-Pending" ? (
                     <Buton>
-                      <Button text="Chat" small />
+                      <Button
+                        text="Chat"
+                        small
+                        onClick={() =>
+                          user.role === "customer"
+                            ? Chat(order.assigned, user._id)
+                            : Chat(user._id, order.user)
+                        }
+                      />
                     </Buton>
                   ) : (
                     <></>

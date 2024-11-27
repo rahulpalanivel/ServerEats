@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import { CloseRounded, Visibility, VisibilityOff } from "@mui/icons-material";
 import React, { useState } from "react";
 import styled from "styled-components";
