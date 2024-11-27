@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-key */
 import { DeleteOutline } from "@mui/icons-material";
 import { CircularProgress } from "@mui/material";
 import React, { useEffect, useState } from "react";

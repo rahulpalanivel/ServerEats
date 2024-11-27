@@ -1,4 +1,6 @@
 const Chat = require("../models/Chat");
+const User = require("../models/User");
+
 const displayError = require("../middleware/displayError.js");
 
 const getChat = async (req, res, next) => {
@@ -21,7 +23,13 @@ const getChat = async (req, res, next) => {
 
 const getAllChats = async (req, res, next) => {
   try {
-    const chats = await Chat.find();
+    const userJWT = req.user;
+    const user = await User.findById(userJWT.id);
+
+    const chats = await Chat.find({ sender: user._id }).populate({
+      path: "receiver",
+      select: "name",
+    });
     return res.status(200).json(chats);
   } catch (err) {
     next(err);

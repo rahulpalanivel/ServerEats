@@ -18,6 +18,7 @@ const newMessage = async (req, res, next) => {
 const getMessage = async (req, res, next) => {
   try {
     const { chat } = req.body;
+
     const messages = await Message.find({ chat: chat });
     return res.status(200).json(messages);
   } catch (e) {

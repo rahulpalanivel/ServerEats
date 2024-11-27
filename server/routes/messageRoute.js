@@ -7,6 +7,6 @@ const verifyRole = require("../middleware/verifyRole.js");
 const router = express.Router();
 
 router.post("/", verifyToken, verifyRole("chef", "customer"), newMessage);
-router.get("/", verifyToken, verifyRole("customer"), getMessage);
+router.post("/all", verifyToken, verifyRole("chef", "customer"), getMessage);
 
 module.exports = router;

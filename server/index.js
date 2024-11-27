@@ -44,15 +44,22 @@ const io = new Server(server, {
 });
 
 io.on("connection", (socket) => {
-  console.log("User connected", socket.id);
+  //console.log("Connected to socket");
 
   socket.on("setup", (userData) => {
     socket.join(userData._id);
+    console.log("User Connected: " + userData._id);
     socket.emit("connected");
   });
 
   socket.on("join chat", (room) => {
     socket.join(room);
     console.log("User joined room " + room);
+    console.log(" ");
+  });
+
+  socket.on("new message", (chat, message) => {
+    socket.in(chat.sender).emit("message received", message);
+    socket.in(chat.receiver).emit("message received", message);
   });
 });

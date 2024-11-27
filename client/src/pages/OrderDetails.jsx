@@ -1,9 +1,10 @@
+/* eslint-disable react/jsx-key */
 import { CircularProgress } from "@mui/material";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useLocation, useNavigate } from "react-router-dom";
 import styled from "styled-components";
-import { getProductDetails } from "../api";
+import { getChat, getProductDetails } from "../api";
 import Button from "../components/Button";
 
 const Container = styled.div`
@@ -162,8 +163,12 @@ const Detail = () => {
     setLoading(false);
   };
 
-  const Chat = (data) => {
-    navigate("/chat", { state: data });
+  const Chat = async (data1, data2) => {
+    const data = { sender: data1, receiver: data2 };
+    const token = localStorage.getItem("ServerEats");
+    await getChat(token, data).then((res) =>
+      navigate("/chat", { state: res.data })
+    );
   };
 
   useEffect(() => {
@@ -259,7 +264,11 @@ const Detail = () => {
                       <Button
                         text="Chat"
                         small
-                        onClick={() => Chat(order.assigned)}
+                        onClick={() =>
+                          user.role === "customer"
+                            ? Chat(order.assigned, user._id)
+                            : Chat(user._id, order.user)
+                        }
                       />
                     </Buton>
                   ) : (
