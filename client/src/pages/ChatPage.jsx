@@ -101,7 +101,7 @@ const Msg = styled.div`
 `;
 
 const ChatPage = () => {
-  const socket = io("http://localhost:8080");
+  const socket = io("https://servereats.onrender.com");
   const { currentUser } = useSelector((state) => state.user);
   const user = currentUser;
 
