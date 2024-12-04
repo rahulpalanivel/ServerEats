@@ -34,14 +34,14 @@ const ChatArea = styled.div`
   overflow-y: scroll;
   border: solid 2px black;
   border-radius: 15px;
-  height: 75vh;
+  height: 65vh;
   width: 90vw;
 `;
 
 const Chat = styled.div`
   overflow-y: scroll;
   color: black;
-  height: 82%;
+  height: 95%;
   padding: 10px;
   display: flex;
   flex-direction: column;
@@ -89,6 +89,7 @@ const Box = styled.div`
   gap: 10px;
   padding: 10px;
   align-items: center;
+  width: 80%;
 `;
 
 const Msg = styled.div`
@@ -108,7 +109,6 @@ const ChatPage = () => {
   const location = useLocation();
   const chat = location.state;
 
-  const [socketConnected, setSocketConnected] = useState(false);
   const [chats, setChats] = useState([]);
   const [message, setMessage] = useState("");
 
@@ -116,9 +116,7 @@ const ChatPage = () => {
 
   useEffect(() => {
     socket.emit("setup", user);
-    socket.on("connection", () => {
-      setSocketConnected(true);
-    });
+    socket.on("connection", () => {});
     socket.emit("join chat", chat._id);
 
     loadChat();
@@ -171,23 +169,23 @@ const ChatPage = () => {
             )
           )}
         </Chat>
-        <Box>
-          <TextInput
-            placeholder="Enter your message"
-            value={message}
-            handelChange={(e) => {
-              setMessage(e.target.value);
-            }}
-          />
-          <Button
-            text="send"
-            small
-            onClick={() => {
-              sendMessage();
-            }}
-          />
-        </Box>
       </ChatArea>
+      <Box>
+        <TextInput
+          placeholder="Enter your message"
+          value={message}
+          handelChange={(e) => {
+            setMessage(e.target.value);
+          }}
+        />
+        <Button
+          text="send"
+          small
+          onClick={() => {
+            sendMessage();
+          }}
+        />
+      </Box>
     </Container>
   );
 };
